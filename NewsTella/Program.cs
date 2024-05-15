@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using NewsTella.Data;
 using NewsTella.Models.Database;
 
@@ -7,7 +8,7 @@ namespace NewsTella
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,8 @@ namespace NewsTella
 			builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-				.AddEntityFrameworkStores<AppDbContext>();
+				.AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
 			builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
@@ -47,7 +49,93 @@ namespace NewsTella
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 			app.MapRazorPages();
 
-			app.Run();
+            using (var scope = app.Services.CreateScope())
+			{
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                var roles = new[] { "Admin", "Editor", "Writer", "Member" };
+
+				foreach (var role in roles) 
+				{
+					if (!await roleManager.RoleExistsAsync(role))
+					{
+                        await roleManager.CreateAsync(new IdentityRole(role));
+                    }
+                }
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+				string adminFirstName = "Admin";
+				string adminLastName = "Lexicon";
+				string adminEmail = "admin@admin.com";
+				string adminPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(adminEmail)== null)
+				{
+					var user = new User();
+					user.UserName = adminEmail;
+					user.Email = adminEmail;
+
+					await userManager.CreateAsync(user,adminPassword);
+
+                    await userManager.AddToRoleAsync(user,"Admin");
+				}
+
+                string editorFirstName = "Editor";
+                string editorLastName = "Lexicon";
+                string editorEmail = "editor@editor.com";
+                string editorPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(editorEmail) == null)
+                {
+                    var user = new User();
+                    user.UserName = editorEmail;
+                    user.Email = editorEmail;
+
+                    await userManager.CreateAsync(user, editorPassword);
+
+                    await userManager.AddToRoleAsync(user, "Editor");
+                }
+
+                string writerFirstName = "Writer";
+                string writerLastName = "Lexicon";
+                string writerEmail = "writer@writer.com";
+                string writerPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(writerEmail) == null)
+                {
+                    var user = new User();
+                    user.UserName = writerEmail;
+                    user.Email = writerEmail;
+
+                    await userManager.CreateAsync(user, writerPassword);
+
+                    await userManager.AddToRoleAsync(user, "Writer");
+                }
+
+                string memberFirstName = "Member";
+                string memberLastName = "Lexicon";
+                string memberEmail = "member@member.com";
+                string memberPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(memberEmail) == null)
+                {
+                    var user = new User();
+                    user.UserName = memberEmail;
+                    user.Email = memberEmail;
+
+                    await userManager.CreateAsync(user, memberPassword);
+
+                    await userManager.AddToRoleAsync(user, "Member");
+                }
+
+            }
+
+
+            app.Run();
 		}
 	}
 }
