@@ -20,12 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
-h6 {
+.f-h6 {
     color: cornflowerblue
 }
-h4 {
+.f-h4 {
     padding-top: 25px;
-    padding-bottom:10px;
+    padding-bottom: 10px;
     text-transform: uppercase;
     color: #d9534f
 }
