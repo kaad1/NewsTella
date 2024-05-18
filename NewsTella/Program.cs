@@ -50,98 +50,19 @@ namespace NewsTella
 			app.MapRazorPages();
 
             using (var scope = app.Services.CreateScope())
-			{
+            {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                var roles = new[] { "Admin", "Editor", "Writer","Member" };
+                var roles = new[] { Roles.Admin, Roles.Editor, Roles.Writer, Roles.Member };
 
-				foreach (var role in roles) 
-				{
-					if (!await roleManager.RoleExistsAsync(role))
-					{
-                        await roleManager.CreateAsync(new IdentityRole(role));
+                foreach (var role in roles)
+                {
+                    if (!await roleManager.RoleExistsAsync(role.ToString()))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole(role.ToString()));
                     }
                 }
             }
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-
-				string adminFirstName = "Admin";
-				string adminLastName = "Lexicon";
-				string adminEmail = "admin@admin.com";
-				string adminPassword = "Test1234,";
-
-                if (await userManager.FindByEmailAsync(adminEmail)== null)
-				{
-					var user = new User();
-					user.UserName = adminEmail;
-					user.FirstName = adminFirstName;
-					user.LastName = adminLastName;
-					user.Email = adminEmail;
-
-					await userManager.CreateAsync(user,adminPassword);
-
-                    await userManager.AddToRoleAsync(user,"Admin");
-				}
-
-                string editorFirstName = "Editor";
-                string editorLastName = "Lexicon";
-                string editorEmail = "editor@editor.com";
-                string editorPassword = "Test1234,";
-
-                if (await userManager.FindByEmailAsync(editorEmail) == null)
-                {
-                    var user = new User();
-                    user.UserName = editorEmail;
-					user.FirstName = editorFirstName;
-					user.LastName = editorLastName;
-                    user.Email = editorEmail;
-
-                    await userManager.CreateAsync(user, editorPassword);
-
-                    await userManager.AddToRoleAsync(user, "Editor");
-                }
-
-                string writerFirstName = "Writer";
-                string writerLastName = "Lexicon";
-                string writerEmail = "writer@writer.com";
-                string writerPassword = "Test1234,";
-
-                if (await userManager.FindByEmailAsync(writerEmail) == null)
-                {
-                    var user = new User();
-                    user.UserName = writerEmail;
-					user.FirstName = writerFirstName;
-					user.LastName = writerLastName;
-                    user.Email = writerEmail;
-
-                    await userManager.CreateAsync(user, writerPassword);
-
-                    await userManager.AddToRoleAsync(user, "Writer");
-                }
-
-                string memberFirstName = "Member";
-                string memberLastName = "Lexicon";
-                string memberEmail = "member@member.com";
-                string memberPassword = "Test1234,";
-
-                if (await userManager.FindByEmailAsync(memberEmail) == null)
-                {
-                    var user = new User();
-                    user.UserName = memberEmail;
-                    user.FirstName = memberFirstName;
-                    user.LastName = memberLastName;
-                    user.Email = memberEmail;
-
-                    await userManager.CreateAsync(user, memberPassword);
-
-                    await userManager.AddToRoleAsync(user, "Member");
-                }
-            }
-
-
             app.Run();
 		}
 	}
