@@ -83,7 +83,7 @@ namespace NewsTella
 
                     await userManager.CreateAsync(user, adminPassword);
 
-                    await userManager.AddToRoleAsync(user, "Admin");
+                    await userManager.AddToRoleAsync(user, Roles.Admin.ToString());
                 }
 
                 string editorFirstName = "Editor";
@@ -101,7 +101,7 @@ namespace NewsTella
 
                     await userManager.CreateAsync(user, editorPassword);
 
-                    await userManager.AddToRoleAsync(user, "Editor");
+                    await userManager.AddToRoleAsync(user, Roles.Editor.ToString());
                 }
 
                 string writerFirstName = "Writer";
@@ -119,7 +119,25 @@ namespace NewsTella
 
                     await userManager.CreateAsync(user, writerPassword);
 
-                    await userManager.AddToRoleAsync(user, "Writer");
+                    await userManager.AddToRoleAsync(user, Roles.Writer.ToString());
+                }
+
+                string memberFirstName = "Member";
+                string memberLastName = "Lexicon";
+                string memberEmail = "writer@writer.com";
+                string memberPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(memberEmail) == null)
+                {
+                    var user = new User();
+                    user.FirstName = memberFirstName;
+                    user.LastName = memberLastName;
+                    user.UserName = memberEmail;
+                    user.Email = memberEmail;
+
+                    await userManager.CreateAsync(user, memberPassword);
+
+                    await userManager.AddToRoleAsync(user, Roles.Member.ToString());
                 }
             }
 
