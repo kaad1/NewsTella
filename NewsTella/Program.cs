@@ -63,6 +63,66 @@ namespace NewsTella
                     }
                 }
             }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+                string adminFirstName = "Admin";
+                string adminLastName = "Lexicon";
+                string adminEmail = "admin@admin.com";
+                string adminPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(adminEmail) == null)
+                {
+                    var user = new User();
+                    user.FirstName = adminFirstName;
+                    user.LastName = adminLastName;
+                    user.UserName = adminEmail;
+                    user.Email = adminEmail;
+
+                    await userManager.CreateAsync(user, adminPassword);
+
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+
+                string editorFirstName = "Editor";
+                string editorLastName = "Lexicon";
+                string editorEmail = "editor@editor.com";
+                string editorPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(editorEmail) == null)
+                {
+                    var user = new User();
+                    user.FirstName = editorFirstName;
+                    user.LastName = editorLastName;
+                    user.UserName = editorEmail;
+                    user.Email = editorEmail;
+
+                    await userManager.CreateAsync(user, editorPassword);
+
+                    await userManager.AddToRoleAsync(user, "Editor");
+                }
+
+                string writerFirstName = "Writer";
+                string writerLastName = "Lexicon";
+                string writerEmail = "writer@writer.com";
+                string writerPassword = "Test1234,";
+
+                if (await userManager.FindByEmailAsync(writerEmail) == null)
+                {
+                    var user = new User();
+                    user.FirstName = writerFirstName;
+                    user.LastName= writerLastName;
+                    user.UserName = writerEmail;
+                    user.Email = writerEmail;
+
+                    await userManager.CreateAsync(user, writerPassword);
+
+                    await userManager.AddToRoleAsync(user, "Writer");
+                }
+            }
+
             app.Run();
 		}
 	}
