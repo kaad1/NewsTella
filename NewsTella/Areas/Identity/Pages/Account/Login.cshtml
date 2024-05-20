@@ -10,8 +10,7 @@
         <section>
             <form id="account" method="post">
                 <h3 class="text-center">@ViewData["Title"]</h3>
-                @* <h3>Use a local account to log in.</h3> *@
-                @* <hr /> *@
+                
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -48,17 +47,11 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            @* <h3>Use another service to log in.</h3> *@
-            @* <hr /> *@
+            
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
-                    // <div>
-                    //      <p>
-                    //          There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                    //          about setting up this ASP.NET application to support logging in via external services</a>.
-                    //      </p>
-                    // </div>
+                    
                 }
                 else
                 {
