@@ -45,7 +45,9 @@ body {
 }
 
 .img-size {
-    height: 50%;
+    width: 100%;
+    height: auto;
+    max-height: 600px;
     object-fit: cover;
 }
 
@@ -72,7 +74,7 @@ body {
 
 .article-heading a {
     text-decoration: none;
-    color: black;
+    color: #000;
 }
 
 .article-paragraph {
@@ -81,15 +83,15 @@ body {
 }
 
 .article-heading a:hover {
-    color: #504bdc;
+    color: #e41b13;
 }
 
 .img-container {
     flex: 0 0 25%;
     width: 25%;
     display: block;
-    order: 0;
-    margin-left: 0;
+    /*order: 0;
+    margin-left: 0;*/
     margin-right: auto;
 }
 
@@ -144,5 +146,55 @@ body {
 }
 
 .tab-article-heading a:hover {
-    color: #504bdc;
+    color: #e41b13;
 }
+
+.nav-pills {
+    position: relative;
+}
+
+.nav-pills .nav-link {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    color: #000;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    padding: 0 0 12px 0;
+    transition: color 0.3s;
+    margin-right: 30px;
+    font-size: 16px !important;
+}
+
+.nav-pills .nav-item:last-child .nav-link {
+    margin-right: 0px;
+}
+
+.nav-pills::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background-color: #ddd;
+    z-index: 0;
+}
+
+.nav-pills .nav-link.active {
+    background-color: white;
+    color: #e41b13;
+}
+
+.nav-pills .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background-color: #e41b13;
+    z-index: 1;
+    width: 100%;
+}
+
