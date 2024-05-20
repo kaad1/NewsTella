@@ -4,10 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>User Management</h3>
-
+<div class="container">
+<div class="row">
+    <div class="col">
+    <h3>User Management</h3>
+    </div>
+        <div class="col">
+            <form method="get" action="@Url.Action("SearchByEmail", "Home")">
+                <input type="text" placeholder="Search by title" name="search" id="search" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
 <br/>
-<table class="table table-s">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -40,9 +51,10 @@
                     @string.Join(", ", item.Roles)
                 </td>
                 <td>
-                    <a asp-controller="User" asp-action="Edit" asp-route-userId="@item.Id" class="btn btn-secondary">Assign User Role/Edit</a>
+                    <a asp-controller="User" asp-action="Edit" asp-route-userId="@item.Id" class="btn btn-dark">Assign User Role/Edit</a>
                     <a asp-action="Delete" asp-route-userId="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
+</div>
