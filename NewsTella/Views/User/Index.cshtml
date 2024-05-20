@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<NewsTella.Models.ViewModel.UserVM>
 
+
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,10 +11,10 @@
     <div class="col">
     <h3>User Management</h3>
     </div>
-        <div class="col">
-            <form method="get" action="@Url.Action("SearchByEmail", "Home")">
-                <input type="text" placeholder="Search by title" name="search" id="search" />
-                <button type="submit">Search</button>
+        <div class="col-md-6">
+            <form asp-controller="User" asp-action="Index" method="get" class="form-inline float-right">
+                <input type="text" name="email" class="form-control" placeholder="Search by email" />
+                <input type="submit" value="Search" class="btn btn-dark ml-2" />
             </form>
         </div>
     </div>
@@ -57,4 +59,7 @@
             </tr>
         }
     </tbody>
+    <div class="row">
+        
+    </div>
 </div>

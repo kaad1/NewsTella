@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NewsTella.Data.Migrations;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 
@@ -16,6 +17,47 @@ namespace NewsTella.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string email)
+        {
+            var users = new List<UserVM>();
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    users.Add(new UserVM
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FirstName = user.FirstName, // Assuming you have FirstName and LastName properties
+                        LastName = user.LastName,
+                        Roles = await _userManager.GetRolesAsync(user)
+                    });
+                }
+            }
+            else
+            {
+                var allUsers = _userManager.Users.ToList();
+                foreach (var user in allUsers)
+                {
+                    users.Add(new UserVM
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FirstName = user.FirstName, // Assuming you have FirstName and LastName properties
+                        LastName = user.LastName,
+                        Roles = await _userManager.GetRolesAsync(user)
+                    });
+                }
+            }
+
+            return View(users);
+        }
+
+        
 
         public async Task<IActionResult> IndexAsync()
         {
@@ -138,7 +180,7 @@ namespace NewsTella.Controllers
             return RedirectToAction("Index");
         }
 
-
+        
     }
 }
 

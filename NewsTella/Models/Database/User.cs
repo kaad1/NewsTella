@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Diagnostics.Contracts;
 
 namespace NewsTella.Models.Database
 {
