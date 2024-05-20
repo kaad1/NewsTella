@@ -6,9 +6,8 @@
 
 <h3>User Management</h3>
 
-<a asp-action="Create">Create New User</a>
-
-<table class="table">
+<br/>
+<table class="table table-s">
     <thead>
         <tr>
             <th>
@@ -41,9 +40,8 @@
                     @string.Join(", ", item.Roles)
                 </td>
                 <td>
-                    <a asp-action="Detail" asp-route-id="@item.Id">Detail</a> 
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-controller="User" asp-action="Edit" asp-route-userId="@item.Id" class="btn btn-secondary">Assign User Role/Edit</a>
+                    <a asp-action="Delete" asp-route-userId="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
