@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using NewsTella.Data;
 using NewsTella.Models.Database;
+using NewsTella.Services;
 
 namespace NewsTella
 {
@@ -21,7 +22,10 @@ namespace NewsTella
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
 				.AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
-			builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<UserManager<User>, AppUserManager>();
+
+            builder.Services.AddControllersWithViews();
 
 			var app = builder.Build();
 
