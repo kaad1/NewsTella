@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NewsTella.Data.Migrations;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
+using X.PagedList;
+
 
 namespace NewsTella.Controllers
 {
@@ -16,99 +17,6 @@ namespace NewsTella.Controllers
         {
             _userManager = userManager;
             _roleManager = roleManager;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Index(string email)
-        {
-            var users = new List<UserVM>();
-
-            if (!string.IsNullOrEmpty(email))
-            {
-                var user = await _userManager.FindByEmailAsync(email);
-                if (user != null)
-                {
-                    users.Add(new UserVM
-                    {
-                        Id = user.Id,
-                        Email = user.Email,
-                        FirstName = user.FirstName, // Assuming you have FirstName and LastName properties
-                        LastName = user.LastName,
-                        Roles = await _userManager.GetRolesAsync(user)
-                    });
-                }
-            }
-            else
-            {
-                //var allUsers = _userManager.Users.ToList();
-                var allUsers = _userManager.Users.Where(u => !u.IsDeleted).ToList(); // Exclude soft-deleted records
-
-                foreach (var user in allUsers)
-                {
-                    users.Add(new UserVM
-                    {
-                        Id = user.Id,
-                        Email = user.Email,
-                        FirstName = user.FirstName, // Assuming you have FirstName and LastName properties
-                        LastName = user.LastName,
-                        Roles = await _userManager.GetRolesAsync(user)
-                    });
-                }
-            }
-
-            return View(users);
-        }
-
-        
-
-        public async Task<IActionResult> IndexAsync()
-        {
-            //var users = _userManager.Users.ToList();
-            var users = _userManager.Users.Where(u => !u.IsDeleted).ToList(); // Exclude soft-deleted records
-
-            var userVMList = new List<UserVM>();
-
-            foreach (var user in users)
-            {
-                var userVm = new UserVM
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    Roles = await _userManager.GetRolesAsync(user)
-                };
-                userVMList.Add(userVm);
-            }
-            return View(userVMList);
-        }
-
-        public async Task<IActionResult> CreateUser()
-        {
-            var existingUser = await _userManager.FindByEmailAsync("user@localhost");
-            if (existingUser != null)
-            {
-                await _userManager.DeleteAsync(existingUser);
-            }
-
-
-            var user = new User
-            {
-                UserName = "user@localhost",
-                Email = "user@localhost",
-                EmailConfirmed = true
-            };
-
-            var result = await _userManager.CreateAsync(user, "password");
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, Roles.Member.ToString());
-
-                return RedirectToAction(nameof(IndexAsync));
-            }
-
-            return View();
         }
 
         [Authorize]
@@ -231,7 +139,48 @@ namespace NewsTella.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index(string email, int? page)
+        {
+            var users = new List<UserVM>();
 
+            if (!string.IsNullOrEmpty(email))
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    users.Add(new UserVM
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FirstName = user.FirstName, // Assuming you have FirstName and LastName properties
+                        LastName = user.LastName,
+                        Roles = await _userManager.GetRolesAsync(user)
+                    });
+                }
+            }
+            else
+            {
+                var allUsers = _userManager.Users.Where(u => !u.IsDeleted).ToList();
+                foreach (var user in allUsers)
+                {
+                    users.Add(new UserVM
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FirstName = user.FirstName, // Assuming you have FirstName and LastName properties
+                        LastName = user.LastName,
+                        Roles = await _userManager.GetRolesAsync(user)
+                    });
+                }
+            }
+
+            int pageSize = 2; // Number of users per page
+            int pageNumber = (page ?? 1); // Default to first page
+
+            var pagedUsers = users.ToPagedList(pageNumber, pageSize);
+            return View(pagedUsers); // Return IPagedList<UserVM>
+        }
     }
 }
 
