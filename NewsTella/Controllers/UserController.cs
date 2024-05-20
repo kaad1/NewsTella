@@ -40,7 +40,9 @@ namespace NewsTella.Controllers
             }
             else
             {
-                var allUsers = _userManager.Users.ToList();
+                //var allUsers = _userManager.Users.ToList();
+                var allUsers = _userManager.Users.Where(u => !u.IsDeleted).ToList(); // Exclude soft-deleted records
+
                 foreach (var user in allUsers)
                 {
                     users.Add(new UserVM
@@ -61,7 +63,9 @@ namespace NewsTella.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var users = _userManager.Users.ToList();
+            //var users = _userManager.Users.ToList();
+            var users = _userManager.Users.Where(u => !u.IsDeleted).ToList(); // Exclude soft-deleted records
+
             var userVMList = new List<UserVM>();
 
             foreach (var user in users)
@@ -180,7 +184,54 @@ namespace NewsTella.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        public async Task<IActionResult> Delete(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("User ID cannot be null or empty.");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var model = new UserEditVM
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                SelectedRoles = await _userManager.GetRolesAsync(user)
+            };
+
+            return View(model);
+        }
+
+        // POST: User/SoftDelete/5
+        [HttpPost, ActionName("DeleteConfirmed")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.IsDeleted = true;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Error marking user as deleted");
+                return View();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }
 

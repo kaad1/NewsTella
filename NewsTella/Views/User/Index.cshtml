@@ -54,7 +54,7 @@
                 </td>
                 <td>
                     <a asp-controller="User" asp-action="Edit" asp-route-userId="@item.Id" class="btn btn-dark">Assign User Role/Edit</a>
-                    <a asp-action="Delete" asp-route-userId="@item.Id" class="btn btn-danger">Delete</a>
+                    <a asp-controller="User" asp-action="Delete" asp-route-userId="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
