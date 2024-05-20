@@ -4,21 +4,24 @@
 }
 
 <h3>Assign User Role / Edit</h3>
-
+<br/>
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="UserId" />
     <div class="form-group">
         <label asp-for="FirstName"></label>
         <input asp-for="FirstName" class="form-control" />
     </div>
+    <br/>
     <div class="form-group">
         <label asp-for="LastName"></label>
         <input asp-for="LastName" class="form-control" />
     </div>
+    <br/>
     <div class="form-group">
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
     </div>
+    <br/>
     <div class="form-group">
         <label>Roles</label>
         <div>
@@ -31,7 +34,14 @@
             }
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <br/>
+    <div class="row">
+        <div class="col-md-2">
+            <button  type="submit" class="btn btn-dark">Save</button>
+            <a type="button" asp-action="Index" class="btn btn-success">Back</a>
+        </div>
+    </div>
+   
 </form>
 
 
