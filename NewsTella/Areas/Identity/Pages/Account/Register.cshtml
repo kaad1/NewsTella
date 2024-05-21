@@ -4,11 +4,12 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="row">
-    <div class="col-md-4">
+<div class="container col-lg-12 py-5 align-items-center">
+    <div class="row fromHorisontal col-6 align-items-center">
+        <div class="card bg-dark-subtle">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h3 class="text-center">@ViewData["Title"]</h3>
-            <br />
+                <h3 class="text-center pt-5">@ViewData["Title"]</h3>
+            <br/>
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -46,33 +47,35 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Sing Up</button>
-
+                <div class="pb-5">
+                    <button id="registerSubmit" type="submit" class=" btn btn-lg btn-dark text-white text-center fromHorisontal align-items-center ">Sing Up</button>
+                </div>
         </form>
     </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
             
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
                     
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit" class="btn btn-dark" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
                 }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-dark" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+            </section>
+        </div>
     </div>
 </div>
 

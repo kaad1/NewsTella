@@ -10,5 +10,14 @@ namespace NewsTella.Data
 			: base(options)
 		{
 		}
-	}
+
+		public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Additional configurations can be added here
+        }
+    }
 }

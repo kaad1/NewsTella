@@ -24,6 +24,7 @@ namespace NewsTella
                 .AddEntityFrameworkStores<AppDbContext>();
 
             builder.Services.AddScoped<UserManager<User>, AppUserManager>();
+            builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
 
             builder.Services.AddControllersWithViews();
 
