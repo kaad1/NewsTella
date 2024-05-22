@@ -28,6 +28,8 @@ namespace NewsTella
 
             builder.Services.AddControllersWithViews();
 
+			builder.Services.AddScoped<IArticlesService, ArticlesService>();            
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
