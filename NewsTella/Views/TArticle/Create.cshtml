@@ -1,0 +1,94 @@
+﻿@model NewsTella.Models.ViewModel.ArticleVM
+
+<div class="container">
+	<div class="row">
+		<div class="col-3">
+			<div class="mt-3">
+			</div>
+		</div>
+		<div class="col-6">
+			<h2>Editor</h2>
+			<br />
+
+			<form asp-action="Create" method="post">
+				<div class="form-group">
+					<label asp-for="LinkText" class="control-label">Link Text</label>
+					<input asp-for="LinkText" class="form-control" />
+					<span asp-validation-for="LinkText" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Headline" class="control-label"></label>
+					<input asp-for="Headline" class="form-control" />
+					<span asp-validation-for="Headline" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="ContentSummary" class="control-label">Summary</label>
+					<textarea asp-for="ContentSummary" class="form-control"></textarea>
+					<span asp-validation-for="ContentSummary" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Content" class="control-label">Content</label>
+					<textarea asp-for="Content" class="form-control"></textarea>
+					<span asp-validation-for="Content" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="ImageLink" class="control-label">Image Link</label>
+					<input asp-for="ImageLink" class="form-control" />
+					<span asp-validation-for="ImageLink" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="Category" class="control-label"></label>
+					<input asp-for="Category" class="form-control" />
+					<span asp-validation-for="Category" class="text-danger"></span>
+				</div>
+				<br /><br /><br />
+
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked>
+							<label class="form-check-label" for="check1">Local</label>
+						</div>
+						<br />
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+							<label class="form-check-label" for="check2">Sweden</label>
+						</div>
+						<br />
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+							<label class="form-check-label" for="check2">World</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked>
+							<label class="form-check-label" for="check1">Sports</label>
+						</div> <br />
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+							<label class="form-check-label" for="check2">Economy</label>
+						</div> <br />
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+							<label class="form-check-label" for="check2">Weather</label>
+						</div>
+					</div>
+				</div>
+				<br />
+				<div class="form-group">
+					<input type="submit" value="Create" class="btn btn-primary" />
+				</div>
+
+			</form>
+		</div>
+		<div class="col-3">
+		</div>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
