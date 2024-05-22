@@ -10,14 +10,13 @@ namespace NewsTella.Data
 			: base(options)
 		{
 		}
-
-		public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
-
+        public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
+        public DbSet<Article> Articles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            // Additional configurations can be added here
+            modelBuilder.Entity<Article>().ToTable("Articles");
         }
+       
     }
 }
