@@ -9,11 +9,11 @@ using NewsTella.Data;
 
 #nullable disable
 
-namespace NewsTella.Data.Migrations
+namespace NewsTella.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240521085248_user6")]
-    partial class user6
+    [Migration("20240521221311_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,6 +173,9 @@ namespace NewsTella.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
