@@ -1,26 +1,42 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NewsTella.Data;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 using NewsTella.Services;
+
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NewsTella.Controllers
 {
     public class SubscriptionController : Controller
     {
         private readonly ISubscriptionTypeService _subscriptionTypeService;
+        private readonly AppDbContext _context;
 
-        public SubscriptionController(ISubscriptionTypeService subscriptionTypeService)
+        public SubscriptionController(ISubscriptionTypeService subscriptionTypeService, AppDbContext context)
         {
             _subscriptionTypeService = subscriptionTypeService;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             return View(_subscriptionTypeService.GetSubscriptionTypes());
         }
+        //[Authorize]
+        public IActionResult BuySubscription()
+        {
+            var subscriptions = _context.SubscriptionTypes
+                .Where(st => !st.IsDeleted)
+                .ToList();
 
+            return View(subscriptions);
+        }
+
+        //[Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
