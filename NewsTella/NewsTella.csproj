@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\**" />
     <Compile Remove="Models\ViewModels\**" />
+    <Content Remove="Data\Migrations\**" />
     <Content Remove="Models\ViewModels\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="Models\ViewModels\**" />
+    <None Remove="Data\Migrations\**" />
     <None Remove="Models\ViewModels\**" />
   </ItemGroup>
 
@@ -36,8 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
