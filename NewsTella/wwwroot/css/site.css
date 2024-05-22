@@ -256,7 +256,7 @@ body {
   line-height: 20px;
   margin-bottom: 0;
   -webkit-text-stroke-width: 1px;
-  margin-left: 20px;
+  /*margin-left: 20px;*/
   text-transform: uppercase;
 }
 
@@ -266,6 +266,7 @@ body {
   height: 40px;
   display: block;
   text-transform: uppercase;
+  margin-right: 0;
 }
 
 .search-dropdown {
@@ -293,6 +294,64 @@ body {
   box-shadow: none;
   border-color: #000;
 }
+
+.navbar-nav a {
+    font-weight:700 !important;
+}
+
+.small-nav {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.small-nav .nav-link, 
+.small-nav .btn {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.account-login-registration {
+    position: relative;
+}
+
+.nav-account-registration-login {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1;
+    margin-top: 4px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+.nav-account-registration-login::before {
+    content: '';
+    position: absolute;
+    top: -4px; 
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent; 
+}
+
+.account-login-registration:hover .nav-account-registration-login {
+    display: block;
+}
+
+.btn-red {
+    background-color: #e41b13 !important;
+    color: #fff !important;
+    border-color: #e41b13 !important;
+
+}
+
+.btn-red:hover, .btn-red:focus, .btn-red:active, .btn-red.active, .open > .dropdown-toggle.btn-red {
+    background-color: #C41309 !important;
+    color: #fff !important;
+    border-color: #C41309 !important;
+}
+
 
 .img-size {
   width: 100%;
@@ -441,9 +500,9 @@ body {
   width: 100%;
 }
 
-/*@media (max-width: 768px) {
+@media (max-width: 768px) {
   .search-dropdown {
-    top: 70px;*/ /* Adjust if needed to fit your navbar height */
-    /*width: 90%;
+    top: 44px;
+    /*width: 90%;*/
   }
-}*/
+}
