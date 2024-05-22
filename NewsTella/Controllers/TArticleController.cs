@@ -36,5 +36,36 @@ namespace NewsTella.Controllers
             return View(article);
 
 		}
+		public IActionResult Edit(int Id)
+		{
+			var article = _articlesService.GetArticlesById(Id);
+			return View(article);
+		}
+		[HttpPost]
+		public IActionResult Edit(Article article)
+		{
+			if (ModelState.IsValid)
+			{
+				_articlesService.UpdateArticle(article);
+				return RedirectToAction("Index");
+			}
+			return View(article);
+		}
+		public IActionResult Delete(int id)
+		{
+			var article = _articlesService.GetArticlesById(id);
+			return View(article);
+		}
+		[HttpPost]
+		public IActionResult Delete(Article article)
+		{
+			_articlesService.DeleteArticle(article);
+			return RedirectToAction("Index");
+		}
+		public IActionResult Details(int id)
+		{
+			var article = _articlesService.GetArticlesById(id);
+			return View(article);
+		}
 	}
 }
