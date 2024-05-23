@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NewsTella.Controllers
 {
-	public class TArticleController : Controller
+	public class ArticleController : Controller
 	{
 		private readonly IArticlesService _articlesService;
 
-		public TArticleController(IArticlesService articlesService)
+		public ArticleController(IArticlesService articlesService)
 		{
 			_articlesService = articlesService;
 		}

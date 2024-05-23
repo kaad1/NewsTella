@@ -1,4 +1,4 @@
-﻿@* @model NewsTella.Models.ViewModel.ArticleVM
+﻿@model NewsTella.Models.ViewModel.ArticleVM
 
 <div class="container">
 	<div class="row">
@@ -10,7 +10,7 @@
 			<h2>Editor</h2>
 			<br />
 
-			<form asp-action="Create" method="post">
+			<form asp-controller="Article" asp-action="Create" method="post">
 				<div class="form-group">
 					<label asp-for="LinkText" class="control-label">Link Text</label>
 					<input asp-for="LinkText" class="form-control" />
@@ -42,8 +42,8 @@
 					<span asp-validation-for="Category" class="text-danger"></span>
 				</div>
 				<br /><br /><br />
-			
-				
+
+
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-check">
@@ -80,7 +80,7 @@
 				<div class="form-group">
 					<input type="submit" value="Create" class="btn btn-primary" />
 				</div>
-				
+
 			</form>
 		</div>
 		<div class="col-3">
@@ -92,4 +92,3 @@
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
 }
- *@
