@@ -11,7 +11,8 @@ namespace NewsTella.Data
 		{
 		}
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
-        public DbSet<Article> Articles { get; set; }
+        public DbSet<Article> Articles { get; set; }    
+        public List<Article> ArticlesList { get; set; } = new List<Article>();
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
