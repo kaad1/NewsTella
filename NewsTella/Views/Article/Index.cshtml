@@ -1,88 +1,92 @@
 ﻿@model IEnumerable<NewsTella.Models.Database.Article>
 
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
+
 <head>
-	<title>Bootstrap Example</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 
 <div class="container">
-	<h2>Article List</h2>
-	<div class="col-md-3">
-		<input class="form-control" id="myInput" type="text" placeholder="Search.." >
+    <h2>Article List</h2>
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        </div>
+    </div>
 
-	</div>
-	<br>
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-				<th>
-					@Html.DisplayNameFor(model => model.Headline)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.DateStamp)
-				</th>
-				<th>
-					Status
-				</th>
-				<th>
-					Image
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model.Category)
-				</th>
-				<th>
-					Actions
-				</th>
-			</tr>
-		</thead>
-		<tbody id="myTable">
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>
-						<a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.DateStamp)
-					</td>
-					<td>
-						Status/draft etc.
-					</td>
-					<td>
-						<img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px;" />
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Category)
-					</td>
-					<td>
-						<button>
-							<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-						</button>
-						<button><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+    <br>
+    <table id="sortBy" class="table table-bordered table-striped">
+        <thead> 
+            <tr >
+                <th>
+                    Image
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Headline)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateStamp)
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align: center;" align="center">
+                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px;" />
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateStamp)
+                    </td>
+                    <td>
+                        Status/draft etc.
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        <button>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        </button>
+                        <button><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <script>
-	$(document).ready(function () {
-		$("#myInput").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
-		});
-	});
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 
 
