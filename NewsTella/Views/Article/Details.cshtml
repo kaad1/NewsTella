@@ -4,69 +4,50 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Preview</h1>
+<div class="container">
+    <div class="row">
+        <hr />
+        <div class="col-md-2">
+            <div class="mt-3">
+            </div>
 
-<div>
-    <h4>Article</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateStamp)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateStamp)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkText)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkText)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Headline)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Headline)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContentSummary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContentSummary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Views)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Views)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Likes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Likes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageLink)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageLink)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        </div>
+        <div class="col-md-10 mt-5 p-5 " >
+
+            <div id="image" class="flex-column ">
+                
+               <content>
+                    <img src="@Model.ImageLink" alt="Article Image" style="max-width: 100%; height: auto;" />
+
+                    <span><b>@Html.DisplayFor(model => model.Category)</b></span>
+                    <span class="align-content-end">@Html.DisplayFor(model => model.DateStamp)</span>
+               </content>
+              
+          
+
+                <div class="row">
+                    <h1>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Headline)</dd>
+                    </h1>
+
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Content)
+                    </dd>          
+                   
+                
+                </div>
+
+
+
+           
+            <hr />
+            <div class="col-2">
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
