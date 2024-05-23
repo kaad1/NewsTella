@@ -10,7 +10,7 @@ namespace NewsTella.Models.ViewModel
         public string Content { get; set; }
         public string ImageLink { get; set; }
         public string Category { get; set; }
-		public List<Article> ArticleList { get; set; } = new List<Article>();
+		public List<Article> ArticleList { get; set; } = new List<Article>();     
 
-	}
+    }
 }

@@ -1,4 +1,5 @@
-﻿using NewsTella.Models.Database;
+﻿using NewsTella.Models.ViewModel;
+using NewsTella.Models.Database;
 using NewsTella.Data;
 
 namespace NewsTella.Services
