@@ -39,5 +39,6 @@ namespace NewsTella.Models.Database
 		public string Category { get; set; } = "Local";
 		public string Status { get; set; } = "Draft";
 
+
     }
 }
