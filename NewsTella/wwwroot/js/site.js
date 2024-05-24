@@ -37,3 +37,32 @@ document.addEventListener("DOMContentLoaded", function () {
         event.stopPropagation();
     });
 });
+
+const myAccountLink = document.querySelector('.nav-link.text-light.my-account-link');
+const smallNavContent = document.querySelector('.small-nav-content');
+const mobileMenuPlaceholder = document.getElementById('mobileMenuPlaceholder');
+const smallNav = document.querySelector('.small-nav .navbar-collapse');
+const accountRegistration = document.querySelector('.account-login-registration');
+
+function moveSmallNavLinksToMainNav() {
+    if (window.innerWidth <= 576) {
+       
+        myAccountLink.remove();
+        mobileMenuPlaceholder.innerHTML = '';
+        mobileMenuPlaceholder.appendChild(smallNavContent);
+
+    } else {
+        
+        mobileMenuPlaceholder.innerHTML = '';
+        smallNav.appendChild(smallNavContent);
+     
+        if (!accountRegistration.contains(myAccountLink)) {
+            accountRegistration.prepend(myAccountLink);
+        }
+        
+    }
+}
+
+moveSmallNavLinksToMainNav();
+
+window.addEventListener('resize', moveSmallNavLinksToMainNav);

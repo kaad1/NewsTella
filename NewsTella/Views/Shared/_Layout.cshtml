@@ -20,21 +20,18 @@
 </head>
 <body>
     <header>
-           @*  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom">
-                <partial name="_LoginPartial" />
-            </nav> *@
         <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom small-nav">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse d-flex justify-content-end">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav small-nav-content">
                         <li class="nav-item account-login-registration">
-                            <a class="nav-link text-light" >My Account</a>
+                            <a class="nav-link text-light my-account-link" >My Account</a>
 							<div class="nav-account-registration-login">
 								<partial name="_LoginPartial" />
 							</div>	
                         </li>
-                        <li class="nav-item">
-                            <a class="btn btn-danger ms-3 text-white" href="#">Subscribe</a>
+						<li class="nav-item ms-3">
+                            <a class="btn btn-success text-white" href="#">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -48,8 +45,8 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav ms-auto">
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+					<ul class="navbar-nav ms-auto main-nav-content d-flex justify-content-sm-center text-center">
 						@if (!User.IsInRole("Admin"))
 						{
 							<li class="nav-item">
@@ -73,19 +70,28 @@
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
 							</li>
-							<li class="nav-item position-relative">
+							<li class="nav-item position-relative d-none d-sm-block">
 								<a id="search-icon" class="nav-link search-icon text-dark " role="button">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 										<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 									</svg>
 								</a>
-								<form id="search-form" method="get" class="search-dropdown">
+								<form id="search-form" method="get" class="search-dropdown" role="search">
 									<div class="input-group">
 										<input type="text" class="input-text form-control" aria-label="Search" />
-										<button class="btn btn-danger" type="submit">Search</button>
+										<button class="btn btn-red" type="submit">Search</button>
 									</div>
 								</form>
 							</li>
+							<li class="nav-item d-sm-none w-100">
+								<form id="search-form-mobile" method="get" role="search">
+									<div class="input-group">
+										<input type="text" class="input-text form-control" aria-label="Search" />
+										<button class="btn btn-red" type="submit">Search</button>
+									</div>
+								</form>
+							</li>
+
 						}
 
 						@if (User.IsInRole("Admin"))
@@ -151,6 +157,7 @@
 							</li>
 						}
 					</ul>
+					<div id="mobileMenuPlaceholder"></div>
 				</div>
 			</div>
 		</nav>
