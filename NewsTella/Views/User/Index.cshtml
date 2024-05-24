@@ -1,0 +1,78 @@
+﻿@model X.PagedList.IPagedList<NewsTella.Models.ViewModel.UserVM>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+<div class="row">
+    <div class="col">
+    <h3>User Management</h3>
+    </div>
+        <div class="col-md-6">
+            <form asp-controller="User" asp-action="Index" method="get" class="form-inline float-right">
+                <input type="text" name="email" class="form-control" placeholder="Search by email" />
+                <input type="submit" value="Search" class="btn btn-dark ml-2" />
+            </form>
+        </div>
+    </div>
+</div>
+<br/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+               Email
+            </th>
+            <th>Roles</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @string.Join(", ", item.Roles)
+                </td>
+                <td>
+                    <a asp-controller="User" asp-action="Edit" asp-route-userId="@item.Id" class="btn btn-dark">Assign User Role/Edit</a>
+                    <a asp-controller="User" asp-action="Delete" asp-route-userId="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.PagedListPager(
+                         Model,
+                         page => Url.Action("Index", new { page, email = ViewContext.HttpContext.Request.Query["email"] }),
+                         new PagedListRenderOptions
+                {
+                    Display = PagedListDisplayMode.IfNeeded,
+                    DisplayPageCountAndCurrentLocation = true,
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always
+                }
+                 )
+            </div>
+        </div>
+</div>

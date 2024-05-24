@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewsTella.Models;
 using System.Diagnostics;
 
 namespace NewsTella.Controllers
 {
+	//[Authorize(Roles = "Admin")]
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -22,6 +24,7 @@ namespace NewsTella.Controllers
 		{
 			return View();
 		}
+
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()

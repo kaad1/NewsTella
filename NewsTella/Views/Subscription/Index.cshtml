@@ -1,0 +1,52 @@
+﻿@model IEnumerable<NewsTella.Models.Database.SubscriptionType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Subscription Types</h3>
+<br/>
+<p>
+    <a asp-action="Create"class="btn btn-dark">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th> *@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            @* <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td> *@
+            <td>
+                    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

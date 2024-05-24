@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Diagnostics.Contracts;
 
 namespace NewsTella.Models.Database
 {
@@ -6,6 +7,9 @@ namespace NewsTella.Models.Database
 
 	{
 		public string FirstName {  get; set; } = string.Empty;
+
 		public string LastName { get; set; } = string.Empty;
-	}
+
+        public bool IsDeleted { get; set; } = false;
+    }
 }
