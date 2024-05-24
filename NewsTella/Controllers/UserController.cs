@@ -175,7 +175,7 @@ namespace NewsTella.Controllers
                 }
             }
 
-            int pageSize = 2; // Number of users per page
+            int pageSize = 8; // Number of users per page
             int pageNumber = (page ?? 1); // Default to first page
 
             var pagedUsers = users.ToPagedList(pageNumber, pageSize);
