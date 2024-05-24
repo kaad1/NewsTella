@@ -26,7 +26,8 @@ namespace NewsTella.Controllers
         {
             return View(_subscriptionTypeService.GetSubscriptionTypes());
         }
-        //[Authorize]
+        
+        [Authorize]
         public IActionResult BuySubscription()
         {
             var subscriptions = _context.SubscriptionTypes
@@ -36,6 +37,30 @@ namespace NewsTella.Controllers
             return View(subscriptions);
         }
 
+        public IActionResult PaymentDetail(int id)
+        {
+            var subscription = _context.Subscriptions
+                .Where(s => s.Id == id && !s.IsDeleted)
+                .Select(s => new SubscriptionVM
+                {
+                    SubscriptionId = s.Id,
+                    SubscriptionType = s.SubscriptionType.ToString(), // Assuming SubscriptionType is an enum
+                    Price = s.Price,
+                    Created = s.Created,
+                    UserName = s.User.UserName, // Assuming User has a UserName property
+                    PaymentComplete = s.PaymentComplete,
+                    IsDeleted = s.IsDeleted
+                })
+                .FirstOrDefault();
+
+            if (subscription == null)
+            {
+                return NotFound();
+            }
+
+            return View(subscription);
+        }
+        
         //[Authorize(Roles = "Admin")]
         public IActionResult Create()
         {

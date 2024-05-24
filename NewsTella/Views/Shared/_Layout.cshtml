@@ -32,7 +32,7 @@
 							</div>	
                         </li>
 						<li class="nav-item ms-3">
-                            <a class="btn btn-success text-white" href="#">Subscribe</a>
+                            <a class="nav-link btn btn-success text-white" asp-area="" asp-controller="Subscription" asp-action="BuySubscription">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -129,9 +129,12 @@
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Subscription</a>
-							</li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription Types</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Show Subscription</a>
+                            </li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Show Articles</a>
 							</li>

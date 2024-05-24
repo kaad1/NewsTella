@@ -1,0 +1,21 @@
+﻿@model NewsTella.Models.ViewModel.SubscriptionVM
+
+@{
+    ViewData["Title"] = "PaymentDetail";
+}
+
+<h3>Payment Detail</h3>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Subscription Details</h5>
+        <p class="card-text"><strong>Subscription Type:</strong> @Model.SubscriptionType</p>
+        <p class="card-text"><strong>Price:</strong> @Model.Price.ToString("C")</p>
+        <p class="card-text"><strong>Created:</strong> @Model.Created.ToString("g")</p>
+        <p class="card-text"><strong>User Name:</strong> @Model.UserName</p>
+        <p class="card-text"><strong>Payment Complete:</strong> @(Model.PaymentComplete ? "Yes" : "No")</p>
+        <p class="card-text"><strong>Is Deleted:</strong> @(Model.IsDeleted ? "Yes" : "No")</p>
+    </div>
+</div>
+
+<a href="@Url.Action("Index", "Subscriptions")" class="btn btn-dark">Back</a>
