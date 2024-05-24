@@ -28,12 +28,14 @@ namespace NewsTella.Controllers
 		[HttpPost]
 		public IActionResult Create(Article article)
 		{
-			if (ModelState.IsValid)
-            {
+			article.Category = article.Cathegories.FirstOrDefault();
+			//article.Status = "Draft";
+			//if (ModelState.IsValid)
+            //{
 				_articlesService.AddArticle(article);
 				return RedirectToAction("Index");				
-            }
-            return View(article);
+            //}
+            //return View(article);
 
 		}
 		public IActionResult Edit(int Id)

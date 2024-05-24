@@ -1,4 +1,5 @@
-﻿@model NewsTella.Models.ViewModel.ArticleVM
+﻿@model NewsTella.Models.Database.Article
+@using NewsTella.Data;
 
 <div class="container">
 	<div class="row">
@@ -33,49 +34,28 @@
 				</div>
 				<div class="form-group">
 					<label asp-for="ImageLink" class="control-label">Image Link</label>
-					<input asp-for="ImageLink" class="form-control" />
+					<input asp-for="ImageLink" class="form-control" value="~/images/default.jpg" />
 					<span asp-validation-for="ImageLink" class="text-danger"></span>
 				</div>
-				<div class="form-group">
-					<label asp-for="Category" class="control-label"></label>
-					<input asp-for="Category" class="form-control" />
-					<span asp-validation-for="Category" class="text-danger"></span>
-				</div>
-				<br /><br /><br />
-
 
 				<div class="row">
 					<div class="col-md-6">
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked>
-							<label class="form-check-label" for="check1">Local</label>
-						</div>
-						<br />
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-							<label class="form-check-label" for="check2">Sweden</label>
-						</div>
-						<br />
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-							<label class="form-check-label" for="check2">World</label>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked>
-							<label class="form-check-label" for="check1">Sports</label>
-						</div> <br />
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-							<label class="form-check-label" for="check2">Economy</label>
-						</div> <br />
-						<div class="form-check">
-							<input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-							<label class="form-check-label" for="check2">Weather</label>
-						</div>
+						@foreach (string item in Cathegories.CathegoriesList)
+						{
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="@item" name="cathegories" value="@item" checked>
+								<label class="form-check-label" for="@item">@item</label>
+							</div>
+						}
 					</div>
 				</div>
+
+				@foreach (var status in Statuses.StatusesList)
+				{
+					<input type="radio" asp-for="Status" value="@status" />
+					<label for="@status">@status</label>
+				}
+
 				<br />
 				<div class="form-group">
 					<input type="submit" value="Create" class="btn btn-primary" />

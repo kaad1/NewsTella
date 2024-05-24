@@ -52,7 +52,7 @@
             {
                 <tr>
                     <td style="text-align: center;" align="center">
-                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px;" />
+                        <img src="~/images/default.jpg" alt="@item.Headline" style="max-width: 100px;" />
                     </td>
                     <td>
                         <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
@@ -61,7 +61,7 @@
                         @Html.DisplayFor(modelItem => item.DateStamp)
                     </td>
                     <td>
-                        Status/draft etc.
+                        @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Category)

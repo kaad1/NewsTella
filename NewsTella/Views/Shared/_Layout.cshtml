@@ -16,86 +16,274 @@
     <title>@ViewData["Title"] - NewsTella</title>
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/NewsTella.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom small-nav">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NewsTella</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="collapse navbar-collapse d-flex justify-content-end">
+                    <ul class="navbar-nav small-nav-content">
+                        <li class="nav-item account-login-registration">
+                            <a class="nav-link text-light my-account-link" >My Account</a>
+							<div class="nav-account-registration-login">
+								<partial name="_LoginPartial" />
+							</div>	
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="BuySubscription">Subscribe</a>
+						<li class="nav-item ms-3">
+                            <a class="btn btn-success text-white" href="#">Subscribe</a>
                         </li>
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription Types</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Show Subscription</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Show Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My Profile</a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Editor"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">All Artical</a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Writer"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">My Artical</a>
-                            </li>
-                        }
-                        else if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
-                            </li>
-                        }
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<h1 class="nav-heading"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">News<span class="logo-heading">Tella</span></a></h1>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - NewsTella - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+					<ul class="navbar-nav ms-auto main-nav-content d-flex justify-content-sm-center text-center">
+						@if (!User.IsInRole("Admin"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Local</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sweden</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">World</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Economy</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Weather</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
+							</li>
+							<li class="nav-item position-relative d-none d-sm-block">
+								<a id="search-icon" class="nav-link search-icon text-dark " role="button">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+										<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+									</svg>
+								</a>
+								<form id="search-form" method="get" class="search-dropdown" role="search">
+									<div class="input-group">
+										<input type="text" class="input-text form-control" aria-label="Search" />
+										<button class="btn btn-red" type="submit">Search</button>
+									</div>
+								</form>
+							</li>
+							<li class="nav-item d-sm-none w-100">
+								<form id="search-form-mobile" method="get" role="search">
+									<div class="input-group">
+										<input type="text" class="input-text form-control" aria-label="Search" />
+										<button class="btn btn-red" type="submit">Search</button>
+									</div>
+								</form>
+							</li>
+
+						}
+
+						@if (User.IsInRole("Admin"))
+						{
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Local</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sweden</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">World</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Economy</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Weather</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
+									</li>
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Subscription</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Show Articles</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My Profile</a>
+							</li>
+						}
+						else if (User.IsInRole("Editor"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">All Artical</a>
+							</li>
+						}
+						else if (User.IsInRole("Writer"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">My Artical</a>
+							</li>
+						}
+						else if (User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
+							</li>
+						}
+					</ul>
+					<div id="mobileMenuPlaceholder"></div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+
+    <footer class="bg-dark text-white position-absolute">
+     <div class="container-fluid text-center ">
+      <div class="row text-center ">
+       <div class="col-lg-5 col-dm-6">
+         <div class="single-box">
+
+           <h4 class="f-h4"><i class="bi bi-newspaper me-4"></i>NewsTella</h4>
+          <div>
+            <p class="ps-5 pe-5 pb-4 " style="text-align:justify">
+             Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+             Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+             Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+            
+           </p>
+            <p>
+               <i class="bi bi-instagram me-4"></i>
+               <i class="bi bi-facebook me-4" ></i>
+                <i class="bi bi-twitter me-4"></i>
+                <i class="bi bi-linkedin "></i>
+            </p>
+          </div>
+          </br>
+          <p>
+            <a href="#"class="text-white me-4">Privacy and Policy</a>
+            <a href="#" class="text-white me-4">Cookies</a>
+            <a href="#" class="text-white">Terms of use</a>
+          </p>
+         </div>
+       </div>
+
+       <div class="col-lg-2  col-sm-6">
+        <div class="single-box">
+          <h4 class="f-h4">Company</h4>
+         <p>
+           <a href="#" class="text-white" style="text-decoration:none">About Us</a>
+         </p>
+         <p>
+             <a href="#" class="text-white" style="text-decoration:none">Partner With Us</a>
+         </p>
+         <p>
+             <a href="#" class="text-white" style="text-decoration:none">Subscription Plan</a>
+         </p>
+         <p>
+             <a href="#" class="text-white" style="text-decoration:none">My Account</a>
+         </p>
+         <p>
+             <a href="#" class="text-white" style="text-decoration:none">Contact Us</a>
+         </p>
+         
         </div>
+       </div>
+
+       <div class="col-lg-2  col-sm-6">
+           <div class="single-box">
+             <h4 class="f-h4">Trending</h4>
+             
+            <div class="ps-4 pe-4">
+                <h6 class="f-h6">Local</h6>
+              <p >
+                Eligible voters to receive their EU election poll cards in the next few days
+             </p>
+             <h6 class="f-h6">World</h6>
+             <p>
+                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+             </p>
+             <h6 class="f-h6">Sweden</h6>
+             <p>
+                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+             </p>
+             </div>
+           </div>
+       </div>
+       <div class="col-lg-2  col-sm-6">
+           <div class="single-box">
+             <h4 class="f-h4">Categories</h4>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">Home</a>
+             </p>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">Local</a>
+             </p>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">Sweden</a>
+             </p>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">World</a>
+             </p>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">Economy</a>
+             </p>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">Weather</a>
+             </p>
+             <p>
+                 <a href="#" class="text-white" style="text-decoration:none">Sport</a>
+             </p>
+
+           </div>
+       </div>
+
+      </div>
+     </div >
+     <div class="border-bottom border-white m-3 "></div>
+     <div class="container text-center p-3" >Copyright&copy;NewsTella2024</div>
     </footer>
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
