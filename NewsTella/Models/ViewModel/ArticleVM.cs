@@ -1,4 +1,6 @@
-﻿using NewsTella.Models.Database;
+﻿using Microsoft.AspNetCore.Mvc;
+using NewsTella.Models.Database;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NewsTella.Models.ViewModel
 {
@@ -10,7 +12,8 @@ namespace NewsTella.Models.ViewModel
         public string Content { get; set; }
         public string ImageLink { get; set; }
         public string Category { get; set; }
-		public List<Article> ArticleList { get; set; } = new List<Article>();     
+		public List<Article> ArticleList { get; set; } = new List<Article>();
+
 
     }
 }
