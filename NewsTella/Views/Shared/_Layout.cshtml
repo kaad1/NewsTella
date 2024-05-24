@@ -20,82 +20,162 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light bg-dark border-bottom small-nav">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NewsTella</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="collapse navbar-collapse d-flex justify-content-end">
+                    <ul class="navbar-nav small-nav-content">
+                        <li class="nav-item account-login-registration">
+                            <a class="nav-link text-light my-account-link" >My Account</a>
+							<div class="nav-account-registration-login">
+								<partial name="_LoginPartial" />
+							</div>	
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="BuySubscription">Subscribe</a>
+						<li class="nav-item ms-3">
+                            <a class="btn btn-success text-white" href="#">Subscribe</a>
                         </li>
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription Types</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Show Subscription</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Show Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My Profile</a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Editor"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">All Artical</a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Writer"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">My Artical</a>
-                            </li>
-                        }
-                        else if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
-                            </li>
-                        }
                     </ul>
-                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<h1 class="nav-heading"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">News<span class="logo-heading">Tella</span></a></h1>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - NewsTella - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+					<ul class="navbar-nav ms-auto main-nav-content d-flex justify-content-sm-center text-center">
+						@if (!User.IsInRole("Admin"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Local</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sweden</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">World</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Economy</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Weather</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
+							</li>
+							<li class="nav-item position-relative d-none d-sm-block">
+								<a id="search-icon" class="nav-link search-icon text-dark " role="button">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+										<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+									</svg>
+								</a>
+								<form id="search-form" method="get" class="search-dropdown" role="search">
+									<div class="input-group">
+										<input type="text" class="input-text form-control" aria-label="Search" />
+										<button class="btn btn-red" type="submit">Search</button>
+									</div>
+								</form>
+							</li>
+							<li class="nav-item d-sm-none w-100">
+								<form id="search-form-mobile" method="get" role="search">
+									<div class="input-group">
+										<input type="text" class="input-text form-control" aria-label="Search" />
+										<button class="btn btn-red" type="submit">Search</button>
+									</div>
+								</form>
+							</li>
+
+						}
+
+						@if (User.IsInRole("Admin"))
+						{
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+								<ul class="dropdown-menu">
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Local</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sweden</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">World</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Economy</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Weather</a>
+									</li>
+									<li class="dropdown-item">
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
+									</li>
+								</ul>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Subscription</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Show Articles</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My Profile</a>
+							</li>
+						}
+						else if (User.IsInRole("Editor"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">All Artical</a>
+							</li>
+						}
+						else if (User.IsInRole("Writer"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">My Artical</a>
+							</li>
+						}
+						else if (User.Identity.IsAuthenticated)
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
+							</li>
+						}
+					</ul>
+					<div id="mobileMenuPlaceholder"></div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2024 - NewsTella - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
