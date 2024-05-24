@@ -12,7 +12,7 @@
         public int Likes { get; set; }
         public string ImageLink { get; set; }
         public string Category { get; set; }
-        //public string Status { get; set; }
+       // public string Status { get; set; }
 
     }
 }

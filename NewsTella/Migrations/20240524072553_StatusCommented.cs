@@ -5,10 +5,18 @@
 namespace NewsTella.Migrations
 {
     /// <inheritdoc />
-    public partial class articleStatus : Migration
+    public partial class StatusCommented : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "Status",
+                table: "Articles");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "Status",
@@ -16,14 +24,6 @@ namespace NewsTella.Migrations
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Status",
-                table: "Articles");
         }
     }
 }
