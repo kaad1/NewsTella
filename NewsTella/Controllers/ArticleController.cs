@@ -35,7 +35,7 @@ namespace NewsTella.Controllers
 				_articlesService.AddArticle(article);
 				return RedirectToAction("Index");				
             //}
-            return View(article);
+            //return View(article);
 
 		}
 		public IActionResult Edit(int Id)
