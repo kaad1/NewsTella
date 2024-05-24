@@ -21,6 +21,18 @@ body {
   margin-bottom: 60px;
 }
 
+.f-h6 {
+    color: cornflowerblue
+}
+.f-h4 {
+    padding-top: 25px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color: #d9534f
+}
+
+
+
 .logo-heading {
   color: #e41b13;
   text-transform: capitalize;
@@ -376,3 +388,4 @@ body {
     font-size: 16px;
     cursor: pointer;
 }
+
