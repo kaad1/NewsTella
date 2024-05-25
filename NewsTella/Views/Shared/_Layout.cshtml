@@ -145,8 +145,12 @@
 						else if (User.IsInRole("Editor"))
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Artical" asp-action="Index">All Artical</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">All Article</a>
 							</li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create Article</a>
+                            </li>
+
 						}
 						else if (User.IsInRole("Writer"))
 						{
