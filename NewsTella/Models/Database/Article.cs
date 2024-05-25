@@ -30,15 +30,21 @@ namespace NewsTella.Models.Database
 		public string Content { get; set; } = String.Empty;
         public int Views { get; set; }
         public int Likes { get; set; }
-        public string ImageLink { get; set; } = "~/images/default.jpg";
+        public string ImageLink { get; set; } = "/Images/default.jpg";
+
+		[NotMapped]
+		public IFormFile FormImage { get; set; }
+
 
 		[NotMapped]
 		[BindProperty]
-		public List<string> Cathegories { get; set; }
+		public List<string> Cathegories { get; set; } = [];
 		
 		public string Category { get; set; } = "Local";
 		public string Status { get; set; } = "Draft";
 
+		[NotMapped]
+		public string TestImage { get; set; } = "/images/20240511_144809.jpg";
 
     }
 }

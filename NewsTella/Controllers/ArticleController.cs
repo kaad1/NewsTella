@@ -26,13 +26,23 @@ namespace NewsTella.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Create(Article article)
+		public async Task<IActionResult> Create(Article article)
 		{
 			article.Category = string.Join(", ", article.Cathegories);
-			
-			//if (ModelState.IsValid)
-			//{
-			_articlesService.AddArticle(article);
+
+			var file = article.FormImage;
+			if (file != null && file.Length > 0)
+			{
+				var filePath = Path.Combine(Directory.GetCurrentDirectory(),@"wwwroot\Images\", file.FileName);
+				article.ImageLink = "/Images/"+ file.FileName;
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+			}
+				//if (ModelState.IsValid)
+				//{
+				_articlesService.AddArticle(article);
 				return RedirectToAction("Index");				
             //}
             //return View(article);
