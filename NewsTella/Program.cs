@@ -31,6 +31,7 @@ namespace NewsTella
 
             builder.Services.AddScoped<UserManager<User>, AppUserManager>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
+            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
             builder.Services.AddControllersWithViews();
 

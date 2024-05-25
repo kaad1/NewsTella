@@ -204,8 +204,8 @@ namespace NewsTella.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SubscriptionTypeId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Expires = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Created = table.Column<DateOnly>(type: "date", nullable: false),
+                    Expires = table.Column<DateOnly>(type: "date", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PaymentComplete = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)

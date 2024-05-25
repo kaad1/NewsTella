@@ -17,7 +17,7 @@
                         <p class="text-muted mb-0 card-text text-muted">Per Month</p>
                     </div>
                     <div class="mt-4 mb-4 pt-3">
-                        <a class="btn btn-dark btn-rounded" asp-controller="Subscription" asp-action="PaymentDetail">Select</a>
+                        <a class="btn btn-dark btn-rounded" asp-controller="Subscription" asp-route-subscriptionTypeId="@item.Id" asp-action="Create">Select</a>
                     </div>
                 </div>
             </div>

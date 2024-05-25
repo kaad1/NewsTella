@@ -12,7 +12,7 @@ using NewsTella.Data;
 namespace NewsTella.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240524153317_subscription")]
+    [Migration("20240525085009_subscription")]
     partial class subscription
     {
         /// <inheritdoc />
@@ -216,11 +216,11 @@ namespace NewsTella.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("Created")
+                        .HasColumnType("date");
 
-                    b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("Expires")
+                        .HasColumnType("date");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
