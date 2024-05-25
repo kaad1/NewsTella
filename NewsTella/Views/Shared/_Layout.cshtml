@@ -32,7 +32,7 @@
 							</div>	
                         </li>
 						<li class="nav-item ms-3">
-                            <a class="nav-link btn btn-success text-white" asp-area="" asp-controller="Subscription" asp-action="BuySubscription">Subscribe</a>
+                            <a class="nav-link btn btn-success text-white" asp-area="" asp-controller="Subscription" asp-action="SelectSubscription">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -130,10 +130,10 @@
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription Types</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription Types</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Show Subscription</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Show Subscription</a>
                             </li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Show Articles</a>
@@ -157,7 +157,7 @@
 						else if (User.Identity.IsAuthenticated)
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscription</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription</a>
 							</li>
 						}
 					</ul>

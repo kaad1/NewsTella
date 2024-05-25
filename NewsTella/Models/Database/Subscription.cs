@@ -8,9 +8,9 @@
 
         public decimal Price { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateOnly Created { get; set; }
 
-        public DateTime Expires { get; set; }
+        public DateOnly Expires { get; set; }
 
         public User User { get; set; }
 

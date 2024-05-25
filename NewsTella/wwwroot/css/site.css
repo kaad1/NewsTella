@@ -389,3 +389,7 @@ body {
     cursor: pointer;
 }
 
+.no-border {
+    border: none;
+    outline: none;
+}

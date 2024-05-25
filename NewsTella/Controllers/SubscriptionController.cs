@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NewsTella.Data;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
@@ -14,96 +15,64 @@ namespace NewsTella.Controllers
     public class SubscriptionController : Controller
     {
         private readonly ISubscriptionTypeService _subscriptionTypeService;
+        private readonly ISubscriptionService _subscriptionService;
+        private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
 
-        public SubscriptionController(ISubscriptionTypeService subscriptionTypeService, AppDbContext context)
+        public SubscriptionController(ISubscriptionTypeService subscriptionTypeService, AppDbContext context, 
+                                      ISubscriptionService subscriptionService,  UserManager<User> userManager)
         {
             _subscriptionTypeService = subscriptionTypeService;
+            _subscriptionService = subscriptionService;
+            _userManager = userManager;
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            return View(_subscriptionTypeService.GetSubscriptionTypes());
-        }
-        
         [Authorize]
-        public IActionResult BuySubscription()
+        public IActionResult SelectSubscription()
         {
             var subscriptions = _context.SubscriptionTypes
                 .Where(st => !st.IsDeleted)
                 .ToList();
-
             return View(subscriptions);
         }
 
-        public IActionResult PaymentDetail(int id)
+        public IActionResult Create(int subscriptionTypeId)
         {
-            var subscription = _context.Subscriptions
-                .Where(s => s.Id == id && !s.IsDeleted)
-                .Select(s => new SubscriptionVM
-                {
-                    SubscriptionId = s.Id,
-                    SubscriptionType = s.SubscriptionType.ToString(), // Assuming SubscriptionType is an enum
-                    Price = s.Price,
-                    Created = s.Created,
-                    UserName = s.User.UserName, // Assuming User has a UserName property
-                    PaymentComplete = s.PaymentComplete,
-                    IsDeleted = s.IsDeleted
-                })
-                .FirstOrDefault();
-
-            if (subscription == null)
+            var subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(subscriptionTypeId);
+            var model = new SubscriptionVM
             {
-                return NotFound();
-            }
-
-            return View(subscription);
-        }
-        
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Create()
-        {
-            return View();
+                SubscriptionTypeId = subscriptionTypeId,
+                SubscriptionType = subscriptionType.TypeName,
+                Price = subscriptionType.Price,
+                Created = DateOnly.FromDateTime(DateTime.Now),
+                Expires = DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
+                Description = subscriptionType.Description,
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Create(SubscriptionType subscriptionType)
+        public async Task<IActionResult> CreateAsync(SubscriptionVM model)
         {
             if (ModelState.IsValid)
             {
-                _subscriptionTypeService.AddSubscriptionType(subscriptionType);
-                return RedirectToAction(nameof(Index));
+                var subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(model.SubscriptionTypeId);
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                Subscription subscription = new Subscription
+                {
+                    SubscriptionType = subscriptionType,
+                    Price = subscriptionType.Price,
+                    Created = DateOnly.FromDateTime(DateTime.Now),
+                    Expires = DateOnly.FromDateTime(DateTime.Now.AddMonths(1)),
+                    PaymentComplete = false,
+                    User = user
+                };
+                _subscriptionService.AddSubscription(subscription);
+
+                    return RedirectToAction("Index", "Home");
             }
-            return View();
-        }
-        public IActionResult Delete(int id)
-        {
-            var subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(id);
-            return View(subscriptionType);
-        }
-        [HttpPost]
-        public IActionResult DeleteConfirmed(SubscriptionType subscriptionType)
-        {
-            _subscriptionTypeService.RemoveSubscriptionType(subscriptionType);
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult Edit(int id)
-        {
-            var subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(id);
-            return View(subscriptionType);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(SubscriptionType subscriptionType)
-        {
-            _subscriptionTypeService.UpdateSubscriptionType(subscriptionType);
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult AboutUs()
-        {
-            return View();
+            return View(model);
         }
     }
 }
