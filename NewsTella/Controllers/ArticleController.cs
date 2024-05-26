@@ -28,6 +28,15 @@ namespace NewsTella.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(Article article)
 		{
+
+			//if (!ModelState.IsValid)
+			//{ Clear Form
+			//	ModelState.Clear(); // Rensa felmeddelanden
+			//	return View("Index", model);
+			//}
+
+
+
 			article.Category = string.Join(", ", article.Cathegories);
 
 			var file = article.FormImage;
@@ -74,7 +83,15 @@ namespace NewsTella.Controllers
 			_articlesService.DeleteArticle(article);
 			return RedirectToAction("Index");
 		}
-		public IActionResult Details(int id)
+
+        [HttpPost]
+        public IActionResult DeleteDraft(Article article)
+        {
+			ModelState.Clear(); // Rensa felmeddelanden
+								//	return View("Index", model);
+			return RedirectToAction("Create");
+        }
+        public IActionResult Details(int id)
 		{
 			var article = _articlesService.GetArticlesById(id);
 			return View(article);

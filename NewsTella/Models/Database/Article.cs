@@ -38,13 +38,17 @@ namespace NewsTella.Models.Database
 
 		[NotMapped]
 		[BindProperty]
-		public List<string> Cathegories { get; set; } = [];
+		public List<string> Cathegories { get; set; } = [];		
 		
-		public string Category { get; set; } = "Local";
 		public string Status { get; set; } = "Draft";
+
+		public string Category { get; set; } = "Local";
 
 		[NotMapped]
 		public string TestImage { get; set; } = "/images/20240511_144809.jpg";
 
-    }
+		[NotMapped]
+		public bool IsDeleted { get; set; } = false;
+
+	}
 }

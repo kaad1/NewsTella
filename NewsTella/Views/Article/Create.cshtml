@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div class="col-6">
-			<h2>Editor</h2>
+			<h2>Create Article</h2>
 			<br />
 
 			<form asp-controller="Article" enctype="multipart/form-data" asp-action="Create" method="post">
@@ -48,7 +48,7 @@
 
 				
 				<div class="form-group mb-2">
-					<p>Cathegories</p>
+					<p>Categories</p>
 					@foreach (string item in Cathegories.CathegoriesList)
 					{
 						<div class="form-check">
@@ -69,7 +69,10 @@
 
 				<br />
 				<div class="form-group">
-					<input type="submit" value="Create" class="btn btn-primary" />
+					<input type="submit" value="Create" class="btn btn-primary" />					
+					<input class="btn btn-info" type="button" value="Preview" onclick="location.href='@Url.Action("Index", "Article", Model)'" />
+					<input class="btn btn-danger" type="button" value="Delete" onclick="location.href='@Url.Action("Create", "Article", Model)'" />
+					
 				</div>
 
 			</form>
