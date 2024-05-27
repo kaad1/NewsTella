@@ -27,7 +27,6 @@ namespace NewsTella.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create(Article article)
 		{
-			article.ImageLink = "";
 			if (!ModelState.IsValid)
 			{				
 				ModelState.Clear(); // Rensa felmeddelanden
