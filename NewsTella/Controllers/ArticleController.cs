@@ -24,18 +24,60 @@ namespace NewsTella.Controllers
 		{
 			return View();
 		}
-
 		[HttpPost]
-		public IActionResult Create(Article article)
+		public async Task<IActionResult> Create(Article article)
 		{
+
+			if (!ModelState.IsValid)
+			{				
+				ModelState.Clear(); // Rensa felmeddelanden
+				return View("Index");
+			}
+
+
+
 			if (ModelState.IsValid)
-            {
+			{
 				_articlesService.AddArticle(article);
-				return RedirectToAction("Index");				
-            }
-            return View(article);
+				return RedirectToAction("Index");
+			}
+			return View(article);
 
 		}
+
+		//[HttpPost]
+		//public async Task<IActionResult> Create(Article article)
+		//{
+
+		//	//if (!ModelState.IsValid)
+		//	//{ Clear Form
+		//	//	ModelState.Clear(); // Rensa felmeddelanden
+		//	//	return View("Index", model);
+		//	//}
+
+
+
+		//	article.Category = string.Join(", ", article.Cathegories);
+
+		//	var file = article.FormImage;
+		//	if (file != null && file.Length > 0)
+		//	{
+		//		var filePath = Path.Combine(Directory.GetCurrentDirectory(),@"wwwroot\Images\", file.FileName);
+		//		article.ImageLink = "/Images/"+ file.FileName;
+		//		using (var stream = new FileStream(filePath, FileMode.Create))
+		//		{
+		//			await file.CopyToAsync(stream);
+		//		}
+		//	}
+		//		//if (ModelState.IsValid)
+		//		//{
+		//		_articlesService.AddArticle(article);
+		//		return RedirectToAction("Index");				
+		//          //}
+		//          //return View(article);
+
+		//}	
+
 		public IActionResult Edit(int Id)
 		{
 			var article = _articlesService.GetArticlesById(Id);
@@ -62,7 +104,15 @@ namespace NewsTella.Controllers
 			_articlesService.DeleteArticle(article);
 			return RedirectToAction("Index");
 		}
-		public IActionResult Details(int id)
+
+        [HttpPost]
+        public IActionResult DeleteDraft(Article article)
+        {
+			ModelState.Clear(); // Rensa felmeddelanden
+								//	return View("Index", model);
+			return RedirectToAction("Create");
+        }
+        public IActionResult Details(int id)
 		{
 			var article = _articlesService.GetArticlesById(id);
 			return View(article);
