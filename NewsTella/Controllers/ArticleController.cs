@@ -24,39 +24,60 @@ namespace NewsTella.Controllers
 		{
 			return View();
 		}
-
 		[HttpPost]
 		public async Task<IActionResult> Create(Article article)
 		{
 
-			//if (!ModelState.IsValid)
-			//{ Clear Form
-			//	ModelState.Clear(); // Rensa felmeddelanden
-			//	return View("Index", model);
-			//}
-
-
-
-			article.Category = string.Join(", ", article.Cathegories);
-
-			var file = article.FormImage;
-			if (file != null && file.Length > 0)
-			{
-				var filePath = Path.Combine(Directory.GetCurrentDirectory(),@"wwwroot\Images\", file.FileName);
-				article.ImageLink = "/Images/"+ file.FileName;
-				using (var stream = new FileStream(filePath, FileMode.Create))
-				{
-					await file.CopyToAsync(stream);
-				}
+			if (!ModelState.IsValid)
+			{				
+				ModelState.Clear(); // Rensa felmeddelanden
+				return View("Index");
 			}
-				//if (ModelState.IsValid)
-				//{
+
+
+
+			if (ModelState.IsValid)
+			{
 				_articlesService.AddArticle(article);
-				return RedirectToAction("Index");				
-            //}
-            //return View(article);
+				return RedirectToAction("Index");
+			}
+			return View(article);
 
 		}
+
+		//[HttpPost]
+		//public async Task<IActionResult> Create(Article article)
+		//{
+
+		//	//if (!ModelState.IsValid)
+		//	//{ Clear Form
+		//	//	ModelState.Clear(); // Rensa felmeddelanden
+		//	//	return View("Index", model);
+		//	//}
+
+
+
+		//	article.Category = string.Join(", ", article.Cathegories);
+
+		//	var file = article.FormImage;
+		//	if (file != null && file.Length > 0)
+		//	{
+		//		var filePath = Path.Combine(Directory.GetCurrentDirectory(),@"wwwroot\Images\", file.FileName);
+		//		article.ImageLink = "/Images/"+ file.FileName;
+		//		using (var stream = new FileStream(filePath, FileMode.Create))
+		//		{
+		//			await file.CopyToAsync(stream);
+		//		}
+		//	}
+		//		//if (ModelState.IsValid)
+		//		//{
+		//		_articlesService.AddArticle(article);
+		//		return RedirectToAction("Index");				
+		//          //}
+		//          //return View(article);
+
+		//}	
+
 		public IActionResult Edit(int Id)
 		{
 			var article = _articlesService.GetArticlesById(Id);
