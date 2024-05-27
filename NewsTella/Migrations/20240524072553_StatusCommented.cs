@@ -18,12 +18,12 @@ namespace NewsTella.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Status",
-                table: "Articles",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+            //migrationBuilder.AddColumn<string>(
+            //    name: "Status",
+            //    table: "Articles",
+            //    type: "nvarchar(max)",
+            //    nullable: false,
+            //    defaultValue: "");
         }
     }
 }

@@ -30,7 +30,7 @@ namespace NewsTella.Models.Database
 		public string Content { get; set; } = String.Empty;
         public int Views { get; set; }
         public int Likes { get; set; }
-        public string ImageLink { get; set; } 
+		public string ImageLink { get; set; } = string.Empty;
 
 		[NotMapped]
 		public IFormFile FormImage { get; set; }
@@ -40,7 +40,7 @@ namespace NewsTella.Models.Database
 		[BindProperty]
 		public List<string> Cathegories { get; set; } = [];		
 		
-		public string Status { get; set; } = String.Empty;
+		
 
 		public string Category { get; set; } = String.Empty;
 
