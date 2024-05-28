@@ -17,17 +17,17 @@ namespace NewsTella.Models.Database
 		[Required]
 		[StringLength(200)]
 		[Display(Name = "Headline")]
-		public string Headline { get; set; } = String.Empty;
+		public string Headline { get; set; } = string.Empty;
 
 		[Required]
 		[StringLength(700)]
 		[Display(Name = "Summary")]
-		public string ContentSummary { get; set; } = String.Empty;
+		public string ContentSummary { get; set; } = string.Empty;
 
 		[Required]
 		[StringLength(4000)]
 		[Display(Name = "Content")]
-		public string Content { get; set; } = String.Empty;
+		public string Content { get; set; } = string.Empty;
         public int Views { get; set; }
         public int Likes { get; set; }
 		public string ImageLink { get; set; } = string.Empty;
@@ -40,12 +40,11 @@ namespace NewsTella.Models.Database
 		[BindProperty]
 		public List<string> Cathegories { get; set; } = [];		
 		
-		
 
-		public string Category { get; set; } = String.Empty;
+		public string Category { get; set; } = string.Empty;
 
 		[NotMapped]
-		public string TestImage { get; set; } = String.Empty;
+		public string TestImage { get; set; } = string.Empty;
 
 		[NotMapped]
 		public bool IsDeleted { get; set; } = false;

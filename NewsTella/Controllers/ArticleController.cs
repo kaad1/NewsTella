@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace NewsTella.Controllers
 {
@@ -19,63 +21,72 @@ namespace NewsTella.Controllers
 		{
 			return View(_articlesService.GetArticles());
 		}
+		//public IActionResult Create()
+		//{
+		//	var viewModel = new ArticleVM
+		//	{
+		//		Cathegories = AllCathegories.Select(c => new SelectListItem
+		//		{
+		//			Text = c,
+		//			Value = c
+
+		//		}).ToList()
+		//	};
+		//	return View(viewModel);
+		//}
 
 		public IActionResult Create()
-		{
+		{			
 			return View();
 		}
+		
 		[HttpPost]
 		public async Task<IActionResult> Create(Article article)
 		{
-			if (!ModelState.IsValid)
-			{				
-				ModelState.Clear(); // Rensa felmeddelanden
-				return View("Index");
-			}
 
+			article.Category = string.Join(", ", article.Cathegories);
 
-
-			if (ModelState.IsValid)
+			var file = article.FormImage;
+			if (file != null && file.Length > 0)
 			{
-				_articlesService.AddArticle(article);
-				return RedirectToAction("Index");
+				var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Images\", file.FileName);
+				article.ImageLink = "/Images/" + file.FileName;
+				using (var stream = new FileStream(filePath, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
 			}
-			return View(article);
+			
+			_articlesService.AddArticle(article);
+			return RedirectToAction("Index");
+			
 
 		}
-
-		//[HttpPost]
-		//public async Task<IActionResult> Create(Article article)
-		//{
-
-		//	//if (!ModelState.IsValid)
-		//	//{ Clear Form
-		//	//	ModelState.Clear(); // Rensa felmeddelanden
-		//	//	return View("Index", model);
-		//	//}
-
-
-
-		//	article.Category = string.Join(", ", article.Cathegories);
-
-		//	var file = article.FormImage;
-		//	if (file != null && file.Length > 0)
-		//	{
-		//		var filePath = Path.Combine(Directory.GetCurrentDirectory(),@"wwwroot\Images\", file.FileName);
-		//		article.ImageLink = "/Images/"+ file.FileName;
-		//		using (var stream = new FileStream(filePath, FileMode.Create))
+		//		public async Task<IActionResult> Edit(int Id)
 		//		{
-		//			await file.CopyToAsync(stream);
-		//		}
-		//	}
-		//		//if (ModelState.IsValid)
-		//		//{
-		//		_articlesService.AddArticle(article);
-		//		return RedirectToAction("Index");				
-		//          //}
-		//          //return View(article);
+		//			var article = _articlesService.GetArticlesById(Id);
+		//			if (article == null)
+		//			{
+		//				return NotFound();
+		//			}
 
-		//}	
+
+		//			var articleCategory =  _articlesService.GetArticlesById(Id);
+
+		//			var model = new ArticleEditVM
+		//			{
+		//				ArticleId = article.Id,
+		//				Category = article.Category,
+		//				LinkText = article.LinkText,
+		//				Headline = article.Headline,
+		//				ContentSummary = article.ContentSummary,
+		//				Content = article.Content,
+		//				ImageLink = article.ImageLink, 
+		//				Cathegories = _articlesService.Category.Select(c=>c.Cathegories).ToList(), 
+		//				SelectedCathegories = articleCategory.ToList()
+		//			};
+		//			return View(model);
+		//}
 
 		public IActionResult Edit(int Id)
 		{
@@ -85,12 +96,12 @@ namespace NewsTella.Controllers
 		[HttpPost]
 		public IActionResult Edit(Article article)
 		{
-			if (ModelState.IsValid)
-			{
-				_articlesService.UpdateArticle(article);
-				return RedirectToAction("Index");
-			}
-			return View(article);
+			//if (ModelState.IsValid)
+			//{
+			_articlesService.UpdateArticle(article);
+			return RedirectToAction("Index");
+			//}
+			//return View(article);
 		}
 		public IActionResult Delete(int id)
 		{
@@ -103,15 +114,8 @@ namespace NewsTella.Controllers
 			_articlesService.DeleteArticle(article);
 			return RedirectToAction("Index");
 		}
-
-        [HttpPost]
-        public IActionResult DeleteDraft(Article article)
-        {
-			ModelState.Clear(); // Rensa felmeddelanden
-								//	return View("Index", model);
-			return RedirectToAction("Create");
-        }
-        public IActionResult Details(int id)
+				
+		public IActionResult Details(int id)
 		{
 			var article = _articlesService.GetArticlesById(id);
 			return View(article);

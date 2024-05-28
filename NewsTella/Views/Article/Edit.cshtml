@@ -1,7 +1,5 @@
 ﻿@model NewsTella.Models.Database.Article
 @using NewsTella.Data;
-
-
 @{
 	ViewData["Title"] = "Edit";
 }
@@ -29,6 +27,111 @@
 				<img src="@Model.ImageLink" alt="Article Image" style="max-width: 100%; height: auto;" />
 			</dd>
 		</dl>
+		<dl class="row">
+			<dt class="col-md-2">
+				@Html.DisplayNameFor(model => model.ImageLink)
+			</dt>
+			<dd class="col-md-10">
+				<div class="form-group">
+					<input asp-for="ImageLink" class="form-control" />
+					<span asp-validation-for="ImageLink" class="text-danger"></span>
+				</div>
+			</dd>
+			<dt class="col-md-2">
+				@Html.DisplayNameFor(model => model.LinkText)
+			</dt>
+			<dd class="col-md-10">
+				<div class="form-group">
+					<input asp-for="LinkText" class="form-control" />
+					<span asp-validation-for="LinkText" class="text-danger"></span>
+				</div>
+			</dd>
+			<dt class="col-md-2">
+				@Html.DisplayNameFor(model => model.Headline)
+			</dt>
+			<dd class="col-md-10">
+				<div class="form-group">
+					<input asp-for="Headline" class="form-control" />
+					<span asp-validation-for="Headline" class="text-danger"></span>
+				</div>
+			</dd>			
+			<dt class="col-md-2">
+				@Html.DisplayNameFor(model => model.Content)
+			</dt>
+			<dd class="col-md-10">
+				<div class="form-group">
+					<textarea asp-for="Content" class="form-control" style="min-height: 500px"></textarea>
+					<span asp-validation-for="Content" class="text-danger"></span>
+				</div>
+			</dd>
+			<dt class="col-md-2 p-2">
+				@Html.DisplayNameFor(model => model.ContentSummary)
+			</dt>
+			<dd class="col-md-10 p-2">
+				<textarea asp-for="ContentSummary" class="form-control" style="min-height: 200px"></textarea>
+				<span asp-validation-for="ContentSummary" class="text-danger"></span>
+			</dd>
+			<dt class="col-md-2">
+				Category
+			</dt>
+			<dd class="col-md-10">
+
+			</dd>
+			<dd class="col-md-10 p-3">
+				
+			</dd>
+			<dt class="col-md-2 p-3">
+				Categories
+			</dt>
+			<dd class="col-md-10 p-3">
+				<div class="form-group">
+					@foreach (string item in Cathegories.CathegoriesList)
+					{
+						<div class="form-check-inline">
+							<input type="checkbox" class="form-check-input " id="@item" name="cathegories" value="@item" @(Model.Cathegories.Contains(item) ? "checked" : "")>
+							<label class="form-check-label" for="@item">@item</label>
+						</div>	
+					}
+				</div>
+			</dd>
+		</dl>
+		
+
+		<div class="form-group">
+			<input type="submit" value="Save" class="btn btn-primary" />
+		</div>
+	</form>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+	@section Scripts {
+		@{
+			await Html.RenderPartialAsync("_ValidationScriptsPartial");
+		}
+	}
+@* 
+
+
+
+
+
+	<hr />
+
+	<dl class="row">
+		<dt class="col-md-2">
+			Date
+		</dt>
+		<dd class="col-md-10">
+			@Html.DisplayFor(model => model.DateStamp)
+		</dd>
+		<dt class="col-md-2">
+			Image
+		</dt>
+		<dd class="col-md-10">
+			<img src="@Model.ImageLink" alt="Article Image" style="max-width: 100%; height: auto;" />
+		</dd>
+	</dl>
+	<form asp-action="Edit">
 		<dl class="row">
 			<dt class="col-md-2">
 				@Html.DisplayNameFor(model => model.ImageLink)
@@ -96,150 +199,27 @@
 					}
 				</div>
 			</dd>
+			<dt class="col-md-2 p-3">
+				Status
+			</dt>
 
-
-			@* <dd class="col-md-10 p-3">
-			<div class="form-group">
-			@foreach (var status in Statuses.StatusesList)
-			{
-			<input type="radio" asp-for="Status" value="@status" />
-			<label for="@status">@status</label>
-			}
-			</div>
-			</dd> *@
-			@* </dl> *@
-
-
-
-			@*     <form asp-action="Delete">
-			<input type="hidden" asp-for="Id" />
-			<input type="submit" value="Delete" class="btn btn-danger" /> |
-			<a asp-action="Index">Back to List</a>
-			</form> *@
-			@* <form asp-action="Edit" class="form-"> *@
-			<div class="form-group">
-				<input type="submit" value="Save" class="btn btn-primary" />
-			</div>
-	</form>
-	<a asp-action="Index">Back to List</a>
-	@* </form>
-	</div>
-
-
-	@section Scripts {
-	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-	}
-
-
-	@*
-
-	<div>
-
-	<hr />
-
-	<dl class="row">
-	<dt class="col-md-2">
-	Date
-	</dt>
-	<dd class="col-md-10">
-	@Html.DisplayFor(model => model.DateStamp)
-	</dd>
-	<dt class="col-md-2">
-	Image
-	</dt>
-	<dd class="col-md-10">
-	<img src="@Model.ImageLink" alt="Article Image" style="max-width: 100%; height: auto;" />
-	</dd>
-	</dl>
-	<form asp-action="Edit">
-	<dl class="row">
-	<dt class="col-md-2">
-	@Html.DisplayNameFor(model => model.ImageLink)
-	</dt>
-	<dd class="col-md-10">
-	<div class="form-group">
-	<input asp-for="ImageLink" class="form-control" />
-	<span asp-validation-for="ImageLink" class="text-danger"></span>
-	</div>
-	</dd>
-	<dt class="col-md-2">
-	@Html.DisplayNameFor(model => model.LinkText)
-	</dt>
-	<dd class="col-md-10">
-	<div class="form-group">
-	<input asp-for="LinkText" class="form-control" />
-	<span asp-validation-for="LinkText" class="text-danger"></span>
-	</div>
-	</dd>
-	<dt class="col-md-2">
-	@Html.DisplayNameFor(model => model.Headline)
-	</dt>
-	<dd class="col-md-10">
-	<div class="form-group">
-	<input asp-for="Headline" class="form-control" />
-	<span asp-validation-for="Headline" class="text-danger"></span>
-	</div>
-	</dd>
-	<dt class="col-md-2">
-	@Html.DisplayNameFor(model => model.Category)
-	</dt>
-	<dd class="col-md-10">
-	<input asp-for="Category" class="form-control" />
-	<span asp-validation-for="Category" class="text-danger"></span>
-	</dd>
-	<dt class="col-md-2">
-	@Html.DisplayNameFor(model => model.Content)
-	</dt>
-	<dd class="col-md-10">
-	<div class="form-group">
-	<textarea asp-for="Content" class="form-control" style="min-height: 500px"></textarea>
-	<span asp-validation-for="Content" class="text-danger"></span>
-	</div>
-	</dd>
-	<dt class="col-md-2 p-2">
-	@Html.DisplayNameFor(model => model.ContentSummary)
-	</dt>
-	<dd class="col-md-10 p-2">
-	<textarea asp-for="ContentSummary" class="form-control" style="min-height: 200px"></textarea>
-	<span asp-validation-for="ContentSummary" class="text-danger"></span>
-	</dd>
-
-	<dt class="col-md-2 p-3">
-	Categories
-	</dt>
-
-	<dd class="col-md-10 p-3">
-	<div class="form-group">
-	@foreach (string item in Cathegories.CathegoriesList)
-	{
-	<div class="form-check-inline">
-	<input type="checkbox" class="form-check-input " id="@item" name="cathegories" value="@item">
-	<label class="form-check-label" for="@item">@item</label>
-	</div>
-	}
-	</div>
-	</dd>
-	<dt class="col-md-2 p-3">
-	Status
-	</dt>
-
-	<dd class="col-md-10 p-3">
-	<div class="form-group">
-	@foreach (var status in Statuses.StatusesList)
-	{
-	<input type="radio" asp-for="Status" value="@status" />
-	<label for="@status">@status</label>
-	}
-	</div>
-	</dd>
-	</dl>
+			<dd class="col-md-10 p-3">
+				<div class="form-group">
+					@* 	@foreach (var status in Statuses.StatusesList)
+					{
+					<input type="radio" asp-for="Status" value="@status" />
+					<label for="@status">@status</label>
+					} 
+				</div>
+			</dd>
+		</dl>
 
 	</form>
 	<form asp-action="Edit">
-	<div class="form-group">
-	<input type="submit" value="Save" class="btn btn-primary" />
-	</div>
-	</form> *@
+		<div class="form-group">
+			<input type="submit" value="Save" class="btn btn-primary" />
+		</div>
+	</form>
 	@* <form asp-action="Edit">
 	<input type="hidden" asp-for="Id" />
 
@@ -474,3 +454,4 @@
 	await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
 	} *@
+ 

@@ -38,7 +38,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
-                </th>
+                </th>    
                 <th>
                     Actions
                 </th>
@@ -59,12 +59,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DateStamp)
                     </td>
-                   @*  <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td> *@
                     <td>
                         @Html.DisplayFor(modelItem => item.Category)
-                    </td>
+                    </td>                 
                     <td>
                         <button>
                             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

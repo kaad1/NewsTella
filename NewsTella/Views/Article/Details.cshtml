@@ -24,7 +24,6 @@
 							<span class="text-md-end">@Html.DisplayFor(model => model.DateStamp)</span>					
 					</div>
 				</content>
-
 				<h1>
 					@Html.DisplayFor(model => model.Headline)
 				</h1>
@@ -44,7 +43,7 @@
 	</div>
 </div>
 
-@*
+
 
 <h1>Details</h1>
 
@@ -100,12 +99,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ImageLink)
         </dd>
-        <dt class = "col-sm-2">
+  @*       <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
-        </dd>
+        </dd> *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
@@ -113,7 +112,7 @@
             @Html.DisplayFor(model => model.Category)
         </dd>
     </dl>
-</div> *@
+</div>
 @* <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
