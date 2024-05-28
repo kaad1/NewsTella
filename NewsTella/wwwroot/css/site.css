@@ -31,7 +31,7 @@ body {
     color: #d9534f
 }
 
-
+/*   Navbrand Navheading  */
 
 .logo-heading {
   color: #e41b13;
@@ -55,6 +55,10 @@ body {
   text-transform: uppercase;
   margin-right: 0;
 }
+
+/*************************************************************/
+
+/* Search dropdown */
 
 .search-dropdown {
   background-color: white;
@@ -82,9 +86,17 @@ body {
   border-color: #000;
 }
 
+/*************************************************************/
+
+/* Navbar Font-weight */
+
 .navbar-nav a {
     font-weight:600 !important;
 }
+
+/*************************************************************/
+
+/* Small navbar, Account registration and login, login and register buttons, subscribe */
 
 .small-nav {
     padding-top: 0.25rem;
@@ -139,6 +151,11 @@ body {
     border-color: #C41309 !important;
 }
 
+/************************************************************************************************************/
+
+
+/* Frontpage Left content */
+
 .img-size {
   width: 100%;
   height: auto;
@@ -181,11 +198,17 @@ body {
   color: #e41b13;
 }
 
+/***************************************/
+
+/* Frontpage Right side */
+
 .img-container {
   flex: 0 0 25%;
   width: 25%;
   display: block;
+  margin-left: 0;
   margin-right: auto;
+  order: 0;
 }
 
 .article-container {
@@ -201,6 +224,7 @@ body {
 
 .tab-article-section {
   padding-left: 20px;
+  width: 100%;
 }
 
 .img-tab-wrap {
@@ -210,7 +234,7 @@ body {
 }
 
 .tab-category-heading {
-  font-size: 15px !important;
+  font-size: 16px !important;
   color: #e41b13;
   font-weight: 500 !important;
   text-decoration: none;
@@ -236,6 +260,10 @@ body {
 .tab-article-heading a:hover {
   color: #e41b13;
 }
+
+/*********************************************************/
+
+/* Navpills Modified design */
 
 .nav-pills {
   position: relative;
@@ -289,6 +317,30 @@ body {
   z-index: 1;
   width: 100%;
 }
+
+/*************************************************/
+
+.front-img-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+}
+
+.front-img {
+    background-image: url('https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/49-scaled.jpg');
+    width: 100%;
+    height: 100%;
+    /*position: absolute;*/
+    background-size: cover;
+    background-position: center center;
+    min-width: 100%;
+    padding-bottom: 72%;
+    background-position: center 60%;
+}
+
+/* Mobile view for small nav and its content */
 
 @media (max-width: 576px) {
     .small-nav {
@@ -368,11 +420,32 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+/*******************************************************/
+
+/* Search dropdown - changed position of search dropdown for 768px screensize or less */
+
+@media (max-width: 767px) {
   .search-dropdown {
     top: 44px;
     /*width: 90%;*/
   }
+
+    .tab-category-heading {
+        font-size: 13px !important;
+    }
+
+    .tab-article-heading {
+        font-size: 16px !important;
+        margin-top: 4px;
+    }
+
+    .category-link {
+        font-size: 15px !important;
+    }
+
+    .article-heading {
+        font-size: 28px !important;
+    }
 }
 
 .fromHorisontal {
@@ -393,3 +466,16 @@ body {
     border: none;
     outline: none;
 }
+
+/* Removes container for 1200px and less */
+
+@media (max-width: 1200px) {
+    .container-rm-margin {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+    }
+} 
+
+
+          
