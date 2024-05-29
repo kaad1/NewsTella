@@ -8,10 +8,14 @@ namespace NewsTella.Services
     public class SubscriptionService : ISubscriptionService
     {
         private readonly AppDbContext _db;
+        private readonly AppDbContext _context;
+        private readonly ILogger<SubscriptionService> _logger;
 
-        public SubscriptionService(AppDbContext db)
+        public SubscriptionService(AppDbContext db, AppDbContext context, ILogger<SubscriptionService> logger)
         {
             _db = db;
+            _context = context;
+            _logger = logger;
         }
         public List<Subscription> GetSubscriptions()
         {
@@ -28,6 +32,7 @@ namespace NewsTella.Services
         {
             _db.Subscriptions.Add(subscription);
             _db.SaveChanges();
+            _logger.LogInformation("Subscription added with ID: {Id}", subscription.Id);
         }
 
         public void RemoveSubscription(Subscription subscription)

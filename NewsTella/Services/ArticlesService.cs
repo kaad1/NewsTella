@@ -39,14 +39,6 @@ namespace NewsTella.Services
 			var article = _db.Articles.ToList();
 			return article;
 		}
-		
-
-
-
-
-
-
-
 
 	}
 }
