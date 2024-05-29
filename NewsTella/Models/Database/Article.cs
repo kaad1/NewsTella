@@ -35,19 +35,18 @@ namespace NewsTella.Models.Database
 		[NotMapped]
 		public IFormFile FormImage { get; set; }
 
+		//public Status Status{get; set; }
 
 		[NotMapped]
 		[BindProperty]
 		public List<string> Cathegories { get; set; } = [];		
 		
-		
-
 		public string Category { get; set; } = String.Empty;
 
 		[NotMapped]
 		public string TestImage { get; set; } = String.Empty;
 
-		[NotMapped]
+		
 		public bool IsDeleted { get; set; } = false;
 		
 	}

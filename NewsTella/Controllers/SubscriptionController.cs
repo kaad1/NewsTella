@@ -28,7 +28,12 @@ namespace NewsTella.Controllers
             _context = context;
         }
 
-        [Authorize]
+		public IActionResult Index()
+		{
+			return View(_subscriptionTypeService.GetSubscriptionTypes());
+		} 
+
+		[Authorize]
         public IActionResult SelectSubscription()
         {
             var subscriptions = _context.SubscriptionTypes
@@ -70,7 +75,7 @@ namespace NewsTella.Controllers
                 };
                 _subscriptionService.AddSubscription(subscription);
 
-                    return RedirectToAction("Index", "Home");
+                return RedirectToAction("Create", "PaymentDetail");
             }
             return View(model);
         }

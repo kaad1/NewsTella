@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using NewsTella.Migrations;
 
 namespace NewsTella.Controllers
 {
@@ -92,29 +94,75 @@ namespace NewsTella.Controllers
 			}
 			return View(article);
 		}
-		public IActionResult Delete(int id)
-		{
-			var article = _articlesService.GetArticlesById(id);
-			return View(article);
-		}
-		[HttpPost]
-		public IActionResult Delete(Article article)
-		{
-			_articlesService.DeleteArticle(article);
-			return RedirectToAction("Index");
-		}
+        //public IActionResult Delete(int id)
+        //{
+        //	var article = _articlesService.GetArticlesById(id);
+        //	return View(article);
+        //}
+        //[HttpPost]
+        //public IActionResult Delete(Article article)
+        //{
+        //	_articlesService.DeleteArticle(article);
+        //	return RedirectToAction("Index");
+        //}
 
-        [HttpPost]
-        public IActionResult DeleteDraft(Article article)
-        {
-			ModelState.Clear(); // Rensa felmeddelanden
-								//	return View("Index", model);
-			return RedirectToAction("Create");
-        }
-        public IActionResult Details(int id)
-		{
-			var article = _articlesService.GetArticlesById(id);
-			return View(article);
-		}
+  //      public async Task<IActionResult> Delete(string userId)
+  //      {
+  //          if (string.IsNullOrEmpty(userId))
+  //          {
+  //              return BadRequest("User ID cannot be null or empty.");
+  //          }
+
+  //          var user = await _articlesService.GetArticlesById(id);
+  //          if (user == null)
+  //          {
+  //              return NotFound();
+  //          }
+
+  //          var model = new ArticleEditVM
+  //          {
+  //              ArticleId = article.Id,
+  //              LinkText = user.LinkText,
+  //              Headline = user.Headline,
+  //              Email = user.Email,
+  //          };
+
+  //          return View(model);
+  //      }
+
+  //      // POST: User/SoftDelete/5
+  //      [HttpPost, ActionName("DeleteConfirmed")]
+  //      [ValidateAntiForgeryToken]
+  //      public async Task<IActionResult> DeleteConfirmed(string userId)
+  //      {
+  //          var user = await _articlesService.FindByIdAsync(userId);
+  //          if (user == null)
+  //          {
+  //              return NotFound();
+  //          }
+
+  //          user.IsDeleted = true;
+  //          var result = await _articlesService.UpdateArticle(article);
+  //          if (!result.Succeeded)
+  //          {
+  //              ModelState.AddModelError("", "Error marking user as deleted");
+  //              return View();
+  //          }
+
+  //          return RedirectToAction(nameof(Index));
+  //      }
+
+  //      [HttpPost]
+  //      public IActionResult DeleteDraft(Article article)
+  //      {
+		//	ModelState.Clear(); // Rensa felmeddelanden
+		//						//	return View("Index", model);
+		//	return RedirectToAction("Create");
+  //      }
+  //      public IActionResult Details(int id)
+		//{
+		//	var article = _articlesService.GetArticlesById(id);
+		//	return View(article);
+		//}
 	}
 }

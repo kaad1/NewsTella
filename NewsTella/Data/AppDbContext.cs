@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NewsTella.Models.Database;
+using NewsTella.Models.ViewModel;
 
 namespace NewsTella.Data
 {
@@ -14,11 +15,17 @@ namespace NewsTella.Data
         public DbSet<Article> Articles { get; set; }   
         public DbSet<Subscription> Subscriptions { get; set; }
         public List<Article> ArticlesList { get; set; } = new List<Article>();
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		public DbSet<PaymentDetail> PaymentDetails { get; set; }
+        public DbSet<Category> Categories { get; set; }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Article>().ToTable("Articles");
         }
+	    public DbSet<NewsTella.Models.ViewModel.CategoryEditVM> CategoryEditVM { get; set; } = default!;
        
     }
 }
+
+
+
