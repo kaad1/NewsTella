@@ -546,10 +546,10 @@ body {
 
 @media (max-width: 392px) {
     .nav-pills .nav-link {
-        font-size: 14px !important;
+        font-size: 13px !important;
     }
     .tab-item {
-        margin-right: 13px;
+        margin-right: 15px;
     }
 
 }
