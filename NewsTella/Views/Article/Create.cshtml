@@ -39,14 +39,11 @@
 				<input asp-for="ImageLink" class="form-control" />
 				<span asp-validation-for="ImageLink" class="text-danger"></span>
 				</div>
-
-			@* 	<div class="form-group mb-2">
+				<div class="form-group mb-2">
 					<label class="col-form-label">Select imagefile</label>
 					<input asp-for="FormImage" class="form-control" />
 					<span asp-validation-for="FormImage" class="text-danger"></span>
-				</div> *@
-
-
+				</div>				
 				<div class="form-group mb-2">
 					<p>Categories</p>
 					@foreach (string item in Cathegories.CathegoriesList)
@@ -57,21 +54,12 @@
 						</div>
 					}
 				</div>
-
-				@* <div class="form-group mb-2">
-					<p>Status</p>
-					@foreach (var status in Statuses.StatusesList)
-					{
-						<input type="radio" asp-for="Status" value="@status" />
-						<label for="@status">@status</label>
-					}
-				</div>
- *@
-				<br />
-				<div class="form-group">
+				<br />		
+								
+				<div class="form-group">						
 					<input type="submit" value="Create" class="btn btn-primary" />
-					@* <input class="btn btn-info" type="button" value="Preview" onclick="location.href='@Url.Action("Index", "Article", Model)'" /> *@
-					@* <input class="btn btn-danger" type="button" value="Delete" onclick="location.href='@Url.Action("Create", "Article", Model)'" /> *@
+					 @* <input class="btn btn-info" type="button" value="Preview" onclick="location.href='@Url.Action("Preview", "Article", Model)'" />  *@
+					<input class="btn btn-warning" type="button" value="Clear Article" onclick="location.href='@Url.Action("Create", "Article", Model)'" />
 				</div>
 
 			</form>

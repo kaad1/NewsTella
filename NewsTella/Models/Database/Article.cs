@@ -46,8 +46,9 @@ namespace NewsTella.Models.Database
 		[NotMapped]
 		public string TestImage { get; set; } = string.Empty;
 
-		[NotMapped]
 		public bool IsDeleted { get; set; } = false;
-		
-	}
+
+        public string Status { get; set; } = "Draft";
+
+    }
 }

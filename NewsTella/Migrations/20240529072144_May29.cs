@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NewsTella.Migrations
 {
     /// <inheritdoc />
-    public partial class subscription : Migration
+    public partial class May29 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,14 +18,15 @@ namespace NewsTella.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LinkText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Headline = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContentSummary = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LinkText = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Headline = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ContentSummary = table.Column<string>(type: "nvarchar(700)", maxLength: 700, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: false),
                     Views = table.Column<int>(type: "int", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     ImageLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

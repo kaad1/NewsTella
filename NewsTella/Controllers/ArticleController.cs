@@ -6,6 +6,7 @@ using NewsTella.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Policy;
 
 namespace NewsTella.Controllers
 {
@@ -114,11 +115,131 @@ namespace NewsTella.Controllers
 			_articlesService.DeleteArticle(article);
 			return RedirectToAction("Index");
 		}
-				
+
+		//public async Task<IActionResult> Delete(string articleId)
+		//{
+		//	if (string.IsNullOrEmpty(articleId))
+		//	{
+		//		return BadRequest("Article ID cannot be null or empty.");
+		//	}
+
+		//	var article = await _articlesService.GetArticlesById(articleId);
+		//	if (article == null)
+		//	{
+		//		return NotFound();
+		//	}
+
+		//	var model = new ArticleEditVM
+		//	{
+		//		ArticleId = article.Id,
+		//		Category = article.Category,
+		//		LinkText = article.LinkText,
+		//		Headline = article.Headline,
+		//		ContentSummary = article.ContentSummary,
+		//		Content = article.Content,
+		//		ImageLink = article.ImageLink
+		//	};
+
+		//	return View(model);
+		//}
+
+		//// POST: User/SoftDelete/5
+		//[HttpPost, ActionName("DeleteConfirmed")]
+		//[ValidateAntiForgeryToken]
+		//public async Task<IActionResult> DeleteConfirmed(string articleId)
+		//{
+		//	var article = await _articlesService.GetArticlesById(articleId);
+		//	if (article == null)
+		//	{
+		//		return NotFound();
+		//	}
+
+		//	article.IsDeleted = true;
+		//	var result = await _articlesService.UpdateAsync(article);
+		//	if (!result.Succeeded)
+		//	{
+		//		ModelState.AddModelError("", "Error marking user as deleted");
+		//		return View();
+		//	}
+
+		//	return RedirectToAction(nameof(Index));
+		//}
+
 		public IActionResult Details(int id)
 		{
 			var article = _articlesService.GetArticlesById(id);
 			return View(article);
 		}
+		public IActionResult Preview(int id)
+		{
+			var article = _articlesService.GetArticlesById(id);
+			return View(article);
+		}
+		[HttpPost]
+		public async Task<IActionResult> Edit(int id, Article article)
+		{
+			article.DateStamp = DateTime.Now;
+
+			if (id != article.Id)
+			{
+				return NotFound();
+			}
+
+			_articlesService.UpdateArticle(article);
+
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		public IActionResult Status(int id)
+		{
+			var article = _articlesService.GetArticlesById(id);
+			if (article == null)
+			{
+				return NotFound();
+			}
+
+			article.Status = "Published2";
+			_articlesService.UpdateArticle(article);
+			return RedirectToAction(nameof(Index));
+		}
+
+		//public IActionResult ArticleEdit(int id)
+		//{
+		//    var newArticle = _articleService.GetArticleById(id);
+
+		//    return View(newArticle);
+		//}
+
+		//[HttpPost]
+		//public async Task<IActionResult> ArticleEdit(int id, Article article)
+		//{
+		//    article.DateStamp = DateTime.Now;
+
+		//    if (id != article.Id)
+		//    {
+		//        return NotFound();
+		//    }
+
+		//    _articleService.UpdateArticle(article);
+
+		//    return RedirectToAction("Index");
+		//}
+
+		//[HttpPost]
+		//public IActionResult Submit(int id)
+		//{
+		//    var article = _articleService.GetArticleById(id);
+		//    if (article == null)
+		//    {
+		//        return NotFound();
+		//    }
+
+		//    article.Status = "Submitted";
+		//    _articleService.SubmitArticle(article);
+		//    return RedirectToAction(nameof(Index));
+		//}
+
+
 	}
 }

@@ -14,14 +14,14 @@ namespace NewsTella
 			var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            //builder.Services.AddDbContext<AppDbContext>(options =>
-            //	options.UseSqlServer(connectionString));
-
-            //"LexiconConnection": "Data Source=dreammaker-it.se;Initial Catalog=newstelladb;User ID=newstellaadmin;Password=Nutella2024!;Encrypt=False;Trust Server Certificate=True"
-            var connectionString = builder.Configuration.GetConnectionString("LexiconConnection") ?? throw new InvalidOperationException("Connection string 'LexiconConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            ////"LexiconConnection": "Data Source=dreammaker-it.se;Initial Catalog=newstelladb;User ID=newstellaadmin;Password=Nutella2024!;Encrypt=False;Trust Server Certificate=True"
+            //var connectionString = builder.Configuration.GetConnectionString("LexiconConnection") ?? throw new InvalidOperationException("Connection string 'LexiconConnection' not found.");
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+            //    options.UseSqlServer(connectionString));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
