@@ -1,3 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --tt-secondary: Merriweather;
+    --tt-extra: Red Hat Display;
+    --tt-primary-font: Epilogue;
+}
+
 html {
   font-size: 14px;
 }
@@ -173,6 +183,7 @@ body {
   padding: 10px 0;
   color: #e41b13;
   font-weight: 500 !important;
+  font-family: var(--tt-extra) !important;
 }
 
 .category-link:hover {
@@ -182,6 +193,9 @@ body {
 .article-heading {
   font-weight: 800 !important;
   font-size: 28px !important;
+  font-family: var(--tt-primary-font) !important;
+  letter-spacing: -1px !important;
+  margin-bottom: 6px;
 }
 
 .article-heading a {
@@ -192,6 +206,8 @@ body {
 .article-paragraph {
   color: #777777;
   font-weight: 400 !important;
+  font-family: var(--tt-secondary) !important;
+  margin-top: 10px;
 }
 
 .article-heading a:hover {
@@ -225,6 +241,9 @@ body {
 .tab-article-section {
   padding-left: 20px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .img-tab-wrap {
@@ -238,14 +257,17 @@ body {
   color: #e41b13;
   font-weight: 500 !important;
   text-decoration: none;
+  font-family: var(--tt-extra) !important;
 }
 
 .tab-article-heading {
-  margin-top: 10px;
-  font-size: 20px !important;
-  line-height: 1.2 !important;
-  font-weight: 800 !important;
-  letter-spacing: -1px !important;
+    margin-top: 10px;
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    letter-spacing: -1px !important;
+    margin-bottom: 0;
+    font-family: var(--tt-primary-font) !important;
 }
 
 .tab-article-heading a {
@@ -279,6 +301,7 @@ body {
   padding: 0 0 12px 0;
   transition: color 0.3s;
   font-size: 16px !important;
+  font-family: var(--tt-extra) !important;
 }
 
 .tab-item {
@@ -339,6 +362,34 @@ body {
     padding-bottom: 72%;
     background-position: center 60%;
 }
+.img-container {
+    flex: 0 0 25%;
+    width: 25%;
+    display: block;
+    order: 0;
+    margin-left: 0;
+    margin-right: auto;
+    height: 100%;
+    position: relative;
+}
+
+.tab-img-wrapper {
+    position: relative;
+    margin-bottom: 0;
+}
+
+.tab-img {
+    background-image: url('https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/50.jpg');
+    padding-bottom: 68%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    background-size: cover;
+    background-position: center 50%;
+    display:block;
+
+}
+
 
 /* Mobile view for small nav and its content */
 
@@ -446,6 +497,61 @@ body {
     .article-heading {
         font-size: 28px !important;
     }
+
+    .article-paragraph {
+        font-size: 14px !important;
+    }
+
+    .col-margin {
+        margin-bottom: 40px;
+    }
+
+    .tab-article-section {
+        padding-left: 15px;
+    }
+
+}
+@media (min-width: 768px) and (max-width: 790px) {
+    .tab-item {
+        margin-right: 24px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1018px) {
+    .tab-category-heading {
+        font-size: 13px !important;
+    }
+
+    .tab-article-heading {
+        font-size: 15px !important;
+        margin-top: 4px;
+    }
+
+    .category-link {
+        font-size: 15px !important;
+    }
+
+    .article-heading {
+        font-size: 30px !important;
+    }
+
+    .article-paragraph {
+        font-size: 14px !important;
+    }
+
+    .tab-article-section {
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 392px) {
+    .nav-pills .nav-link {
+        font-size: 14px !important;
+    }
+    .tab-item {
+        margin-right: 13px;
+    }
+
 }
 
 .fromHorisontal {
@@ -469,13 +575,13 @@ body {
 
 /* Removes container for 1200px and less */
 
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
     .container-rm-margin {
         margin-left: 0;
         margin-right: 0;
         max-width: 100%;
     }
-} 
+}
 
 
-          
+
