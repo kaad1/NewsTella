@@ -41,6 +41,13 @@ body {
     color: #d9534f
 }
 
+.row-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 80px !important;
+    padding-top: 80px !important;
+}
+
 /*   Navbrand Navheading  */
 
 .logo-heading {
@@ -179,11 +186,12 @@ body {
 
 .category-link {
   text-decoration: none;
-  font-size: 15px !important;
+  font-size: 16px !important;
   padding: 10px 0;
   color: #e41b13;
   font-weight: 500 !important;
   font-family: var(--tt-extra) !important;
+  line-height: 1.6 !important;
 }
 
 .category-link:hover {
@@ -192,7 +200,7 @@ body {
 
 .article-heading {
   font-weight: 800 !important;
-  font-size: 28px !important;
+  font-size: 36px !important;
   font-family: var(--tt-primary-font) !important;
   letter-spacing: -1px !important;
   margin-bottom: 6px;
@@ -208,6 +216,10 @@ body {
   font-weight: 400 !important;
   font-family: var(--tt-secondary) !important;
   margin-top: 10px;
+  column-count: 1;
+  column-gap: 48px;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
 .article-heading a:hover {
@@ -258,6 +270,7 @@ body {
   font-weight: 500 !important;
   text-decoration: none;
   font-family: var(--tt-extra) !important;
+  line-height: 1 !important;
 }
 
 .tab-article-heading {
@@ -305,7 +318,7 @@ body {
 }
 
 .tab-item {
-    margin-right: 30px;
+    margin-right: 29px;
 }
 
 .tab-item:last-child {
@@ -390,6 +403,24 @@ body {
 
 }
 
+.fromHorisontal {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+
+.button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.no-border {
+    border: none;
+    outline: none;
+}
 
 /* Mobile view for small nav and its content */
 
@@ -510,10 +541,66 @@ body {
         padding-left: 15px;
     }
 
+    .article-container {
+        padding-bottom: 7.5px !important;
+        margin-bottom: 7.5px !important;
+    }
+
+    .tab-sm {
+        padding: 0;
+    }
+
+    .tab-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /*.nav-pills {
+        justify-content: center;
+    }*/
+
+    .tab-item {
+        margin-left: auto;
+    }
+
+    .container-rework {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .col-margin, .tab-sm {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .tab-wrapper {
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+    }
+
+    .tab-item:last-child {
+        margin-right: auto;
+    }
 }
+
+@media (min-width: 768px) {
+    .row-margin {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+    .col-margin, .tab-sm {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 790px) {
     .tab-item {
         margin-right: 24px;
+    }
+
+    .nav-pills .nav-link {
+        font-size: 15px !important;
     }
 }
 
@@ -542,6 +629,20 @@ body {
     .tab-article-section {
         padding-left: 15px;
     }
+
+    .tab-item {
+        margin-right: 16px;
+    }
+
+    .article-container {
+        padding-bottom: 7.5px !important;
+        margin-bottom: 7.5px !important;
+    }
+
+    .row-margin {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-width: 392px) {
@@ -554,23 +655,51 @@ body {
 
 }
 
-.fromHorisontal {
-    position:absolute;
-    margin:auto;
-    left:0;
-    right:0;
+@media (min-width: 1019px) and (max-width: 1140px) {
+    .article-container {
+        padding-bottom: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .container-rework {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .front-img {
+        padding-bottom: 80%;
+    }
+
 }
 
-
-.button {
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
+@media (min-width: 1141px) {
+    .container-rework {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 }
 
-.no-border {
-    border: none;
-    outline: none;
+@media (min-width: 768px) and (max-width: 1018px) {
+    @media (min-width: 768px) {
+        .col-margin, .tab-sm {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
+
+@media (min-width: 1019px) and (max-width: 1140px) {
+    @media (min-width: 768px) {
+        .row-margin {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .col-margin, .tab-sm {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
 }
 
 /* Removes container for 1200px and less */
@@ -580,8 +709,8 @@ body {
         margin-left: 0;
         margin-right: 0;
         max-width: 100%;
+        }
     }
-}
 
 
 
