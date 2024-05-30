@@ -1,47 +1,47 @@
 ﻿@model NewsTella.Models.Database.Article
 
 @{
-	ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details";
 }
 
 
 <h1>Details</h1>
 <div class="container">
-	<div class="row">
-		<hr />
-		<div class="col-md-2">
-			<div class="mt-3">
-			</div>
-		</div>
-		<div class="col-md-10 mt-5 p-5">
-			<div id="image" class="flex-column">
-				<content>
-					<div class="row">
-                        <img src="@Html.DisplayFor(model => model.ImageLink)" class="img-fluid" alt="Details Image" style="max-width: 100%; height: auto;" />
-							<div class="justify-content-between"></div>
-							<span class="text-md-start"><b>@Html.DisplayFor(model => model.Category)</b></span>
-							<span class="text-md-end">@Html.DisplayFor(model => model.DateStamp)</span>					
-					</div>
-				</content>
-				<h1>
-					@Html.DisplayFor(model => model.Headline)
-				</h1>
+    <div class="row">
+        <hr />
+        <div class="col-md-2">
+            <div class="mt-3">
+            </div>
+        </div>
+        <div class="col-md-10 mt-5 p-5">
+            <div id="image" class="flex-column">
+                <content>
+                    <div class="row">
+                        <img src="@Html.DisplayFor(model => model.ImageLink)" class="img-fluid" alt="Details Image" style="max-width: 100%; height: auto;" /> 
+                        @* <img src="@Html.DisplayFor(model => model.FormImage)" class="img-fluid" alt="Details Image" style="max-width: 100%; height: auto;" /> *@
+                        <div class="justify-content-between"></div>
+                        <span class="text-md-start"><b>@Html.DisplayFor(model => model.Category)</b></span>
+                        <span class="text-md-end">@Html.DisplayFor(model => model.DateStamp)</span>
+                    </div>
+                </content>
+                <h1>
+                    @Html.DisplayFor(model => model.Headline)
+                </h1>
 
-				@Html.DisplayFor(model => model.Content)
+                @Html.DisplayFor(model => model.Content)
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<hr />
-		<div class="col-2">
-			<div>
-				<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-				<a asp-action="Index">Back to List</a>
-			</div>
-		</div>
-	</div>
+        <hr />
+        <div class="form-group">
+
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edit</a>
+            <a asp-action="Index" class="btn btn-dark">Back</a>
+        </div>
+    </div>
 </div>
-@* 
+@*
 
 
 <h1>Details</h1>
@@ -103,7 +103,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
-        </dd> 
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>

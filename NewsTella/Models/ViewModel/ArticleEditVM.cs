@@ -11,6 +11,7 @@ namespace NewsTella.Models.ViewModel
 		public string Category { get; set; }
 		public string Content { get; set; }
 		public string ImageLink { get; set; }
+		
 		public List<string> Cathegories { get; set; }
 		public IList <string> SelectedCathegories { get; set; }		
 	}
