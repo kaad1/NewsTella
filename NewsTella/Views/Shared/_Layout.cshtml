@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/NewsTella.styles.css" asp-append-version="true" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -37,7 +40,7 @@
 							</div>	
                         </li>
 						<li class="nav-item ms-3">
-                            <a class="nav-link btn btn-success text-white" asp-area="" asp-controller="Subscription" asp-action="SelectSubscription">Subscribe</a>
+                            <a class="btn btn-success text-white" asp-area="" asp-controller="Subscription" asp-action="SelectSubscription">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -53,7 +56,7 @@
 
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
 					<ul class="navbar-nav ms-auto main-nav-content d-flex justify-content-sm-center text-center">
-                        @if (!User.IsInRole("Admin") && !User.IsInRole("Editor"))
+                        @if (!User.IsInRole("Admin") && !User.IsInRole("Editor") && !User.IsInRole("Writer"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -175,11 +178,10 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container">
-		<main role="main" class="pb-3">
+    
+		<main role="main" >
 			@RenderBody()
 		</main>
-	</div>
 
 
     <footer class="bg-dark text-white position-absolute">

@@ -1,3 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --tt-secondary: Merriweather;
+    --tt-extra: Red Hat Display;
+    --tt-primary-font: Epilogue;
+}
+
 html {
   font-size: 14px;
 }
@@ -31,7 +41,14 @@ body {
     color: #d9534f
 }
 
+.row-margin {
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 80px !important;
+    padding-top: 80px !important;
+}
 
+/*   Navbrand Navheading  */
 
 .logo-heading {
   color: #e41b13;
@@ -55,6 +72,10 @@ body {
   text-transform: uppercase;
   margin-right: 0;
 }
+
+/*************************************************************/
+
+/* Search dropdown */
 
 .search-dropdown {
   background-color: white;
@@ -82,9 +103,17 @@ body {
   border-color: #000;
 }
 
+/*************************************************************/
+
+/* Navbar Font-weight */
+
 .navbar-nav a {
     font-weight:600 !important;
 }
+
+/*************************************************************/
+
+/* Small navbar, Account registration and login, login and register buttons, subscribe */
 
 .small-nav {
     padding-top: 0.25rem;
@@ -139,6 +168,11 @@ body {
     border-color: #C41309 !important;
 }
 
+/************************************************************************************************************/
+
+
+/* Frontpage Left content */
+
 .img-size {
   width: 100%;
   height: auto;
@@ -152,10 +186,12 @@ body {
 
 .category-link {
   text-decoration: none;
-  font-size: 15px !important;
+  font-size: 16px !important;
   padding: 10px 0;
   color: #e41b13;
   font-weight: 500 !important;
+  font-family: var(--tt-extra) !important;
+  line-height: 1.6 !important;
 }
 
 .category-link:hover {
@@ -164,7 +200,10 @@ body {
 
 .article-heading {
   font-weight: 800 !important;
-  font-size: 28px !important;
+  font-size: 36px !important;
+  font-family: var(--tt-primary-font) !important;
+  letter-spacing: -1px !important;
+  margin-bottom: 6px;
 }
 
 .article-heading a {
@@ -175,17 +214,29 @@ body {
 .article-paragraph {
   color: #777777;
   font-weight: 400 !important;
+  font-family: var(--tt-secondary) !important;
+  margin-top: 10px;
+  column-count: 1;
+  column-gap: 48px;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
 }
 
 .article-heading a:hover {
   color: #e41b13;
 }
 
+/***************************************/
+
+/* Frontpage Right side */
+
 .img-container {
   flex: 0 0 25%;
   width: 25%;
   display: block;
+  margin-left: 0;
   margin-right: auto;
+  order: 0;
 }
 
 .article-container {
@@ -201,6 +252,10 @@ body {
 
 .tab-article-section {
   padding-left: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .img-tab-wrap {
@@ -210,18 +265,22 @@ body {
 }
 
 .tab-category-heading {
-  font-size: 15px !important;
+  font-size: 16px !important;
   color: #e41b13;
   font-weight: 500 !important;
   text-decoration: none;
+  font-family: var(--tt-extra) !important;
+  line-height: 1 !important;
 }
 
 .tab-article-heading {
-  margin-top: 10px;
-  font-size: 20px !important;
-  line-height: 1.2 !important;
-  font-weight: 800 !important;
-  letter-spacing: -1px !important;
+    margin-top: 10px;
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    letter-spacing: -1px !important;
+    margin-bottom: 0;
+    font-family: var(--tt-primary-font) !important;
 }
 
 .tab-article-heading a {
@@ -237,6 +296,10 @@ body {
   color: #e41b13;
 }
 
+/*********************************************************/
+
+/* Navpills Modified design */
+
 .nav-pills {
   position: relative;
 }
@@ -251,10 +314,11 @@ body {
   padding: 0 0 12px 0;
   transition: color 0.3s;
   font-size: 16px !important;
+  font-family: var(--tt-extra) !important;
 }
 
 .tab-item {
-    margin-right: 30px;
+    margin-right: 29px;
 }
 
 .tab-item:last-child {
@@ -289,6 +353,76 @@ body {
   z-index: 1;
   width: 100%;
 }
+
+/*************************************************/
+
+.front-img-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 0 0 auto;
+}
+
+.front-img {
+    background-image: url('https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/49-scaled.jpg');
+    width: 100%;
+    height: 100%;
+    /*position: absolute;*/
+    background-size: cover;
+    background-position: center center;
+    min-width: 100%;
+    padding-bottom: 72%;
+    background-position: center 60%;
+}
+.img-container {
+    flex: 0 0 25%;
+    width: 25%;
+    display: block;
+    order: 0;
+    margin-left: 0;
+    margin-right: auto;
+    height: 100%;
+    position: relative;
+}
+
+.tab-img-wrapper {
+    position: relative;
+    margin-bottom: 0;
+}
+
+.tab-img {
+    background-image: url('https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/50.jpg');
+    padding-bottom: 68%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    background-size: cover;
+    background-position: center 50%;
+    display:block;
+
+}
+
+.fromHorisontal {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+
+.button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.no-border {
+    border: none;
+    outline: none;
+}
+
+/* Mobile view for small nav and its content */
 
 @media (max-width: 576px) {
     .small-nav {
@@ -368,26 +502,222 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+/*******************************************************/
+
+/* Search dropdown - changed position of search dropdown for 768px screensize or less */
+
+@media (max-width: 767px) {
   .search-dropdown {
     top: 44px;
     /*width: 90%;*/
   }
+
+    .tab-category-heading {
+        font-size: 13px !important;
+    }
+
+    .tab-article-heading {
+        font-size: 16px !important;
+        margin-top: 4px;
+    }
+
+    .category-link {
+        font-size: 15px !important;
+    }
+
+    .article-heading {
+        font-size: 28px !important;
+    }
+
+    .article-paragraph {
+        font-size: 14px !important;
+    }
+
+    .col-margin {
+        margin-bottom: 40px;
+    }
+
+    .tab-article-section {
+        padding-left: 15px;
+    }
+
+    .article-container {
+        padding-bottom: 7.5px !important;
+        margin-bottom: 7.5px !important;
+    }
+
+    .tab-sm {
+        padding: 0;
+    }
+
+    .tab-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /*.nav-pills {
+        justify-content: center;
+    }*/
+
+    .tab-item {
+        margin-left: auto;
+    }
+
+    .container-rework {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .col-margin, .tab-sm {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .tab-wrapper {
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+    }
+
+    .tab-item:last-child {
+        margin-right: auto;
+    }
+
+    .row-margin {
+        padding-top: 24px !important;
+        padding-bottom: 60px !important;
+    }
 }
 
-.fromHorisontal {
-    position:absolute;
-    margin:auto;
-    left:0;
-    right:0;
+@media (min-width: 768px) {
+    .row-margin {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+    .col-margin, .tab-sm {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
+@media (min-width: 768px) and (max-width: 790px) {
+    .tab-item {
+        margin-right: 24px;
+    }
 
-.button {
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
+    .nav-pills .nav-link {
+        font-size: 15px !important;
+    }
 }
+
+@media (min-width: 768px) and (max-width: 1018px) {
+    .tab-category-heading {
+        font-size: 13px !important;
+    }
+
+    .tab-article-heading {
+        font-size: 15px !important;
+        margin-top: 4px;
+    }
+
+    .category-link {
+        font-size: 15px !important;
+    }
+
+    .article-heading {
+        font-size: 30px !important;
+    }
+
+    .article-paragraph {
+        font-size: 14px !important;
+    }
+
+    .tab-article-section {
+        padding-left: 15px;
+    }
+
+    .tab-item {
+        margin-right: 16px;
+    }
+
+    .article-container {
+        padding-bottom: 7.5px !important;
+        margin-bottom: 7.5px !important;
+    }
+
+    .row-margin {
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+}
+
+@media (max-width: 392px) {
+    .nav-pills .nav-link {
+        font-size: 13px !important;
+    }
+    .tab-item {
+        margin-right: 15px;
+    }
+
+}
+
+@media (min-width: 1019px) and (max-width: 1140px) {
+    .article-container {
+        padding-bottom: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .container-rework {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .front-img {
+        padding-bottom: 80%;
+    }
+
+}
+
+@media (min-width: 1141px) {
+    .container-rework {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1018px) {
+    @media (min-width: 768px) {
+        .col-margin, .tab-sm {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+}
+
+@media (min-width: 1019px) and (max-width: 1140px) {
+    @media (min-width: 768px) {
+        .row-margin {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .col-margin, .tab-sm {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
+
+/* Removes container for 1200px and less */
+
+@media (max-width: 1440px) {
+    .container-rm-margin {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+        }
+    }
 
 .no-border {
     border: none;
