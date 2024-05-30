@@ -67,7 +67,7 @@ namespace NewsTella.Controllers
 
 				_context.PaymentDetails.Add(paymentDetails);
 				await _context.SaveChangesAsync();
-                TempData["AlertMessage"] = "Thank you for Subscribing To NewsTella";
+                TempData["AlertMessage"] = "Thank you for Subscribing to NewsTella";
 
                 return RedirectToAction("Index", "PaymentDetail");
 			}

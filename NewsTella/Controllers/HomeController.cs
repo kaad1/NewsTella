@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewsTella.Models;
+using NewsTella.Models.ViewModel;
+using NewsTella.Services;
 using System.Diagnostics;
 
 namespace NewsTella.Controllers
@@ -9,15 +11,19 @@ namespace NewsTella.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly IArticlesService _articlesService;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IArticlesService articlesService)
 		{
 			_logger = logger;
+			_articlesService = articlesService;
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			ArticleVM model = new ArticleVM();
+			model.ArticleList = _articlesService.GetArticles();
+			return View(model);
 		}
 
 		public IActionResult Privacy()

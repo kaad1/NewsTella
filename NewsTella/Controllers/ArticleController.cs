@@ -5,45 +5,51 @@ using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using NewsTella.Migrations;
 
 namespace NewsTella.Controllers
 {
 	public class ArticleController : Controller
 	{
 		private readonly IArticlesService _articlesService;
+		private readonly ICategoryService _categoryService;
 
-		public ArticleController(IArticlesService articlesService)
+		public ArticleController(IArticlesService articlesService, ICategoryService categoryService)
 		{
 			_articlesService = articlesService;
+			_categoryService = categoryService;
 		}
 		public IActionResult Index()
 		{
-			return View(_articlesService.GetArticles());
+			var model = _articlesService.GetArticles();
+			return View(model);
 		}
 
 		public IActionResult Create()
 		{
-			return View();
+			ArticleCreateVM model = new ArticleCreateVM();
+			model.AllCategories = _categoryService.GetCategories();
+			return View(model);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Create(Article article)
+		public async Task<IActionResult> Create(ArticleCreateVM model)
 		{
-			if (!ModelState.IsValid)
-			{				
-				ModelState.Clear(); // Rensa felmeddelanden
-				return View("Index");
-			}
-
-
-
+			ModelState.Remove("AllCategories");
 			if (ModelState.IsValid)
 			{
+				var article = new Article
+				{
+					LinkText = model.LinkText,
+					Headline = model.Headline,
+					ContentSummary = model.ContentSummary,
+					Content = model.Content,
+					FormImage = model.FormImage,
+					Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList()
+				};
 				_articlesService.AddArticle(article);
 				return RedirectToAction("Index");
 			}
-			return View(article);
-
+			model.AllCategories = _categoryService.GetCategories();
+			return View(model);
 		}
 
 		//[HttpPost]

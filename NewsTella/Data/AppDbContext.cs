@@ -14,16 +14,18 @@ namespace NewsTella.Data
         public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
         public DbSet<Article> Articles { get; set; }   
         public DbSet<Subscription> Subscriptions { get; set; }
-        public List<Article> ArticlesList { get; set; } = new List<Article>();
 		public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Article>().ToTable("Articles");
+
+            modelBuilder.Entity<Article>()
+                .HasMany(a => a.Categories)
+                .WithMany(c => c.Articles)
+                .UsingEntity(j => j.ToTable("ArticleCategory"));
         }
-	    public DbSet<NewsTella.Models.ViewModel.CategoryEditVM> CategoryEditVM { get; set; } = default!;
-       
     }
 }
 

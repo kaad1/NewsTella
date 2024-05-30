@@ -7,5 +7,7 @@
 		public string Name { get; set; }
 
 		public bool IsDeleted { get; set; } = false;
+
+		public virtual ICollection<Article> Articles { get; set; }
 	}
 }

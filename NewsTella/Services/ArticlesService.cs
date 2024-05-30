@@ -1,6 +1,7 @@
 ﻿using NewsTella.Models.ViewModel;
 using NewsTella.Models.Database;
 using NewsTella.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewsTella.Services
 {
@@ -36,9 +37,13 @@ namespace NewsTella.Services
 		}
 		public List<Article> GetArticles()
 		{
-			var article = _db.Articles.ToList();
+			var article = _db.Articles.Include(a=>a.Categories).ToList();
 			return article;
 		}
 
-	}
+        public ICollection<Article> FindByCategory(string category)
+        {
+            return _db.Categories.Where(c => c.Name == category).FirstOrDefault().Articles;
+        }
+    }
 }

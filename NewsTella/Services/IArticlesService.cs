@@ -8,6 +8,6 @@ namespace NewsTella.Services
 		public void DeleteArticle(Article article);
 		public Article GetArticlesById(int id);
 		public List<Article> GetArticles();
-		
-	}
+		public ICollection<Article> FindByCategory(string category);
+    }
 }
