@@ -63,6 +63,8 @@
                         @Html.DisplayFor(modelItem => item.Status)
                     </td> *@
                     <td>
+                        @string.Join(", ", item.Categories.Select(c=>c.Name))
+
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>

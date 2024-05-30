@@ -66,3 +66,4 @@ function moveSmallNavLinksToMainNav() {
 moveSmallNavLinksToMainNav();
 
 window.addEventListener('resize', moveSmallNavLinksToMainNav);
+

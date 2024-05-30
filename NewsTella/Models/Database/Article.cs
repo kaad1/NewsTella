@@ -37,17 +37,24 @@ namespace NewsTella.Models.Database
 
 		//public Status Status{get; set; }
 
+		public virtual ICollection<Category> Categories { get; set; }
+
 		[NotMapped]
 		[BindProperty]
 		public List<string> Cathegories { get; set; } = [];		
-		
+
 		public string Category { get; set; } = String.Empty;
 
 		[NotMapped]
 		public string TestImage { get; set; } = String.Empty;
 
-		
+		[NotMapped]
 		public bool IsDeleted { get; set; } = false;
-		
-	}
+
+        public Article()
+        {
+            Categories = new HashSet<Category>();
+        }
+
+    }
 }

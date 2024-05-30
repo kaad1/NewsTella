@@ -30,6 +30,7 @@ namespace NewsTella.Controllers
 		[HttpPost]
 		public IActionResult Create(Category category)
 		{
+			ModelState.Remove("Articles");
 			if (ModelState.IsValid)
 			{
 				_categoryService.AddCategory(category);
