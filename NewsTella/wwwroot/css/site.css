@@ -581,6 +581,11 @@ body {
     .tab-item:last-child {
         margin-right: auto;
     }
+
+    .row-margin {
+        padding-top: 24px !important;
+        padding-bottom: 60px !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -642,6 +647,8 @@ body {
     .row-margin {
         margin-left: 0;
         margin-right: 0;
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
     }
 }
 
