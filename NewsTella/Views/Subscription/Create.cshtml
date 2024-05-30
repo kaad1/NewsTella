@@ -6,7 +6,7 @@
 
 <h3>Subription Detail</h3>
 <br/>
-<form id="acceptTermsForm" asp-action="Create" method="post">
+<form asp-action="Create" method="post">
     @Html.AntiForgeryToken()
 
     <div class="row form-group">
@@ -64,27 +64,18 @@
     </div>
     <br/>
     <div class="form-group form-check">
-        <input type="checkbox" id="AcceptedTerms" asp-for="AcceptTerms" class="form-check-input" required/>
+        <input type="checkbox" asp-for="AcceptTerms" class="form-check-input" required/>
         <label class="form-check-label" asp-for="AcceptTerms"></label>
         <span asp-validation-for="AcceptTerms" class="text-danger"></span>
     </div>
     <br/>
     <div class="form-group">
-        <input type="submit" value="Confirm" class="text-white btn btn-dark" />
+        <input type="submit" value="Confirm" class="btn btn-dark" />
     </div>
 </form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        document.getElementById('acceptTermsForm').addEventListener('submit', function(event) {
-            var acceptedTermsCheckbox = document.getElementById('AcceptedTerms');
-            if (!acceptedTermsCheckbox.checked) {
-                alert('You must accept the terms and conditions to proceed.');
-                event.preventDefault(); // Prevent the form from submitting
-            }
-        });
-    }
-    </script>
+    
 }
 
