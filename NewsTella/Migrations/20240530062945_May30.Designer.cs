@@ -12,8 +12,8 @@ using NewsTella.Data;
 namespace NewsTella.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240529123315_statusDraft")]
-    partial class statusDraft
+    [Migration("20240530062945_May30")]
+    partial class May30
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

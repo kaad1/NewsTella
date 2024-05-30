@@ -18,8 +18,8 @@
 </button>
 <div class="container">
     <h2>Article List</h2>
-   
-    <div class="row">       
+
+    <div class="row">
         <div class="col-md-9"></div>
         <div class="col-md-3">
             <input class="form-control" id="myInput" type="text" placeholder="Search..">
@@ -28,8 +28,8 @@
 
     <br>
     <table id="sortBy" class="table table-bordered table-striped">
-        <thead> 
-            <tr >
+        <thead>
+            <tr>
                 <th>
                     Image
                 </th>
@@ -41,7 +41,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
-                </th>    
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Status)
                 </th>
@@ -51,13 +51,13 @@
             </tr>
         </thead>
 
-        
+
         <tbody id="myTable">
             @foreach (var item in Model)
             {
                 <tr>
                     <td style="text-align: center;" align="center">
-                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px;" />
+                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
                     </td>
                     <td>
                         <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
@@ -71,19 +71,29 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
-                    <td>                        
-                        <button><a asp-action="Edit" asp-route-id="@item.Id">Edit</a></button>
-                        <button><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
-                        <button><a asp-action="Details" asp-route-id="@item.Id">Read</a></button>
-                       @*  <button><a asp-action="Status" asp-route-id="@item.Id">Publish</a></button> *@
-                      
-                       
+                    <td>
+                        <button class="btn btn-success" style="margin:10px"><a asp-action="Details" asp-route-id="@item.Id">Read</a></button>
+                        <button class="btn btn-info" style="margin:10px" ><a asp-action="Edit" asp-route-id="@item.Id">Edit</a></button>
+                        <button class="btn btn-danger" style="margin:10px"><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
+                        
+                        @if (item.Status == "Draft")
+                        {
+                            <form asp-action="ChangeStatus" method="post" style="display:inline; margin-inline-start: 60px; margin-inline-end:-5px; ">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <input type="hidden" name="newStatus" value="Redo" />
+                                <button type="submit" class="btn btn-warning">Publish</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+
+
+
 
 <script>
     $(document).ready(function () {

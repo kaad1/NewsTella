@@ -1,4 +1,4 @@
-﻿using NewsTella.Migrations;
+﻿//using NewsTella.Migrations;
 using NewsTella.Models.Database;
 
 namespace NewsTella.Services
@@ -7,10 +7,10 @@ namespace NewsTella.Services
 	{
 		public void AddArticle(Article article);
 		public void UpdateArticle(Article article);
-		public void DeleteArticle(Article article);
-	
-        public Article GetArticlesById(int id);
-		public List<Article> GetArticles();
+		public void DeleteArticle(Article article);		       
+        public Article GetArticleById(int id);
+		public List<Article> GetAllArticles();
+		
 		//Task UpdateAsync(string article);
 		//Task DeleteConfirmed(string articleId);
 	}

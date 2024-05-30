@@ -48,7 +48,7 @@ namespace NewsTella.Models.Database
 
 		public bool IsDeleted { get; set; } = false;
 
-        public string Status { get; set; } = "Draft";
+        public string Status { get; set; } = "Draft"; //default value
 
     }
 }
