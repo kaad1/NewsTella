@@ -2,6 +2,7 @@
 using NewsTella.Models.Database;
 using NewsTella.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient.DataClassification;
 //using NewsTella.Migrations;
 
 namespace NewsTella.Services
@@ -42,14 +43,44 @@ namespace NewsTella.Services
         {
             article.DateStamp = DateTime.Now;
             article.DateStamp = DateTime.Now;
-            article.Status = "Published";            
+            article.Status = "Draft";
+            
 
             article.ImageLink = "https://dummyimage.com/600x400/000/fff";
 
             _db.Update(article);
             _db.SaveChanges();
         }
-        
+        public void UpdateArticleStatus(Article article)
+        {
+            article.DateStamp = DateTime.Now;
+            article.DateStamp = DateTime.Now;
+            article.Status = "Published";
+
+
+            article.ImageLink = "https://dummyimage.com/600x400/000/fff";
+
+            _db.Update(article);
+            _db.SaveChanges();
+        }
+       
+
+
+
+
+
+        //public Task UpdateAsync(string article)
+        //{
+        //	return Task.CompletedTask;
+        //}
+        //Task DeleteConfirmed(string articleId)
+        //{
+        //	return Task.CompletedTask;
+        //}
+
+
+
+
 
 
 

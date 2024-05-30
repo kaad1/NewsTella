@@ -131,11 +131,7 @@ namespace NewsTella.Controllers
             var article = _articlesService.GetArticleById(id);
             return View(article);
         }
-        public IActionResult UpdateStatus(int Id)
-        {
-            var article = _articlesService.GetArticleById(Id);
-            return View(article);
-        }       
+     
                
         public IActionResult ChangeStatus(int id, string status)
         {
@@ -143,7 +139,7 @@ namespace NewsTella.Controllers
             if (article != null)
             {
                 article.Status = status;
-                _articlesService.UpdateArticle(article);
+                _articlesService.UpdateArticleStatus(article);
             }
             // return View(article);
             return RedirectToAction("Index");

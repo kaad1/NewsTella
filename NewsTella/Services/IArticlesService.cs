@@ -7,7 +7,8 @@ namespace NewsTella.Services
 	{
 		public void AddArticle(Article article);
 		public void UpdateArticle(Article article);
-		public void DeleteArticle(Article article);		       
+        public void UpdateArticleStatus(Article article);
+        public void DeleteArticle(Article article);		       
         public Article GetArticleById(int id);
 		public List<Article> GetAllArticles();
 		
