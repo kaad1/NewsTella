@@ -1,5 +1,4 @@
-﻿//using NewsTella.Migrations;
-using NewsTella.Models.Database;
+﻿using NewsTella.Models.Database;
 
 namespace NewsTella.Services
 {
@@ -14,15 +13,17 @@ namespace NewsTella.Services
         public void DeleteArticle(Article article);	        
         
         public Article GetArticleById(int id);
-    
-        public List<Article> GetAllArticles();
-        public List<Article> GetArticles();    
-    
-        public ICollection<Article> FindByCategory(string category);
-   
+
+		public List<Article> GetArticles();
+		//public List<Article> GetArticlesById(int id);
+
+		public ICollection<Article> FindByCategory(string category);
+        public ICollection<Article> FindByHeadline(string headline); 
+		
+
 
 		//Task UpdateAsync(string article);
-    
+
 		//Task DeleteConfirmed(string articleId);
 	}
 
