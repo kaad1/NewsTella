@@ -43,7 +43,7 @@ namespace NewsTella.Services
         {
             article.DateStamp = DateTime.Now;
             article.Status = "Draft";
-            
+         
 
             _db.Update(article);
             _db.SaveChanges();
@@ -53,6 +53,7 @@ namespace NewsTella.Services
             article.DateStamp = DateTime.Now;
             article.Status = "Published";
 
+            //article.ImageLink = "https://dummyimage.com/600x400/000/fff";
 
             _db.Update(article);
             _db.SaveChanges();

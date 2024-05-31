@@ -67,9 +67,9 @@
                     <td style="text-align: center;" align="center">
                         <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
                     </td>
-                    <td style="text-align: center;" align="center">
+                    @* <td style="text-align: center;" align="center">
                         <img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
-                    </td> 
+                    </td>  *@
                     <td>
                         <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
                     </td>

@@ -25,31 +25,58 @@ namespace NewsTella.Controllers
        
 
         public IActionResult Create()
-        {
+        { 
+
             return View();
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Article article)
+        //{
+        //    article.Category = string.Join(", ", article.Cathegories);
+
+        //    var file = article.FormImage;
+        //    if (file != null && file.Length > 0)
+        //    {
+        //        var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Images\", file.FileName);
+        //        article.ImageLink = "/Images/" + file.FileName;
+        //        using (var stream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            await file.CopyToAsync(stream);
+        //        }
+        //    }
+        //    _articlesService.AddArticle(article);
+        //    return RedirectToAction("Index");
+
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Create(Article article)
         {
-            article.Category = string.Join(", ", article.Cathegories);
-
-            var file = article.FormImage;
-            if (file != null && file.Length > 0)
+            if (ModelState.IsValid)
             {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Images\", file.FileName);
-                article.ImageLink = "/Images/" + file.FileName;
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                article.Category = string.Join(", ", article.Cathegories);
+
+                if (article.FormImage != null && article.FormImage.Length > 0)
                 {
-                    await file.CopyToAsync(stream);
+                    var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
+                    var fileName = Path.GetFileName(article.FormImage.FileName);
+                    var filePath = Path.Combine(uploads, fileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await article.FormImage.CopyToAsync(fileStream);
+                    }
+                    article.ImageLink = "/Images/" + fileName;
                 }
+
+                _articlesService.AddArticle(article);
+                return RedirectToAction("Index");
             }
-
-            _articlesService.AddArticle(article);
-            return RedirectToAction("Index");
-
-
+            return View(article);
         }
+
+
+
         //[HttpPost]
         //public async Task<IActionResult> Create(Article article)
         //{
