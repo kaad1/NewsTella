@@ -6,9 +6,11 @@
 
 <h1>Delete Article</h1>
 
-<h3>Are you sure you want to delete this article?</h3>
+@* <h3>Are you sure you want to delete this article?</h3> *@
 <div>    
     <hr />
+    <br />
+
     <dl class="row">
         <dt class="col-sm-2">
            Image
@@ -17,6 +19,11 @@
             <img src="@Html.DisplayFor(model => model.ImageLink)" class="img-fluid" alt="Article Image" style="max-width: 100%; height: auto;" />
 
         </dd>
+       @*  <dd class="col-sm-10">
+            <img src="@Html.DisplayFor(model => model.FormImage)" class="img-fluid" alt="Article Image" style="max-width: 100%; height: auto;" />
+
+        </dd> *@
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DateStamp)
         </dt>
@@ -54,10 +61,10 @@
             @Html.DisplayFor(model => model.Category)
         </dd>
     </dl>
-    
+    <hr />
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-dark">Back to List</a>
     </form>
 </div>

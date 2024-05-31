@@ -50,7 +50,28 @@ namespace NewsTella.Controllers
 
 
         }
-        
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Article article)
+        //{
+        //    article.Category = string.Join(", ", article.Cathegories);
+
+        //   // var file = article.FormImage;
+        //    //if (file != null && file.Length > 0)
+        //    //{
+        //    //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Images\", file.FileName);
+        //    //    article.ImageLink = "/Images/" + file.FileName;
+        //    //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    //    {
+        //    //        await file.CopyToAsync(stream);
+        //    //    }
+        //    //}
+
+        //    _articlesService.AddArticle(article);
+        //    return RedirectToAction("Index");
+
+
+        //}
+
 
         public IActionResult Edit(int Id)
         {

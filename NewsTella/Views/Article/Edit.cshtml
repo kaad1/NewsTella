@@ -12,7 +12,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
 
-
+        <br />
         <dl class="row">
             <dt class="col-md-2">
                 Date
@@ -26,17 +26,30 @@
             <dd class="col-md-10">
                 <img src="@Model.ImageLink" alt="Edit Image" style="max-width: 100%; height: auto;" />
             </dd>
-        </dl>
+           @*  <dd class="col-md-10">
+                <img src="@Model.FormImage" alt="Edit Image" style="max-width: 100%; height: auto;" />
+            </dd>*@
+        </dl> 
         <dl class="row">
             <dt class="col-md-2">
                 @Html.DisplayNameFor(model => model.ImageLink)
             </dt>
+            
             <dd class="col-md-10">
                 <div class="form-group">
                     <input asp-for="ImageLink" class="form-control" />
                     <span asp-validation-for="ImageLink" class="text-danger"></span>
                 </div>
             </dd>
+            @* <dt class="col-md-2">
+                @Html.DisplayNameFor(model => model.FormImage)
+            </dt>
+            <dd class="col-md-10">
+                <div class="form-group">
+                    <input asp-for="FormImage" class="form-control" />
+                    <span asp-validation-for="FormImage" class="text-danger"></span>
+                </div>
+            </dd> *@
             <dt class="col-md-2">
                 @Html.DisplayNameFor(model => model.LinkText)
             </dt>
@@ -79,13 +92,17 @@
                 <span asp-validation-for="Category" class="text-danger"></span>
             </dd>
         </dl>
+        <br />
 
 
+        <hr />
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-success" />
+            <a asp-action="Index" class="btn btn-dark">Back</a>
         </div>
     </form>
-    <a asp-action="Index">Back to List</a>
+</div>
+
 
 @section Scripts {
     @{
