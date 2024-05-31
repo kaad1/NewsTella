@@ -36,6 +36,7 @@ namespace NewsTella.Controllers
 			ModelState.Remove("AllCategories");
 			if (ModelState.IsValid)
 			{
+
 				var article = new Article
 				{
 					LinkText = model.LinkText,
