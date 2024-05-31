@@ -17,5 +17,8 @@
         public bool PaymentComplete { get; set; }
 
         public bool IsDeleted { get; set; } = false;
-    }
+
+		//public bool IsActive { get; set; } = true;
+
+	}
 }

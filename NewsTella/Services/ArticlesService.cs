@@ -3,8 +3,9 @@ using NewsTella.Models.Database;
 using NewsTella.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.DataClassification;
+using Microsoft.EntityFrameworkCore;
 //using NewsTella.Migrations;
-
+  
 namespace NewsTella.Services
 {
     public class ArticlesService : IArticlesService
@@ -38,13 +39,27 @@ namespace NewsTella.Services
             var article = _db.Articles.ToList();
             return article;
         }
+          // public List<Article> GetArticles()
+         //   {
+         //     var article = _db.Articles.Include(a=>a.Categories).ToList();
+        //      return article;
+      //      }
+      
+      // public List<Article> GetAllArticles()
+         //   {
+         //     var article = _db.Articles.Include(a=>a.Categories).ToList();
+        //      return article;
+      //      }
+
               
         public void UpdateArticle(Article article)
         {
             article.DateStamp = DateTime.Now;
             article.Status = "Draft";
          
-
+            // _db.Articles.Update(article);
+			      // _db.SaveChanges();
+            
             _db.Update(article);
             _db.SaveChanges();
         }
@@ -58,11 +73,11 @@ namespace NewsTella.Services
             _db.Update(article);
             _db.SaveChanges();
         }
+         public ICollection<Article> FindByCategory(string category)
+        {
+            return _db.Categories.Where(c => c.Name == category).FirstOrDefault().Articles;
+        }
        
-
-
-
-
 
         //public Task UpdateAsync(string article)
         //{
@@ -72,14 +87,6 @@ namespace NewsTella.Services
         //{
         //	return Task.CompletedTask;
         //}
-
-
-
-
-
-
-
-
 
     }
 }

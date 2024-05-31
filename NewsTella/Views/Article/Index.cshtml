@@ -77,6 +77,8 @@
                         @Html.DisplayFor(modelItem => item.DateStamp)
                     </td>
                     <td>
+                        @string.Join(", ", item.Categories.Select(c=>c.Name))
+
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>

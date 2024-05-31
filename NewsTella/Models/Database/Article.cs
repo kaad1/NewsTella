@@ -36,10 +36,11 @@ namespace NewsTella.Models.Database
 		public IFormFile FormImage { get; set; }
 
 
+		public virtual ICollection<Category> Categories { get; set; }
+
 		[NotMapped]
 		[BindProperty]
 		public List<string> Cathegories { get; set; } = [];		
-		
 
 		public string Category { get; set; } = string.Empty;
 
@@ -48,7 +49,14 @@ namespace NewsTella.Models.Database
 
 		public bool IsDeleted { get; set; } = false;
 
+
         public string Status { get; set; } = "Draft"; //default value
+
+        public Article()
+        {
+            Categories = new HashSet<Category>();
+        }
+
 
     }
 }

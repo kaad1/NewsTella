@@ -8,6 +8,7 @@ namespace NewsTella.Models.ViewModel
     {
         [Required]
         public int SubscriptionTypeId { get; set; }
+        //public int UserId { get; set; }
         public string SubscriptionType { get; set; }
         public decimal Price { get; set; }
         public DateOnly Created { get; set; }
