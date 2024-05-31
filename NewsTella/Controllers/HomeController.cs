@@ -23,6 +23,7 @@ namespace NewsTella.Controllers
 		{
 			ArticleVM model = new ArticleVM();
 			model.ArticleList = _articlesService.GetArticles();
+			
 			return View(model);
 		}
 

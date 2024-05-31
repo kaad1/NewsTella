@@ -5,28 +5,39 @@
 }
 
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 
+
 <div class="container">
-    <h2>Article List</h2>
     <div class="row">
-        <div class="col-md-9"></div>
-        <div class="col-md-3">
-            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <div class="col" style="margin-bottom: 50px;">
+
+            <a asp-action="Create" class="btn btn-success">Create Article</a>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Article List</h2>
+        </div>
+        <div class="col-md-6">
+            <form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
+                <div class="input-group">
+                    <input type="text" id="articleSearch" class="form-control" placeholder="Search.." />
+                    <input type="submit" value="Search" class="btn btn-dark ml-2" />
+                </div>
+            </form>
         </div>
     </div>
 
-    <br>
-    <table id="sortBy" class="table table-bordered table-striped">
-        <thead> 
-            <tr >
+    <br />
+    <table id="sortBy" class="table table-striped">
+        <thead>
+            <tr>
                 <th>
                     Image
                 </th>
@@ -40,38 +51,52 @@
                     @Html.DisplayNameFor(model => model.Category)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
                     Actions
                 </th>
             </tr>
         </thead>
 
-        
+
         <tbody id="myTable">
             @foreach (var item in Model)
             {
                 <tr>
                     <td style="text-align: center;" align="center">
-                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px;" />
+                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
                     </td>
+                    @* <td style="text-align: center;" align="center">
+                        <img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
+                    </td>  *@
                     <td>
                         <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DateStamp)
                     </td>
-                   @*  <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td> *@
                     <td>
                         @string.Join(", ", item.Categories.Select(c=>c.Name))
 
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>
-                        <button>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        </button>
-                        <button><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>                      
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary" style="margin:10px">Read</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" style="margin:10px">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" style="margin:10px">Delete</a>
+
+                        @if (item.Status == "Draft")
+                        {
+                            <form asp-action="ChangeStatus" method="post" style="display:inline; margin-inline-start: 60px; margin-inline-end:-5px; ">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <input type="hidden" name="newStatus" value="Redo" />
+                                <button type="submit" class="btn btn-warning">Publish</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             }
@@ -81,7 +106,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
+        $("#articleSearch").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#myTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -91,3 +116,114 @@
 </script>
 
 
+@* below works well
+    @model IEnumerable<NewsTella.Models.Database.Article>
+
+    @{
+    ViewData["Title"] = "Index";
+    }
+
+    <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <button>
+    <a asp-action="Create">Create New Article</a>
+    </button>
+    <div class="container">
+    <h2>Article List</h2>
+
+    <div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    </div>
+    </div>
+
+    <br>
+    <table id="sortBy" class="table table-bordered table-striped">
+    <thead>
+    <tr>
+    <th>
+    Image
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Headline)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.DateStamp)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Category)
+    </th>
+    <th>
+    @Html.DisplayNameFor(model => model.Status)
+    </th>
+    <th>
+    Actions
+    </th>
+    </tr>
+    </thead>
+
+
+    <tbody id="myTable">
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td style="text-align: center;" align="center">
+    <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
+    </td>
+    <td>
+    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.DateStamp)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Category)
+    </td>
+    <td>
+    @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+    <button class="btn btn-success" style="margin:10px"><a asp-action="Details" asp-route-id="@item.Id">Read</a></button>
+    <button class="btn btn-info" style="margin:10px" ><a asp-action="Edit" asp-route-id="@item.Id">Edit</a></button>
+    <button class="btn btn-danger" style="margin:10px"><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
+
+    @if (item.Status == "Draft")
+    {
+    <form asp-action="ChangeStatus" method="post" style="display:inline; margin-inline-start: 60px; margin-inline-end:-5px; ">
+    <input type="hidden" name="id" value="@item.Id" />
+    <input type="hidden" name="newStatus" value="Redo" />
+    <button type="submit" class="btn btn-warning">Publish</button>
+    </form>
+    }
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+
+
+
+
+
+    <script>
+    $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function () {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+    });
+    });
+    </script>
+
+
+    *@
