@@ -54,6 +54,7 @@ namespace NewsTella.Controllers
 		public async Task<IActionResult> Create(ArticleCreateVM model)
 		{
 			ModelState.Remove("AllCategories");
+			ModelState.Remove("ImageLink");
 			if (ModelState.IsValid)
 			{
 				var article = new Article
@@ -62,10 +63,22 @@ namespace NewsTella.Controllers
 					Headline = model.Headline,
 					ContentSummary = model.ContentSummary,
 					Content = model.Content,
-					FormImage = model.FormImage,
 					Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList()
 				};
-				_articlesService.AddArticle(article);
+
+				if (model.FormImage != null && model.FormImage.Length > 0)
+				{
+					var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
+					var fileName = Path.GetFileName(model.FormImage.FileName);
+					var filePath = Path.Combine(uploads, fileName);
+					using (var fileStream = new FileStream(filePath, FileMode.Create))
+					{
+						await model.FormImage.CopyToAsync(fileStream);
+					}
+                    article.ImageLink = "/Images/" + fileName;
+                }
+
+                _articlesService.AddArticle(article);
 				return RedirectToAction("Index");
 			}
 			model.AllCategories = _categoryService.GetCategories();
@@ -75,8 +88,22 @@ namespace NewsTella.Controllers
 		public IActionResult Edit(int Id)
 		{
 			var article = _articlesService.GetArticleById(Id);
+			var model = new ArticleEditVM 
+			{
+				Id = article.Id,
+				DateStamp = article.DateStamp,
+				LinkText = article.LinkText,
+				Headline = article.Headline,
+				ContentSummary = article.ContentSummary,
+				Content = article.Content,
+				FormImage = article.FormImage,
+				ImageLink = article.ImageLink,
+				SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
+				AllCategories = _categoryService.GetCategories()
+			};
 			return View(article);
 		}
+
 		[HttpPost]
 		public IActionResult Edit(Article article)
 		{
