@@ -17,7 +17,9 @@ namespace NewsTella.Models.ViewModel
 
 		public IFormFile FormImage { get; set; }
 
-		public List<int> SelectedCategoryIds { get; set; }
+        public string ImageLink { get; set; }
+
+        public List<int> SelectedCategoryIds { get; set; }
 
 		public List<Category> AllCategories { get; set; } 
 

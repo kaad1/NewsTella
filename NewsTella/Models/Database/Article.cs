@@ -28,27 +28,22 @@ namespace NewsTella.Models.Database
 		[StringLength(4000)]
 		[Display(Name = "Content")]
 		public string Content { get; set; } = string.Empty;
+
         public int Views { get; set; }
+
         public int Likes { get; set; }
+
 		public string ImageLink { get; set; } = string.Empty;
 
 		[NotMapped]
 		public IFormFile FormImage { get; set; }
 
-
 		public virtual ICollection<Category> Categories { get; set; }
-
-		[NotMapped]
-		[BindProperty]
-		public List<string> Cathegories { get; set; } = [];		
-
-		public string Category { get; set; } = string.Empty;
 
 		[NotMapped]
 		public string TestImage { get; set; } = string.Empty;
 
 		public bool IsDeleted { get; set; } = false;
-
 
         public string Status { get; set; } = "Draft"; //default value
 
@@ -56,7 +51,5 @@ namespace NewsTella.Models.Database
         {
             Categories = new HashSet<Category>();
         }
-
-
     }
 }
