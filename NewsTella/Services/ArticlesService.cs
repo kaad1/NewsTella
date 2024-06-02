@@ -36,11 +36,7 @@ namespace NewsTella.Services
 			_db.Articles.Remove(article);
 			_db.SaveChanges();
 		}
-		public Article GetArticlesById(int id)
-		{
-			var article = _db.Articles.FirstOrDefault(a => a.Id == id);
-			return article;
-		}
+		
 		public Article GetArticleById(int id)
 		{
 			var article = _db.Articles.FirstOrDefault(a => a.Id == id);
@@ -48,7 +44,7 @@ namespace NewsTella.Services
 		}
 		public List<Article> GetArticles()
 		{
-			var article = _db.Articles.Include(a => a.Categories).ToList();
+			var article = _db.Articles.Where(a => a.IsDeleted == false).Include(a => a.Categories).ToList();
 			return article;
 		}
 		
@@ -63,12 +59,12 @@ namespace NewsTella.Services
 
 		public ICollection<Article> FindByCategory(string category)
 		{
-			return _db.Categories.Where(c => c.Name == category).FirstOrDefault().Articles;
+			return _db.Categories.Where(c => c.Name == category).FirstOrDefault().Articles.Where(a => a.IsDeleted == false).ToList();
 		}
 
 		public ICollection<Article> FindByHeadline(string headline)
 		{
-			return _db.Articles.Where(a => a.Headline.Contains(headline)).ToList();
+			return _db.Articles.Where(a => a.Headline.Contains(headline) && a.IsDeleted == false).ToList();
 		}
 	
 

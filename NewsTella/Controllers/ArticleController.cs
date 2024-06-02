@@ -116,10 +116,13 @@ namespace NewsTella.Controllers
 			var article = _articlesService.GetArticleById(id);
 			return View(article);
 		}
+
 		[HttpPost]
 		public IActionResult Delete(Article article)
 		{
-			_articlesService.DeleteArticle(article);
+			article = _articlesService.GetArticleById(article.Id);
+			article.IsDeleted = true;
+			_articlesService.UpdateArticle(article);
 			return RedirectToAction("Index");
 		}			
 	
