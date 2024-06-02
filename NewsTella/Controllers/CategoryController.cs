@@ -47,7 +47,9 @@ namespace NewsTella.Controllers
 		[HttpPost]
 		public IActionResult DeleteConfirmed(Category category)
 		{
-			_categoryService.RemoveCategory(category);
+			category = _categoryService.GetCategoryById(category.Id);
+			category.IsDeleted = true;
+			_categoryService.UpdateCategory(category);
 			return RedirectToAction(nameof(Index));
 		}
 		public IActionResult Edit(int id)

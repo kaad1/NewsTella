@@ -15,9 +15,10 @@ namespace NewsTella.Services
 		}
 		public List<Category> GetCategories()
 		{
-			var obj = _db.Categories.ToList();
+			var obj = _db.Categories.Where(c => c.IsDeleted == false).ToList();
 			return obj;
 		}
+
 		public Category GetCategoryById(int id)
 		{
 			var category = _db.Categories.FirstOrDefault(c => c.Id == id);
