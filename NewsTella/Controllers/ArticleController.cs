@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Policy;
+using X.PagedList;
+
 namespace NewsTella.Controllers
 {
 	public class ArticleController : Controller
@@ -20,12 +22,28 @@ namespace NewsTella.Controllers
 			_categoryService = categoryService;
 		}
 
-		public IActionResult Index()
-		{
-			var model = _articlesService.GetArticles();
-			return View(model);
-		}
-		public IActionResult Create()
+        [HttpGet]
+        public async Task<IActionResult> Index(string headline, int? page)
+        {
+            ICollection<Article> articles = new List<Article>();
+
+            if (!string.IsNullOrEmpty(headline))
+            {
+                articles = _articlesService.FindByHeadline(headline);
+            }
+            else
+            {
+                articles = _articlesService.GetArticles();
+            }
+
+            int pageSize = 3; // Number of users per page
+            int pageNumber = (page ?? 1); // Default to first page
+
+            var pagedUsers = articles.ToPagedList(pageNumber, pageSize);
+            return View(pagedUsers); // Return IPagedList<UserVM>
+        }
+
+        public IActionResult Create()
 		{
 			ArticleCreateVM model = new ArticleCreateVM();
 			model.AllCategories = _categoryService.GetCategories();
@@ -36,28 +54,24 @@ namespace NewsTella.Controllers
 		public async Task<IActionResult> Create(ArticleCreateVM model)
 		{
 			ModelState.Remove("AllCategories");
-			var article = new Article
+			if (ModelState.IsValid)
 			{
-				LinkText = model.LinkText,
-				Headline = model.Headline,
-				ContentSummary = model.ContentSummary,
-				Content = model.Content,
-				FormImage = model.FormImage,
-				Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList()
-			};
-			var file = article.FormImage;
-			if (file != null && file.Length > 0)
-			{
-				var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Images\", file.FileName);
-				article.ImageLink = "/Images/" + file.FileName;
-				using (var stream = new FileStream(filePath, FileMode.Create))
+				var article = new Article
 				{
-					await file.CopyToAsync(stream);
-				}
+					LinkText = model.LinkText,
+					Headline = model.Headline,
+					ContentSummary = model.ContentSummary,
+					Content = model.Content,
+					FormImage = model.FormImage,
+					Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList()
+				};
+				_articlesService.AddArticle(article);
+				return RedirectToAction("Index");
 			}
-			_articlesService.AddArticle(article);
-			return RedirectToAction("Index");
+			model.AllCategories = _categoryService.GetCategories();
+			return View(model);
 		}
+
 		public IActionResult Edit(int Id)
 		{
 			var article = _articlesService.GetArticleById(Id);
