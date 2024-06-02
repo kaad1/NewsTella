@@ -52,7 +52,6 @@ namespace NewsTella.Services
 			return article;
 		}
 		
-		
 		public void UpdateArticleStatus(Article article)
 		{
 			article.DateStamp = DateTime.Now;
@@ -61,10 +60,12 @@ namespace NewsTella.Services
 			_db.Update(article);
 			_db.SaveChanges();
 		}
+
 		public ICollection<Article> FindByCategory(string category)
 		{
 			return _db.Categories.Where(c => c.Name == category).FirstOrDefault().Articles;
 		}
+
 		public ICollection<Article> FindByHeadline(string headline)
 		{
 			return _db.Articles.Where(a => a.Headline.Contains(headline)).ToList();

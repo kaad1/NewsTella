@@ -34,7 +34,7 @@ namespace NewsTella.Migrations
 
                     b.HasIndex("CategoriesId");
 
-                    b.ToTable("ArticleCategory");
+                    b.ToTable("ArticleCategory", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -222,7 +222,6 @@ namespace NewsTella.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
 
                     b.Property<int>("Views")
                         .HasColumnType("int");

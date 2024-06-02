@@ -4,75 +4,82 @@
     ViewData["Title"] = "Subription Detail";
 }
 
-<h3>Subription Detail</h3>
-<br/>
-<form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Subription Detail</h3>
+            <br/>
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
 
-    <div class="row form-group">
-        <div class="col-2">
-        <strong><label asp-for="SubscriptionType"></label></strong>
-        </div>
-        <div class="col-2">
-        <input asp-for="SubscriptionType" class="no-border" readonly />
-        <span asp-validation-for="SubscriptionType" class="text-danger"></span>
-        </div>
-    </div>
-    <br/>
-    <div class="form-group">
-        <input asp-for="SubscriptionTypeId" type="hidden" />
-    </div>
+                <div class="row form-group">
+                    <div class="col-2">
+                    <strong><label asp-for="SubscriptionType"></label></strong>
+                    </div>
+                    <div class="col-2">
+                    <input asp-for="SubscriptionType" class="no-border" readonly />
+                    <span asp-validation-for="SubscriptionType" class="text-danger"></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <input asp-for="SubscriptionTypeId" type="hidden" />
+                </div>
 
-    <div class="row form-group">
-        <div class="col-2">
-        <strong><label asp-for="Price"></label></strong>
-        </div>
-        <div class="col-2">
-        <input asp-for="Price" class="no-border" />
-        <span asp-validation-for="Price" class="text-danger"></span>
+                <div class="row form-group">
+                    <div class="col-2">
+                    <strong><label asp-for="Price"></label></strong>
+                    </div>
+                    <div class="col-2">
+                    <input asp-for="Price" class="no-border" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-2">
+                    <strong><label asp-for="Created"></label></strong>
+                    </div>
+                    <div class="col-2">
+                    <input type="date" asp-for="Created" class="no-border" readonly />
+                    <span asp-validation-for="Created" class="text-danger" ></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-2">
+                    <strong><label asp-for="Expires"></label></strong>
+                    </div>
+                    <div class="col-2">
+                    <input type="date" asp-for="Expires" class="no-border" readonly />
+                    <span asp-validation-for="Expires" class="text-danger"></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row form-group">
+                    <div class="col-2">
+                    <strong><label asp-for="Description"></label></strong>
+                    </div>
+                    <div class="col-2">
+                    <textarea asp-for="Description" class="no-border" readonly ></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group form-check">
+                    <input type="checkbox" asp-for="AcceptTerms" class="form-check-input" required/>
+                    <label class="form-check-label" asp-for="AcceptTerms"></label>
+                    <span asp-validation-for="AcceptTerms" class="text-danger"></span>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <input type="submit" value="Confirm" class="btn btn-dark" />
+                </div>
+            </form>
         </div>
     </div>
-    <br/>
-    <div class="row form-group">
-        <div class="col-2">
-        <strong><label asp-for="Created"></label></strong>
-        </div>
-        <div class="col-2">
-        <input type="date" asp-for="Created" class="no-border" readonly />
-        <span asp-validation-for="Created" class="text-danger" ></span>
-        </div>
-    </div>
-    <br/>
-    <div class="row form-group">
-        <div class="col-2">
-        <strong><label asp-for="Expires"></label></strong>
-        </div>
-        <div class="col-2">
-        <input type="date" asp-for="Expires" class="no-border" readonly />
-        <span asp-validation-for="Expires" class="text-danger"></span>
-        </div>
-    </div>
-    <br/>
-    <div class="row form-group">
-        <div class="col-2">
-        <strong><label asp-for="Description"></label></strong>
-        </div>
-        <div class="col-2">
-        <textarea asp-for="Description" class="no-border" readonly ></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-    </div>
-    <br/>
-    <div class="form-group form-check">
-        <input type="checkbox" asp-for="AcceptTerms" class="form-check-input" required/>
-        <label class="form-check-label" asp-for="AcceptTerms"></label>
-        <span asp-validation-for="AcceptTerms" class="text-danger"></span>
-    </div>
-    <br/>
-    <div class="form-group">
-        <input type="submit" value="Confirm" class="btn btn-dark" />
-    </div>
-</form>
+</div>
+            
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

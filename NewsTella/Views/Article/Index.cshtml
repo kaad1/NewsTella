@@ -1,37 +1,40 @@
-﻿@model IEnumerable<NewsTella.Models.Database.Article>
-
+﻿@model X.PagedList.IPagedList<NewsTella.Models.Database.Article>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
 @{
     ViewData["Title"] = "Index";
 }
 
-<head>
+@* <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+</head> *@
 
 
 
 <div class="container">
-    <div class="row">
+    @* <div class="row">
         <div class="col" style="margin-bottom: 50px;">
 
-            <a asp-action="Create" class="btn btn-success">Create Article</a>
+            <a asp-action="Create" class="btn btn-dark">Create Article</a>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         </div>
-    </div>
+    </div> *@
     <div class="row">
         <div class="col">
-            <h2>Article List</h2>
+            <h3>Article List</h3>
         </div>
+
         <div class="col-md-6">
             <form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
                 <div class="input-group">
-                    <input type="text" id="articleSearch" class="form-control" placeholder="Search.." />
+                    <input type="text" name="headline" class="form-control" placeholder="Search by headline" />
                     <input type="submit" value="Search" class="btn btn-dark ml-2" />
                 </div>
             </form>
         </div>
+
     </div>
 
     <br />
@@ -42,16 +45,16 @@
                     Image
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Headline)
+                    @Html.DisplayNameFor(model => model[0].Headline)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateStamp)
+                    @Html.DisplayNameFor(model => model[0].DateStamp)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category)
+                    @Html.DisplayNameFor(model => model[0].Category)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model[0].Status)
                 </th>
                 <th>
                     Actions
@@ -78,20 +81,18 @@
                     </td>
                     <td>
                         @string.Join(", ", item.Categories.Select(c=>c.Name))
-
-                        @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>                      
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary" style="margin:10px">Read</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" style="margin:10px">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" style="margin:10px">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
 
                         @if (item.Status == "Draft")
                         {
-                            <form asp-action="ChangeStatus" method="post" style="display:inline; margin-inline-start: 60px; margin-inline-end:-5px; ">
+                            <form asp-action="ChangeStatus" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="@item.Id" />
                                 <input type="hidden" name="newStatus" value="Redo" />
                                 <button type="submit" class="btn btn-warning">Publish</button>
@@ -102,6 +103,23 @@
             }
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.PagedListPager(
+                     Model,
+                     page => Url.Action("Index", new { page, email = ViewContext.HttpContext.Request.Query["email"] }),
+                     new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = true,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always
+            }
+                     )
+        </div>
+    </div>
 </div>
 
 <script>
