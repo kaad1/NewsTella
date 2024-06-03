@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Policy;
 using X.PagedList;
+using NewsTella.Migrations;
 
 namespace NewsTella.Controllers
 {
@@ -36,11 +37,11 @@ namespace NewsTella.Controllers
                 articles = _articlesService.GetArticles();
             }
 
-            int pageSize = 3; // Number of users per page
+            int pageSize = 4; // Number of articles per page
             int pageNumber = (page ?? 1); // Default to first page
 
-            var pagedUsers = articles.ToPagedList(pageNumber, pageSize);
-            return View(pagedUsers); // Return IPagedList<UserVM>
+            var pagedArticles = articles.ToPagedList(pageNumber, pageSize);
+            return View(pagedArticles); // Return IPagedList<Article>
         }
 
         public IActionResult Create()
@@ -63,46 +64,53 @@ namespace NewsTella.Controllers
 					Headline = model.Headline,
 					ContentSummary = model.ContentSummary,
 					Content = model.Content,
-					Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList()
 				};
 
-				if (model.FormImage != null && model.FormImage.Length > 0)
+				article.Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList();
+
+
+                if (model.FormImage != null && model.FormImage.Length > 0)
 				{
-					var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
+					var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
 					var fileName = Path.GetFileName(model.FormImage.FileName);
-					var filePath = Path.Combine(uploads, fileName);
+					var filePath = Path.Combine(uploadFolder, fileName);
 					using (var fileStream = new FileStream(filePath, FileMode.Create))
 					{
 						await model.FormImage.CopyToAsync(fileStream);
 					}
-                    article.ImageLink = "/Images/" + fileName;
-                }
+					article.ImageLink = "/Images/" + fileName;
+				}
 
-                _articlesService.AddArticle(article);
+				_articlesService.AddArticle(article);
 				return RedirectToAction("Index");
 			}
-			model.AllCategories = _categoryService.GetCategories();
-			return View(model);
+			else
+			{
+				model.AllCategories = _categoryService.GetCategories();
+				return View(model);
+			}
 		}
 
-		//public IActionResult Edit(int Id)
-		//{
-		//	var article = _articlesService.GetArticleById(Id);
-		//	var model = new ArticleEditVM 
-		//	{
-		//		Id = article.Id,
-		//		DateStamp = article.DateStamp,
-		//		LinkText = article.LinkText,
-		//		Headline = article.Headline,
-		//		ContentSummary = article.ContentSummary,
-		//		Content = article.Content,
-		//		FormImage = article.FormImage,
-		//		ImageLink = article.ImageLink,
-		//		SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
-		//		AllCategories = _categoryService.GetCategories()
-		//	};
-		//	return View(article);
-		//}
+
+
+		public IActionResult Edit(int Id)
+		{
+			var article = _articlesService.GetArticleById(Id);
+			var model = new ArticleEditVM 
+			{
+				Id = article.Id,
+				DateStamp = article.DateStamp,
+				LinkText = article.LinkText,
+				Headline = article.Headline,
+				ContentSummary = article.ContentSummary,
+				Content = article.Content,
+				FormImage = article.FormImage,
+				ImageLink = article.ImageLink,
+				SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
+				AllCategories = _categoryService.GetCategories()
+			};
+			return View(article);
+		}
 
         public IActionResult Edit(int id)
         {
@@ -126,50 +134,16 @@ namespace NewsTella.Controllers
             };
             return View(model);
         }
-        [HttpPost]
-        public async Task<IActionResult> Edit(ArticleEditVM model)
+        
+             [HttpPost]
+        public IActionResult Edit(Article article)
         {
-            if (ModelState.IsValid)
-            {
-                var article = _articlesService.GetArticleById(model.Id);
-                if (article == null)
-                {
-                    return NotFound();
-                }
+        	_articlesService.UpdateArticle(article);
+        	return RedirectToAction("Index");
 
-                article.LinkText = model.LinkText;
-                article.Headline = model.Headline;
-                article.ContentSummary = model.ContentSummary;
-                article.Content = model.Content;
-                article.Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList();
-
-                if (model.FormImage != null && model.FormImage.Length > 0)
-                {
-                    var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
-                    var fileName = Path.GetFileName(model.FormImage.FileName);
-                    var filePath = Path.Combine(uploads, fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.FormImage.CopyToAsync(fileStream);
-                    }
-                    article.ImageLink = "/Images/" + fileName;
-                }
-
-                _articlesService.UpdateArticle(article);
-                return RedirectToAction("Index");
-            }
-            model.AllCategories = _categoryService.GetCategories();
-            return View(model);
         }
-
-        //      [HttpPost]
-        //public IActionResult Edit(Article article)
-        //{
-        //	_articlesService.UpdateArticle(article);
-        //	return RedirectToAction("Index");
-
-        //}
         public IActionResult Delete(int id)
+
 		{
 			var article = _articlesService.GetArticleById(id);
 			return View(article);
