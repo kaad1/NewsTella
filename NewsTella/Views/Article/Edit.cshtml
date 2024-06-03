@@ -1,5 +1,6 @@
-﻿@model NewsTella.Models.Database.Article
-@using NewsTella.Data;
+﻿@model NewsTella.Models.ViewModel.ArticleEditVM
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using NewsTella.Models.Database
 @{
     ViewData["Title"] = "Edit";
 }
@@ -8,11 +9,10 @@
 
 <hr />
 <div class="row">
-    <form asp-action="Edit">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
 
-        <br />
         <dl class="row">
             <dt class="col-md-2">
                 Date
@@ -26,30 +26,8 @@
             <dd class="col-md-10">
                 <img src="@Model.ImageLink" alt="Edit Image" style="max-width: 100%; height: auto;" />
             </dd>
-           @*  <dd class="col-md-10">
-                <img src="@Model.FormImage" alt="Edit Image" style="max-width: 100%; height: auto;" />
-            </dd> *@
-        </dl> 
+        </dl>
         <dl class="row">
-            <dt class="col-md-2">
-                @Html.DisplayNameFor(model => model.ImageLink)
-            </dt>
-            
-            <dd class="col-md-10">
-                <div class="form-group">
-                    <input asp-for="ImageLink" class="form-control" />
-                    <span asp-validation-for="ImageLink" class="text-danger"></span>
-                </div>
-            </dd>
-          @*   <dt class="col-md-2">
-                @Html.DisplayNameFor(model => model.FormImage)
-            </dt>
-            <dd class="col-md-10">
-                <div class="form-group">
-                    <input asp-for="FormImage" class="form-control" />
-                    <span asp-validation-for="FormImage" class="text-danger"></span>
-                </div>
-            </dd> *@
             <dt class="col-md-2">
                 @Html.DisplayNameFor(model => model.LinkText)
             </dt>
@@ -85,15 +63,28 @@
                 <span asp-validation-for="ContentSummary" class="text-danger"></span>
             </dd>
             <dt class="col-md-2">
-                @Html.DisplayNameFor(model => model.Categories)
+                Categories
             </dt>
-            <dd class="col-md-10">
-                <input asp-for="Categories" class="form-control" />
-                <span asp-validation-for="Categories" class="text-danger"></span>
+            @* <dd class="col-md-10">
+                <div class="form-group">
+                    <select asp-for="SelectedCategoryIds" class="form-control" asp-items="@(new MultiSelectList(Model.AllCategories, "Id", "Name", Model.SelectedCategoryIds))" multiple="multiple"></select>
+                    <span asp-validation-for="AllCategories" class="text-danger"></span>
+                </div>
+            </dd> *@
+            <dd>
+                @foreach (Category item in Model.AllCategories)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="@item" name="SelectedCategoryIds"
+                               value="@item.Id" @(Model.SelectedCategoryIds.Contains(item.Id) ? "checked" : "")>
+                        <label class="form-check-label" for="@item">@item.Name</label>
+                        <select asp-for="SelectedCategoryIds" class="form-control" asp-items="@(new MultiSelectList(Model.AllCategories, "Id", "Name", Model.SelectedCategoryIds))" multiple="multiple"></select>
+                        <span asp-validation-for="AllCategories" class="text-danger"></span>
+                    </div>
+                }
             </dd>
         </dl>
         <br />
-
 
         <hr />
         <div class="form-group">
@@ -102,7 +93,6 @@
         </div>
     </form>
 </div>
-
 
 @section Scripts {
     @{
