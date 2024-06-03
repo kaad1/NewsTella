@@ -91,6 +91,8 @@ namespace NewsTella.Controllers
 			}
 		}
 
+
+
 		public IActionResult Edit(int Id)
 		{
 			var article = _articlesService.GetArticleById(Id);
@@ -102,41 +104,46 @@ namespace NewsTella.Controllers
 				Headline = article.Headline,
 				ContentSummary = article.ContentSummary,
 				Content = article.Content,
+				FormImage = article.FormImage,
 				ImageLink = article.ImageLink,
 				SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
 				AllCategories = _categoryService.GetCategories()
 			};
-			return View(model);
+			return View(article);
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> Edit(ArticleEditVM model)
-		{
-			Article article = _articlesService.GetArticleById(model.Id);
-			article.LinkText = model.LinkText;
-			article.Headline = model.Headline;
-			article.ContentSummary = model.ContentSummary;
-			article.Content = model.Content;
-			if(model.SelectedCategoryIds != null)
-			{
-                article.Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList();
-            }
-            if (model.FormImage != null && model.FormImage.Length > 0)
+        public IActionResult Edit(int id)
+        {
+            var article = _articlesService.GetArticleById(id);
+            if (article == null)
             {
-                var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
-                var fileName = Path.GetFileName(model.FormImage.FileName);
-                var filePath = Path.Combine(uploadFolder, fileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.FormImage.CopyToAsync(fileStream);
-                }
-                article.ImageLink = "/Images/" + fileName;
+                return NotFound();
             }
-            _articlesService.UpdateArticle(article);
-            return RedirectToAction("Index");
-		}
-		
-		public IActionResult Delete(int id)
+
+            var model = new ArticleEditVM
+            {
+                Id = article.Id,
+                DateStamp = article.DateStamp,
+                LinkText = article.LinkText,
+                Headline = article.Headline,
+                ContentSummary = article.ContentSummary,
+                Content = article.Content,
+                ImageLink = article.ImageLink,
+                SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
+                AllCategories = _categoryService.GetCategories()
+            };
+            return View(model);
+        }
+        
+             [HttpPost]
+        public IActionResult Edit(Article article)
+        {
+        	_articlesService.UpdateArticle(article);
+        	return RedirectToAction("Index");
+
+        }
+        public IActionResult Delete(int id)
+
 		{
 			var article = _articlesService.GetArticleById(id);
 			return View(article);
