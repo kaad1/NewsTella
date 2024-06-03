@@ -39,7 +39,7 @@ namespace NewsTella.Services
 		
 		public Article GetArticleById(int id)
 		{
-			var article = _db.Articles.FirstOrDefault(a => a.Id == id);
+			var article = _db.Articles.Include(a => a.Categories).FirstOrDefault(a => a.Id == id);
 			return article;
 		}
 		public List<Article> GetArticles()
