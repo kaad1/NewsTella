@@ -93,24 +93,24 @@ namespace NewsTella.Controllers
 
 
 
-		public IActionResult Edit(int Id)
-		{
-			var article = _articlesService.GetArticleById(Id);
-			var model = new ArticleEditVM 
-			{
-				Id = article.Id,
-				DateStamp = article.DateStamp,
-				LinkText = article.LinkText,
-				Headline = article.Headline,
-				ContentSummary = article.ContentSummary,
-				Content = article.Content,
-				FormImage = article.FormImage,
-				ImageLink = article.ImageLink,
-				SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
-				AllCategories = _categoryService.GetCategories()
-			};
-			return View(article);
-		}
+		//public IActionResult Edit(int Id)
+		//{
+		//	var article = _articlesService.GetArticleById(Id);
+		//	var model = new ArticleEditVM 
+		//	{
+		//		Id = article.Id,
+		//		DateStamp = article.DateStamp,
+		//		LinkText = article.LinkText,
+		//		Headline = article.Headline,
+		//		ContentSummary = article.ContentSummary,
+		//		Content = article.Content,
+		//		FormImage = article.FormImage,
+		//		ImageLink = article.ImageLink,
+		//		SelectedCategoryIds = article.Categories.Select(c => c.Id).ToList(),
+		//		AllCategories = _categoryService.GetCategories()
+		//	};
+		//	return View(article);
+		//}
 
         public IActionResult Edit(int id)
         {
