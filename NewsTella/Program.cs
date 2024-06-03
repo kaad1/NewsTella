@@ -163,8 +163,69 @@ namespace NewsTella
 
                     await userManager.AddToRoleAsync(user, Roles.Member.ToString());
                 }
+
+
             }
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var categoryService = scope.ServiceProvider.GetRequiredService<ICategoryService>();
+
+                string categoryName = "Local";
+
+                if (categoryService.GetCategoryByName(categoryName) == null)
+                {
+                    var category = new Category();
+                    category.Name = categoryName;
+                    categoryService.AddCategory(category);
+                }
+
+                categoryName = "Sweden";
+
+                if (categoryService.GetCategoryByName(categoryName) == null)
+                {
+                    var category = new Category();
+                    category.Name = categoryName;
+                    categoryService.AddCategory(category);
+                }
+
+                categoryName = "World";
+
+                if (categoryService.GetCategoryByName(categoryName) == null)
+                {
+                    var category = new Category();
+                    category.Name = categoryName;
+                    categoryService.AddCategory(category);
+                }
+
+                categoryName = "Weather";
+
+                if (categoryService.GetCategoryByName(categoryName) == null)
+                {
+                    var category = new Category();
+                    category.Name = categoryName;
+                    categoryService.AddCategory(category);
+                }
+
+                categoryName = "Economy";
+
+                if (categoryService.GetCategoryByName(categoryName) == null)
+                {
+                    var category = new Category();
+                    category.Name = categoryName;
+                    categoryService.AddCategory(category);
+                }
+
+                categoryName = "Sport";
+
+                if (categoryService.GetCategoryByName(categoryName) == null)
+                {
+                    var category = new Category();
+                    category.Name = categoryName;
+                    categoryService.AddCategory(category);
+                }
+
+            }
             app.Run();
 		}
 	}

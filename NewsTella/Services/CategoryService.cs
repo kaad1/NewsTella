@@ -25,7 +25,13 @@ namespace NewsTella.Services
 			return category;
 		}
 
-		public void AddCategory(Category category)
+        public Category GetCategoryByName(string name)
+        {
+            var category = _db.Categories.FirstOrDefault(c => c.Name == name);
+            return category;
+        }
+
+        public void AddCategory(Category category)
 		{
 			_db.Categories.Add(category);
 			_db.SaveChanges();

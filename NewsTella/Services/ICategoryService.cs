@@ -8,6 +8,8 @@ namespace NewsTella.Services
 
 		Category GetCategoryById(int id);
 
+		Category GetCategoryByName(string name);
+
 		void AddCategory(Category category);
 
 		void RemoveCategory(Category category);

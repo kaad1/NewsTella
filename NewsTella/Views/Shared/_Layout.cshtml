@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using NewsTella.Models.Database
 
+
 @inject SignInManager<User> signInManager
 @inject UserManager<User> UserManager
 
@@ -56,12 +57,15 @@
 
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
 					<ul class="navbar-nav ms-auto main-nav-content d-flex justify-content-sm-center text-center">
+                        
                         @if (!User.IsInRole("Admin") && !User.IsInRole("Editor") && !User.IsInRole("Writer"))
 						{
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 							</li>
-							<li class="nav-item">
+                            @await Component.InvokeAsync("Category")
+
+							@* <li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Local">Local</a>
 							</li>
 							<li class="nav-item">
@@ -78,7 +82,7 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
-							</li>
+							</li> *@
 							<li class="nav-item position-relative d-none d-sm-block">
 								<a id="search-icon" class="nav-link search-icon text-dark " role="button">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -102,7 +106,7 @@
 							</li>
 
 						}
-
+                        
 						@if (User.IsInRole("Admin"))
 						{
 							<li class="nav-item dropdown">
@@ -111,7 +115,8 @@
 									<li class="dropdown-item">
 										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 									</li>
-									<li class="dropdown-item">
+                                    @await Component.InvokeAsync("Category")
+									@* <li class="dropdown-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Local">Local</a>
 									</li>
 									<li class="dropdown-item">
@@ -128,7 +133,7 @@
 									</li>
 									<li class="dropdown-item">
 										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
-									</li>
+									</li> *@
 								</ul>
 							</li>
 							<li class="nav-item">
@@ -182,7 +187,8 @@
 							</li>
 						}
 					</ul>
-					<div id="mobileMenuPlaceholder"></div>
+                        
+                    <div id="mobileMenuPlaceholder"></div>
 				</div>
 			</div>
 		</nav>

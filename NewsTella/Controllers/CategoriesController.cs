@@ -13,5 +13,10 @@ namespace NewsTella.Controllers
         {
             return View();
         }
+
+        public IActionResult Articles(int categoryId)
+        {
+            return View();
+        }
     }
 }
