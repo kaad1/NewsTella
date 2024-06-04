@@ -1,20 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NewsTella.Data;
+using NewsTella.Services;
 
 namespace NewsTella.ViewComponents
 {
     public class CategoryViewComponent: ViewComponent
     {
-        private AppDbContext _context;
-        public CategoryViewComponent(AppDbContext context)
+        private readonly ICategoryService _categoryService;
+
+        public CategoryViewComponent(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var item = await _context.Categories.ToListAsync();
-            return View(item);
+            var categories = _categoryService.GetCategories();
+            return View(categories);
         }
     }
 }
