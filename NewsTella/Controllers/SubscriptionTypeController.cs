@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewsTella.Data;
+using NewsTella.Migrations;
 using NewsTella.Models.Database;
 using NewsTella.Services;
 
@@ -46,7 +47,9 @@ namespace NewsTella.Controllers
         [HttpPost]
         public IActionResult DeleteConfirmed(SubscriptionType subscriptionType)
         {
-            _subscriptionTypeService.RemoveSubscriptionType(subscriptionType);
+            subscriptionType = _subscriptionTypeService.GetSubscriptionTypeById(subscriptionType.Id);
+            subscriptionType.IsDeleted = true;
+            _subscriptionTypeService.UpdateSubscriptionType(subscriptionType);
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Edit(int id)
