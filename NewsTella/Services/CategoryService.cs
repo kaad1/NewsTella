@@ -21,7 +21,7 @@ namespace NewsTella.Services
 
 		public Category GetCategoryById(int id)
 		{
-			var category = _db.Categories.FirstOrDefault(c => c.Id == id);
+			var category = _db.Categories.Include(c => c.Articles).FirstOrDefault(c => c.Id == id);
 			return category;
 		}
 
