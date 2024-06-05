@@ -4,6 +4,7 @@ using NewsTella.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore;
+using NewsTella.Migrations;
 
 namespace NewsTella.Services
 {
@@ -19,7 +20,7 @@ namespace NewsTella.Services
         }
 
         public void AddArticle(Article article)
-        {
+        {            
             _db.Articles.Add(article);
             _db.SaveChanges();
         }
@@ -56,6 +57,7 @@ namespace NewsTella.Services
             _db.Update(article);
             _db.SaveChanges();
         }
+        
 
         public ICollection<Article> FindByCategory(string category)
         {
@@ -66,31 +68,46 @@ namespace NewsTella.Services
         {
             return _db.Articles.Where(a => a.Headline.Contains(headline) && a.IsDeleted == false).ToList();
         }
+        public async Task LikeArticleAsync(int id)
+        {
+            var article = await _db.Articles.FindAsync(id);
+            if (article == null)
+            {
+                throw new Exception("Article not found");
+            }
+            else if(article.Status =="Published")
+            {
+                article.Likes += 1;
+                _db.Update(article);
+                await _db.SaveChangesAsync();
+            }            
+        }
+        public async Task IncrementViewsAsync(int id)
+        {
+            var article = await _db.Articles.FindAsync(id);
+            if (article == null)
+            {
+                throw new Exception("Article not found");
+            }
 
+            article.Views += 1;
+            _db.Update(article);
+            await _db.SaveChangesAsync();
+        }
 
+        public Task GetArticleByIdAsync(int id, Article article)
+        {
+            throw new NotImplementedException();
+        }
 
-        //public void UpdateArticle(Article article)
-        //      {
-        //          article.DateStamp = DateTime.Now;
-        //          article.Status = "Draft";
+        public Task GetArticleByIdAsync()
+        {
+            throw new NotImplementedException();
+        }
 
-        //          // _db.Articles.Update(article);
-        //	      // _db.SaveChanges();
-
-        //          _db.Update(article);
-        //          _db.SaveChanges();
-        //      }
-
-
-
-        //public Task UpdateAsync(string article)
-        //{
-        //	return Task.CompletedTask;
-        //}
-        //Task DeleteConfirmed(string articleId)
-        //{
-        //	return Task.CompletedTask;
-        //}
-
+        public Task<string?> GetArticleByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -11,15 +11,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head> *@
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="container">
     @* <div class="row">
-        <div class="col" style="margin-bottom: 50px;">
+    <div class="col" style="margin-bottom: 50px;">
 
-            <a asp-action="Create" class="btn btn-dark">Create Article</a>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        </div>
+    <a asp-action="Create" class="btn btn-dark">Create Article</a>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
     </div> *@
     <div class="row">
         <div class="col">
@@ -54,13 +54,21 @@
                     @Html.DisplayNameFor(model => model[0].Categories)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model[0].Likes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model[0].Views)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model[0].Status)
                 </th>
                 <th>
                     Actions
                 </th>
+               
             </tr>
         </thead>
+
 
 
         <tbody id="myTable">
@@ -71,8 +79,8 @@
                         <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
                     </td>
                     @* <td style="text-align: center;" align="center">
-                        <img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
-                    </td>  *@
+                <img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
+                </td>  *@
                     <td>
                         <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
                     </td>
@@ -80,12 +88,19 @@
                         @Html.DisplayFor(modelItem => item.DateStamp)
                     </td>
                     <td>
-                        @string.Join(", ", item.Categories.Select(c=>c.Name))
+                        @string.Join(", ", item.Categories.Select(c => c.Name))
+                    </td>
+                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Likes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Views)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
-                    <td>                      
+                    <td>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
@@ -98,10 +113,14 @@
                                 <button type="submit" class="btn btn-warning">Publish</button>
                             </form>
                         }
-                    </td>
+                    </td>               
+
+
                 </tr>
+
             }
         </tbody>
+
     </table>
     <div class="row">
         <div class="col-md-12">
@@ -131,6 +150,11 @@
             });
         });
     });
+</script>
+<script>
+    function myFunction(elem){
+        elem.classList.toggle('clicked');
+    }
 </script>
 
 
