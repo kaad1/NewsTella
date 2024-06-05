@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using NewsTella.Data;
-using NewsTella.Helpers;
 using NewsTella.Models.Database;
 using NewsTella.Services;
 
@@ -42,7 +40,6 @@ namespace NewsTella
             builder.Services.AddControllersWithViews();
 
 			builder.Services.AddScoped<IArticlesService, ArticlesService>();
-            builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
