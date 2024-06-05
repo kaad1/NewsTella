@@ -1,6 +1,12 @@
-﻿namespace NewsTella.Helpers
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+
+namespace NewsTella.Helpers
 {
-	public class EmailHelper
+	public class EmailHelper: IEmailSender
 	{
+		public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+		{
+			var help = "";
+		}
 	}
 }

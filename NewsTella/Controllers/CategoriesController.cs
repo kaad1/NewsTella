@@ -25,7 +25,17 @@ namespace NewsTella.Controllers
         public IActionResult Articles(int categoryId)
         {
             var category = _categoryService.GetCategoryById(categoryId);
-            return View(category);
+			if (category == null)
+			{
+				return NotFound();
+			}
+			return View(category);
         }
     }
 }
+
+
+
+		
+		
+		

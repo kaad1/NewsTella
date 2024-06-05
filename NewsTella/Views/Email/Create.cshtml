@@ -1,0 +1,45 @@
+﻿@model EmailEntity
+
+<div class="card shadow border-0">
+	<div class="card-header bg-secondry bg-gradient">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2>Send Email</h2>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card-body p-2">
+	<div><h3>@ViewBag.Message</h3></div>
+	<form method="post" asp-action="Create" enctype="multipart/form-data">
+		<div class="col-12">
+			<label>From Email</label>
+			<input asp-for="FromEmailAddress" class="form-control" />
+		</div>
+		<div class="col-12">
+			<label>TO Email</label>
+			<input asp-for="ToEmailAddress" class="form-control" />
+		</div>
+
+		<div class="col-12">
+			<label>Subject</label>
+			<input asp-for="Subject" class="form-control" />
+		</div>
+
+		<div class="col-12">
+			<label>Email Body</label>
+			<input asp-for="EmailBody" class="form-control" />
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-6">
+				<button type="submit" class="btn btn-primary">Send Email</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+
+		
