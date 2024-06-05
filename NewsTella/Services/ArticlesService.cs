@@ -67,30 +67,34 @@ namespace NewsTella.Services
             return _db.Articles.Where(a => a.Headline.Contains(headline) && a.IsDeleted == false).ToList();
         }
 
+		public List<Article> LatestArticles(int articleCount)
+        {
+            var latestArticles = _db.Articles.Include(a => a.Categories).OrderByDescending(a => a.DateStamp).Take(articleCount).ToList();
+            return latestArticles;
+        }
+
+		//public void UpdateArticle(Article article)
+		//      {
+		//          article.DateStamp = DateTime.Now;
+		//          article.Status = "Draft";
+
+		//          // _db.Articles.Update(article);
+		//	      // _db.SaveChanges();
+
+		//          _db.Update(article);
+		//          _db.SaveChanges();
+		//      }
 
 
-        //public void UpdateArticle(Article article)
-        //      {
-        //          article.DateStamp = DateTime.Now;
-        //          article.Status = "Draft";
 
-        //          // _db.Articles.Update(article);
-        //	      // _db.SaveChanges();
+		//public Task UpdateAsync(string article)
+		//{
+		//	return Task.CompletedTask;
+		//}
+		//Task DeleteConfirmed(string articleId)
+		//{
+		//	return Task.CompletedTask;
+		//}
 
-        //          _db.Update(article);
-        //          _db.SaveChanges();
-        //      }
-
-
-
-        //public Task UpdateAsync(string article)
-        //{
-        //	return Task.CompletedTask;
-        //}
-        //Task DeleteConfirmed(string articleId)
-        //{
-        //	return Task.CompletedTask;
-        //}
-
-    }
+	}
 }

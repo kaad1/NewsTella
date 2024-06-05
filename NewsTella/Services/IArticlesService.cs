@@ -19,9 +19,9 @@ namespace NewsTella.Services
 
 		public ICollection<Article> FindByCategory(string category);
 
-        public ICollection<Article> FindByHeadline(string headline); 
-		
+        public ICollection<Article> FindByHeadline(string headline);
 
+		public List<Article> LatestArticles(int articleCount);
 
 		//Task UpdateAsync(string article);
 

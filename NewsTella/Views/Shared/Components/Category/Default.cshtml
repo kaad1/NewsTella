@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<NewsTella.Models.Database.Category>
 
-<ul class="nav navbar-nav">
     @foreach (var item in Model)
     {
-        <li>
+        <li class="nav-item dropdown-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Articles" asp-route-categoryId="@item.Id"> @item.Name</a>
         </li>
     }
-</ul>
