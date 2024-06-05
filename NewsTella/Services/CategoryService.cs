@@ -2,6 +2,9 @@
 using NewsTella.Data;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
+using NewsTella.Services;
+using System.Linq;
+
 
 namespace NewsTella.Services
 {
@@ -15,7 +18,7 @@ namespace NewsTella.Services
 		}
 		public List<Category> GetCategories()
 		{
-            var category = _db.Categories.Where(c => c.IsDeleted == false).ToList();
+            var category = _db.Categories.Include(c => c.Articles).Where(c => c.IsDeleted == false).ToList();
             return category;
             //var obj = _db.Categories.Where(c => c.IsDeleted == false).ToList();
 			//return obj;
@@ -52,3 +55,7 @@ namespace NewsTella.Services
 		}
 	}
 }
+
+
+
+	
