@@ -1,4 +1,5 @@
-﻿using NewsTella.Models.Database;
+﻿using NewsTella.Migrations;
+using NewsTella.Models.Database;
 
 namespace NewsTella.Services
 {
@@ -10,22 +11,20 @@ namespace NewsTella.Services
 
         public void UpdateArticleStatus(Article article);
     
-        public void DeleteArticle(Article article);	        
-        
+        public void DeleteArticle(Article article);
         public Article GetArticleById(int id);
+             
+        public List<Article> GetArticles();
+            
+        public ICollection<Article> FindByCategory(string category);
 
-		public List<Article> GetArticles();
-		//public List<Article> GetArticlesById(int id);
-
-		public ICollection<Article> FindByCategory(string category);
-
-        public ICollection<Article> FindByHeadline(string headline); 
-		
-
-
-		//Task UpdateAsync(string article);
-
-		//Task DeleteConfirmed(string articleId);
-	}
+        public ICollection<Article> FindByHeadline(string headline);
+        public Task LikeArticleAsync(int id);
+              
+        public Task IncrementViewsAsync(int id);
+        public Task GetArticleByIdAsync(int id, Article article);
+        public Task GetArticleByIdAsync();
+        Task<string?> GetArticleByIdAsync(int id);
+    }
 
 }
