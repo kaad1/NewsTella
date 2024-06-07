@@ -2,7 +2,7 @@
 @using X.PagedList.Mvc.Core
 @using X.PagedList
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 @* <head>
@@ -14,147 +14,179 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="container">
-    @* <div class="row">
-    <div class="col" style="margin-bottom: 50px;">
+	@* <div class="row">
+	<div class="col" style="margin-bottom: 50px;">
 
-    <a asp-action="Create" class="btn btn-dark">Create Article</a>
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    </div>
-    </div> *@
-    <div class="row">
-        <div class="col">
-            <h3>Article List</h3>
-        </div>
+	<a asp-action="Create" class="btn btn-dark">Create Article</a>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	</div>
+	</div> *@
+	<div class="row">
+		<div class="col">
+			<h3>Article List</h3>
+		</div>
+		<div class="col-md-6">
+			<form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
+				<div class="input-group">
+					<input type="text" name="headline" class="form-control" placeholder="Search by headline" />
+					<input type="submit" value="Search" class="btn btn-dark ml-2" />
+				</div>
+			</form>
+		</div>
+	</div>
 
-        <div class="col-md-6">
-            <form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
-                <div class="input-group">
-                    <input type="text" name="headline" class="form-control" placeholder="Search by headline" />
-                    <input type="submit" value="Search" class="btn btn-dark ml-2" />
-                </div>
-            </form>
-        </div>
-
-    </div>
-
-    <br />
-    <table id="sortBy" class="table table-striped">
-        <thead>
-            <tr>
-                <th>
-                    Image
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].Headline)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].DateStamp)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].Categories)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].Likes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].Views)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].Status)
-                </th>
-                <th>
-                    Actions
-                </th>
-               
-            </tr>
-        </thead>
+	<br />
+	<table id="sortBy" class="table table-striped">
+		<thead>
+			<tr>
+				<th>
+					Image
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model[0].Headline)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model[0].DateStamp)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model[0].Categories)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model[0].Likes)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model[0].Views)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model[0].Status)
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
 
 
 
-        <tbody id="myTable">
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td style="text-align: center;" align="center">
-                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
-                    </td>
-                    @* <td style="text-align: center;" align="center">
-                <img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
-                </td>  *@
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateStamp)
-                    </td>
-                    <td>
-                        @string.Join(", ", item.Categories.Select(c => c.Name))
-                    </td>
-                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Likes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Views)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+		<tbody id="myTable">
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td style="text-align: center;" align="center">
+						<img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
+					</td>
+					@* <td style="text-align: center;" align="center">
+				<img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
+				</td>  *@
+					<td>
+						<a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DateStamp)
+					</td>
+					<td>
+						@string.Join(", ", item.Categories.Select(c => c.Name))
+					</td>
 
-                        @if (item.Status == "Draft")
-                        {
-                            <form asp-action="ChangeStatus" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@item.Id" />
-                                <input type="hidden" name="newStatus" value="Redo" />
-                                <button type="submit" class="btn btn-warning">Publish</button>
-                            </form>
-                        }
-                    </td>               
+					<td>
+						@Html.DisplayFor(modelItem => item.Likes)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Views)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Status)
+					</td>
+					<td>
+						@if (User.IsInRole("Editor"))
+						{
+							if (item.Status == "Submitted" || item.Status == "Edited")
+							{
+								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
 
+								<form asp-action="ChangeStatus" method="post" style="display:inline;">
+									<input type="hidden" name="id" value="@item.Id" />
+									<input type="hidden" name="newStatus" value="Redo" />
+									<button type="submit" class="btn btn-warning">Publish</button>
+								</form>
+							}
+							else if (item.Status == "Published")
+							{
+								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+							}
+						}
+						else if (User.IsInRole("Writer"))
+						{
+							if (item.Status == "Submitted" || item.Status == "Published" || item.Status == "Edited")
+							{
+								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+								// Buttons disabled for writer if already Submitted and/or Published
+								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
+								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
+							}
+							else if (item.Status == "Draft")
+							{
+								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
 
-                </tr>
+								<form asp-action="ChangeStatus" method="post" style="display:inline;">
+									<input type="hidden" name="id" value="@item.Id" />
+									<input type="hidden" name="newStatus" value="Redo" />
+									<button type="submit" class="btn btn-warning">Submit</button>
+								</form>
+							}
+						}
+						else
+						{
+							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+							// Buttons disabled for User..
+							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
+							<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
+						}
+					</td>
+				</tr>
+			}
+		</tbody>
 
-            }
-        </tbody>
-
-    </table>
-    <div class="row">
-        <div class="col-md-12">
-            @Html.PagedListPager(
-                     Model,
-                     page => Url.Action("Index", new { page, email = ViewContext.HttpContext.Request.Query["email"] }),
-                     new PagedListRenderOptions
-            {
-                Display = PagedListDisplayMode.IfNeeded,
-                DisplayPageCountAndCurrentLocation = true,
-                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
-                DisplayLinkToLastPage = PagedListDisplayMode.Always,
-                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                DisplayLinkToNextPage = PagedListDisplayMode.Always
-            }
-                     )
-        </div>
-    </div>
+	</table>
+	<div class="row">
+		<div class="col-md-12">
+			@Html.PagedListPager(
+							Model,
+							page => Url.Action("Index", new { page, email = ViewContext.HttpContext.Request.Query["email"] }),
+							new PagedListRenderOptions
+			{
+				Display = PagedListDisplayMode.IfNeeded,
+				DisplayPageCountAndCurrentLocation = true,
+				DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+				DisplayLinkToLastPage = PagedListDisplayMode.Always,
+				DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+				DisplayLinkToNextPage = PagedListDisplayMode.Always
+			}
+							)
+		</div>
+	</div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        $("#articleSearch").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
+	$(document).ready(function () {
+		$("#articleSearch").on("keyup", function () {
+			var value = $(this).val().toLowerCase();
+			$("#myTable tr").filter(function () {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		});
+	});
 </script>
 <script>
-    function myFunction(elem){
-        elem.classList.toggle('clicked');
-    }
+	function myFunction(elem) {
+		elem.classList.toggle('clicked');
+	}
 </script>
 
 
