@@ -1,57 +1,100 @@
 ﻿@model NewsTella.Models.Database.Article
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div class="container">
-    <div class="row">
-        <div class="col-mt-3">
-            <h3>@Html.DisplayFor(model => model.Headline)</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 mt-3">
-            <div id="image">
-                <content>
-                    <div class="row">
-                        <div class="col-sm-10">
-                            <img src="@Model.ImageLink" class="img-fluid" alt="Details Image" style="max-width: 100%; height: auto;" />
-                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-md-start mr-2"><b>@string.Join(", ", Model.Categories.Select(c => c.Name))</b></span>
-                                    <form asp-action="Like" method="post" class="d-inline-block mr-2">
-                                      @Html.AntiForgeryToken() 
-                                        <input type="hidden" name="id" value="@Model.Id" />
-                                        <button type="submit" class="btn btn_up">
-                                            <i class="fa fa-thumbs-up"></i>&nbsp;@Html.DisplayFor(model => model.Likes)
-                                        </button>
-                                    </form>
-                                    <span class="m-2"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;@Html.DisplayFor(model => model.Views)</span>
-                                </div>
-                                <span class="text-md-end">@Html.DisplayFor(model => model.DateStamp)</span>
-                            </div>
-                        </div>
-                    </div>
-                </content>
-                <div>
-                    @Html.DisplayFor(model => model.ContentSummary)
-                </div>
-                <div class="mb-3">
-                    @Html.DisplayFor(model => model.Content)
-                </div>
-            </div>
-        </div>
+	<div class="row">
+		<div class="col-mt-3">
+			<h3>@Html.DisplayFor(model => model.Headline)</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 mt-3">
+			<div id="image">
+				<content>
+					<div class="row">
+						<div class="col-sm-10">
+							<img src="@Model.ImageLink" class="img-fluid" alt="Details Image" style="max-width: 100%; height: auto;" />
+							<div class="d-flex justify-content-between align-items-center mt-2">
+								<div class="d-flex align-items-center">
+									<span class="text-md-start mr-2"><b>@string.Join(", ", Model.Categories.Select(c => c.Name))</b></span>
+									<form asp-action="Like" method="post" class="d-inline-block mr-2">
+										@Html.AntiForgeryToken()
+										<input type="hidden" name="id" value="@Model.Id" />
+										<button type="submit" class="btn btn_up">
+											<i class="fa fa-thumbs-up"></i>&nbsp;@Html.DisplayFor(model => model.Likes)
+										</button>
+									</form>
+									<span class="m-2"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;@Html.DisplayFor(model => model.Views)</span>
+								</div>
+								<span class="text-md-end">@Html.DisplayFor(model => model.DateStamp)</span>
+							</div>
+						</div>
+					</div>
+				</content>
+				<div>
+					@Html.DisplayFor(model => model.ContentSummary)
+				</div>
+				<div class="mb-3">
+					@Html.DisplayFor(model => model.Content)
+				</div>
+			</div>
+		</div>
 
-        <div class="form-group">
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-dark mb-3">Edit</a>
-            <a asp-action="Index" class="btn btn-dark mb-3">Back</a>
-        </div>
-    </div>
+		@if (User.IsInRole("Editor"))
+		{
+			<div class="form-group">
+				@* <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-dark mb-3">Edit</a> *@
+				<a asp-action="Index" class="btn btn-dark mb-3">Back</a>
+				@if (Model.Status == "Submitted" || Model.Status == "Edited")
+				{
+					<a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-dark mb-3">Edit</a>
+
+					<form asp-action="ChangeStatus" method="post" style="display:inline;">
+						<input type="hidden" name="id" value="@Model.Id" />
+						<input type="hidden" name="newStatus" value="Redo" />
+						<button type="submit" class="btn btn-warning mb-3">Publish</button>
+					</form>
+
+					<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-3">Delete</a>
+				}
+			</div>
+		}
+		else if (User.IsInRole("Writer"))
+		{
+			<div class="form-group">
+				<a asp-action="Index" class="btn btn-dark mb-3">Back</a>
+				@if (Model.Status == "Draft")
+				{
+					<a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-dark mb-3">Edit</a>
+
+					<form asp-action="ChangeStatus" method="post" style="display:inline;">
+						<input type="hidden" name="id" value="@Model.Id" />
+						<input type="hidden" name="newStatus" value="Redo" />
+						<button type="submit" class="btn btn-warning mb-3">Submit</button>
+					</form>
+					<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-3">Delete</a>
+				}
+			</div>
+		}
+		else
+		{
+			<div class="form-group">
+				<a asp-action="Index" class="btn btn-dark mb-3">Back</a>
+			</div>
+		}
+
+
+	</div>
 </div>
 <script>
-    function myFunction(elem){
-        elem.classList.toggle('clicked');
-    }
+	function myFunction(elem) {
+		elem.classList.toggle('clicked');
+	}
 </script>
+
+
+
