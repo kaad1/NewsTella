@@ -1,20 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using NewsTella.Models;
+using NewsTella.Models.Database;
 using System;
+using System.Configuration;
 using System.Net.Mail;
+using System.Security.Policy;
+using System.Text.Encodings.Web;
 
 namespace NewsTella.Controllers
 {
     public class EmailController : Controller
     {
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IEmailSender _emailSender;
         private readonly IConfiguration _configuration;
 
-        public EmailController(IConfiguration configuration)
+        public EmailController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, IEmailSender emailSender)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _emailSender = emailSender;
             _configuration = configuration;
         }
-
+        
         public IActionResult Create()
         {
             return View();

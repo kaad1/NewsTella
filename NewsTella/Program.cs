@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using NewsTella.Data;
+using NewsTella.Helpers;
 using NewsTella.Models.Database;
 using NewsTella.Services;
 
@@ -27,7 +29,7 @@ namespace NewsTella
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
@@ -40,6 +42,8 @@ namespace NewsTella
             builder.Services.AddControllersWithViews();
 
 			builder.Services.AddScoped<IArticlesService, ArticlesService>();
+            builder.Services.AddTransient<IEmailSenderService, EmailSenderService>();
+            builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
