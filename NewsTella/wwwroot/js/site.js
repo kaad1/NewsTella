@@ -2,6 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
 document.addEventListener("DOMContentLoaded", function () {
     const searchIcon = document.getElementById("search-icon");
     const searchForm = document.getElementById("search-form");
@@ -67,3 +68,4 @@ moveSmallNavLinksToMainNav();
 
 window.addEventListener('resize', moveSmallNavLinksToMainNav);
 
+  

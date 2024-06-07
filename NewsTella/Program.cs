@@ -9,28 +9,30 @@ using NewsTella.Services;
 
 namespace NewsTella
 {
-	public class Program
-	{
-		public static async Task Main(string[] args)
-		{
-			var builder = WebApplication.CreateBuilder(args);
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
-      var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-           //"LexiconConnection": "Data Source=dreammaker-it.se;Initial Catalog=newstelladb;User ID=newstellaadmin;Password=Nutella2024!;Encrypt=False;Trust Server Certificate=True"
-            
+            //"LexiconConnection": "Data Source=dreammaker-it.se;Initial Catalog=newstelladb;User ID=newstellaadmin;Password=Nutella2024!;Encrypt=False;Trust Server Certificate=True"
+
             //var connectionString = builder.Configuration.GetConnectionString("LexiconConnection") ?? throw new InvalidOperationException("Connection string 'LexiconConnection' not found.");
             //builder.Services.AddDbContext<AppDbContext>(options =>
             //    options.UseSqlServer(connectionString));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddRoles<IdentityRole>()
+
                 .AddEntityFrameworkStores<AppDbContext>();
 
             builder.Services.AddScoped<UserManager<User>, AppUserManager>();
@@ -41,9 +43,11 @@ namespace NewsTella
 
             builder.Services.AddControllersWithViews();
 
+
 			builder.Services.AddScoped<IArticlesService, ArticlesService>();
             builder.Services.AddTransient<IEmailSenderService, EmailSenderService>();
             builder.Services.AddTransient<IEmailSender, EmailHelper>();
+
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -53,29 +57,29 @@ namespace NewsTella
 
             var app = builder.Build();
 
-			// Configure the HTTP request pipeline.
-			if (app.Environment.IsDevelopment())
-			{
-				app.UseMigrationsEndPoint();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
-           
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseMigrationsEndPoint();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
             app.UseHttpsRedirection();
-			app.UseStaticFiles();
+            app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
 
-			app.UseAuthorization();
+            app.UseAuthorization();
 
-			app.MapControllerRoute(
-				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
-			app.MapRazorPages();
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapRazorPages();
 
             using (var scope = app.Services.CreateScope())
             {
@@ -141,7 +145,7 @@ namespace NewsTella
                 {
                     var user = new User();
                     user.FirstName = writerFirstName;
-                    user.LastName= writerLastName;
+                    user.LastName = writerLastName;
                     user.UserName = writerEmail;
                     user.Email = writerEmail;
 
@@ -231,6 +235,6 @@ namespace NewsTella
 
             }
             app.Run();
-		}
-	}
+        }
+    }
 }
