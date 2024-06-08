@@ -19,7 +19,7 @@ namespace NewsTella.Services
         }
         public List<Subscription> GetSubscriptions()
         {
-            var obj = _db.Subscriptions.ToList();
+            var obj = _db.Subscriptions.Include(s => s.User).Include(s => s.SubscriptionType).ToList();
             return obj;
         }
         public Subscription GetSubscriptionById(int id)
