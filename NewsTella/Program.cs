@@ -112,6 +112,7 @@ namespace NewsTella
                     user.LastName = adminLastName;
                     user.UserName = adminEmail;
                     user.Email = adminEmail;
+                    user.EmailConfirmed = true;
 
                     await userManager.CreateAsync(user, adminPassword);
 
@@ -130,6 +131,7 @@ namespace NewsTella
                     user.LastName = editorLastName;
                     user.UserName = editorEmail;
                     user.Email = editorEmail;
+                    user.EmailConfirmed = true;
 
                     await userManager.CreateAsync(user, editorPassword);
 
@@ -148,6 +150,7 @@ namespace NewsTella
                     user.LastName = writerLastName;
                     user.UserName = writerEmail;
                     user.Email = writerEmail;
+                    user.EmailConfirmed = true;
 
                     await userManager.CreateAsync(user, writerPassword);
 
@@ -156,7 +159,7 @@ namespace NewsTella
 
                 string memberFirstName = "Member";
                 string memberLastName = "Lexicon";
-                string memberEmail = "writer@writer.com";
+                string memberEmail = "member@writer.com";
                 string memberPassword = "Test1234,";
 
                 if (await userManager.FindByEmailAsync(memberEmail) == null)
@@ -166,13 +169,12 @@ namespace NewsTella
                     user.LastName = memberLastName;
                     user.UserName = memberEmail;
                     user.Email = memberEmail;
+                    user.EmailConfirmed = true;
 
                     await userManager.CreateAsync(user, memberPassword);
 
                     await userManager.AddToRoleAsync(user, Roles.Member.ToString());
                 }
-
-
             }
 
             using (var scope = app.Services.CreateScope())

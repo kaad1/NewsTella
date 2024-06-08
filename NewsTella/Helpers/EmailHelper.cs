@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using NewsTella.Services;
 
 namespace NewsTella.Helpers
