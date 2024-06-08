@@ -13,24 +13,29 @@ public class EmailSenderService : IEmailSenderService
         _configuration = configuration;
     }
 
-    public Task SendEmailAsync(string email, string subject, string htmlMessage)
+    public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
         var emailConfig = _configuration.GetSection("EmailConfig");
-        var smtpClient = new SmtpClient(emailConfig["Host"], int.Parse(emailConfig["Port"]))
-        {
-            Credentials = new System.Net.NetworkCredential(emailConfig["Username"], emailConfig["Password"]),
-            EnableSsl = true
-        };
+        var username = emailConfig["Username"];
+        var password = emailConfig["Password"];
+        var host = emailConfig["Host"];
+        var port = int.Parse(emailConfig["Port"]);
+        var fromEmail = emailConfig["FromEmail"];
 
-        var mailMessage = new MailMessage
-        {
-            From = new MailAddress(emailConfig["FromEmail"]),
-            Subject = subject,
-            Body = htmlMessage,
-            IsBodyHtml = true,
-        };
-        mailMessage.To.Add(email);
+        var message = new MailMessage();
+        message.From = new MailAddress(fromEmail);
+        message.To.Add(email);
+        message.Subject = subject;
+        message.IsBodyHtml = true;
+        message.Body = htmlMessage;
 
-        return smtpClient.SendMailAsync(mailMessage);
+        using (var smtpClient = new SmtpClient(host, port))
+        {
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new System.Net.NetworkCredential(username, password);
+
+            await smtpClient.SendMailAsync(message);
+        }
     }
 }
