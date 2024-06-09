@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewsTella.Data;
-using NewsTella.Migrations;
 using NewsTella.Models.Database;
 using NewsTella.Services;
 

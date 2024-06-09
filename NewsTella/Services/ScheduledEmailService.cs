@@ -18,7 +18,7 @@ public class ScheduledEmailService : IHostedService, IDisposable
     {
         // Calculate the time until the next 3 PM
         var now = DateTime.Now;
-        var scheduledTime = new DateTime(now.Year, now.Month, now.Day, 21, 41,41);
+        var scheduledTime = new DateTime(now.Year, now.Month, now.Day, 08, 36,36);
 
         if (now > scheduledTime)
         {

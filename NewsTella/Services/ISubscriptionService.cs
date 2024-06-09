@@ -7,6 +7,8 @@ namespace NewsTella.Services
     {
         List<Subscription> GetSubscriptions();
 
+        List<Subscription> GetSubscriptionsCloserToExpire();
+
         Subscription GetSubscriptionById(int id);
 
         void AddSubscription(Subscription subscription);
