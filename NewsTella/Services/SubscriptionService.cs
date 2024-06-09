@@ -27,10 +27,10 @@ namespace NewsTella.Services
         public List<Subscription> GetSubscriptionsCloserToExpire()
         {
             var currentDate = DateOnly.FromDateTime(DateTime.Now);
-            var targetDate = currentDate.AddDays(-2);
 
             var subscriptions = _db.Subscriptions
-                .Where(s => s.Expires <= targetDate && s.Expires >= currentDate)
+                .Include(s => s.User)
+                .Where(s => s.Expires.AddDays(-2) < currentDate) // before two days -2
                 .GroupBy(s => s.User)
                 .Select(g => g.OrderBy(s => s.Expires).FirstOrDefault())
                 .ToList();
