@@ -4,7 +4,6 @@ using NewsTella.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore;
-using NewsTella.Migrations;
 
 namespace NewsTella.Services
 {

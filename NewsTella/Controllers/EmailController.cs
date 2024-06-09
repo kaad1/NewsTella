@@ -13,6 +13,7 @@ using System.Text.Encodings.Web;
 
 namespace NewsTella.Controllers
 {
+    //This is used for send email through the UI
     public class EmailController : Controller
     {
         private readonly UserManager<User> _userManager;

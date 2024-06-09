@@ -1,5 +1,4 @@
-﻿using NewsTella.Migrations;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using NewsTella.Models.Database;
 
 namespace NewsTella.Services

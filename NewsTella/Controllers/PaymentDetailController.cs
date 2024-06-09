@@ -62,9 +62,10 @@ namespace NewsTella.Controllers
 					State = model.State,
 					PostalCode = model.PostalCode,
 					Country = model.Country,
-					UserId = user.Id
-				};
+					UserId = user.Id,
+            };
 
+				
 				_context.PaymentDetails.Add(paymentDetails);
 				await _context.SaveChangesAsync();
                 TempData["AlertMessage"] = "Thank you for Subscribing to NewsTella";
