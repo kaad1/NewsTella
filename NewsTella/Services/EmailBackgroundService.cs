@@ -22,7 +22,7 @@ public class EmailBackgroundService : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             await CheckAndSendEmailsAsync();
-            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken); // Check every day
+            await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken); // Check every minute
         }
     }
 
@@ -31,13 +31,13 @@ public class EmailBackgroundService : BackgroundService
         using (var scope = _serviceProvider.CreateScope())
         {
             var subscriptionService = scope.ServiceProvider.GetRequiredService<ISubscriptionService>();
-            List<Subscription> subscriptions = subscriptionService.GetSubscriptions();
+            List<Subscription> subscriptions = subscriptionService.GetSubscriptionsCloserToExpire();
             var emailSenderService = scope.ServiceProvider.GetRequiredService<IEmailSenderService>();
 
             foreach (var subscription in subscriptions)
             {
                 if (subscription.RenewalEmailSentTime == null || 
-                    subscription.RenewalEmailSentTime <= DateTime.Now.AddDays(-1))
+                    subscription.RenewalEmailSentTime <= DateTime.Now.AddDays(-1)) //To remind every day 
                 {
                     subscription.RenewalEmailSentTime = DateTime.Now;
                     subscriptionService.UpdateSubscription(subscription);
