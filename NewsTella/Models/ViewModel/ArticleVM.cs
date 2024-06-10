@@ -14,8 +14,9 @@ namespace NewsTella.Models.ViewModel
         public string ImageLink { get; set; }
         public string Category { get; set; }
         public string Status { get; set; } = "Draft";
-		public List<Article> ArticleList { get; set; } = new List<Article>();
-
+        public List<Article> ArticleList { get; set; } = new List<Article>();
+        public List<Article> LatestArticles { get; set; }
+        public List<Category> AllCategories { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NewsTella.Models.Database;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace NewsTella.Services
 {
@@ -19,13 +20,14 @@ namespace NewsTella.Services
 
 		public ICollection<Article> FindByCategory(string category);
 
-        public ICollection<Article> FindByHeadline(string headline); 
-		
+        public ICollection<Article> FindByHeadline(string headline);
+
+      
 
 
-		//Task UpdateAsync(string article);
+        //Task UpdateAsync(string article);
 
-		//Task DeleteConfirmed(string articleId);
-	}
+        //Task DeleteConfirmed(string articleId);
+    }
 
 }

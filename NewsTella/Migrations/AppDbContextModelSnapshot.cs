@@ -227,6 +227,28 @@ namespace NewsTella.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("NewsTella.Models.Database.ArticlePostLike", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ArticlePostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("ArticlePostLikes");
+                });
+
             modelBuilder.Entity("NewsTella.Models.Database.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -514,6 +536,13 @@ namespace NewsTella.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NewsTella.Models.Database.ArticlePostLike", b =>
+                {
+                    b.HasOne("NewsTella.Models.Database.Article", null)
+                        .WithMany("PostLikes")
+                        .HasForeignKey("ArticleId");
+                });
+
             modelBuilder.Entity("NewsTella.Models.Database.Subscription", b =>
                 {
                     b.HasOne("NewsTella.Models.Database.SubscriptionType", "SubscriptionType")
@@ -529,6 +558,11 @@ namespace NewsTella.Migrations
                     b.Navigation("SubscriptionType");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("NewsTella.Models.Database.Article", b =>
+                {
+                    b.Navigation("PostLikes");
                 });
 #pragma warning restore 612, 618
         }

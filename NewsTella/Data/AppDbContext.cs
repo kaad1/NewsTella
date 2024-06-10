@@ -7,7 +7,9 @@ namespace NewsTella.Data
 {
 	public class AppDbContext : IdentityDbContext<User>
 	{
-		public AppDbContext(DbContextOptions<AppDbContext> options)
+        internal object _articleservice;
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
 			: base(options)
 		{
 		}
@@ -16,6 +18,8 @@ namespace NewsTella.Data
         public DbSet<Subscription> Subscriptions { get; set; }
 		public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
+     
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
