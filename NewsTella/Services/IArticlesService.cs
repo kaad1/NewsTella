@@ -4,6 +4,7 @@ using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 using Microsoft.AspNetCore.Identity;
 using NewsTella.Models.Database;
+using NewsTella.Models.ViewModel;
 
 
 namespace NewsTella.Services
@@ -32,9 +33,9 @@ namespace NewsTella.Services
 
         public Article GetArticleById(int id);             
         public List<Article> GetArticles();
-        public List<Article> LatestArticles(int articleCount);
-        
-       
+        public List<LatestArticleVM> GetLatestArticles(int articleCount);
+
+
         public Task LikeArticleAsync(int id);              
         public Task IncrementViewsAsync(int id);
 
