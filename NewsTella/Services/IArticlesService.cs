@@ -15,7 +15,8 @@ namespace NewsTella.Services
 
         public Article GetArticleById(int id);             
         public List<Article> GetArticles();
-            
+        public List<Article> LatestArticles(int articleCount);
+        
         public ICollection<Article> FindByCategory(string category);
         public ICollection<Article> FindByHeadline(string headline);
 
