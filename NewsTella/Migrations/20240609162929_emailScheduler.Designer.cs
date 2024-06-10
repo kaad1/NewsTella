@@ -12,8 +12,8 @@ using NewsTella.Data;
 namespace NewsTella.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240602102204_article")]
-    partial class article
+    [Migration("20240609162929_emailScheduler")]
+    partial class emailScheduler
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,6 +250,37 @@ namespace NewsTella.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("NewsTella.Models.Database.EmailSchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsSent")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ScheduledTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmailSchedules");
+                });
+
             modelBuilder.Entity("NewsTella.Models.Database.PaymentDetail", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +363,9 @@ namespace NewsTella.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("RenewalEmailSentTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("SubscriptionTypeId")
                         .HasColumnType("int");

@@ -103,7 +103,6 @@ namespace NewsTella.Areas.Identity.Pages.Account
             public string LastName { get; set; }
         }
 
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
@@ -160,6 +159,7 @@ namespace NewsTella.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
 
         private User CreateUser()
         {

@@ -31,7 +31,7 @@
                     <strong><label asp-for="Price"></label></strong>
                     </div>
                     <div class="col-2">
-                    <input asp-for="Price" class="no-border" />
+                    <input asp-for="Price" class="no-border " readonly />
                     <span asp-validation-for="Price" class="text-danger"></span>
                     </div>
                 </div>
@@ -81,8 +81,8 @@
 </div>
             
 
-@section Scripts {
+@* @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     
-}
+} *@
 

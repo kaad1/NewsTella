@@ -4,7 +4,7 @@ namespace NewsTella.Models
 {
     public class EmailEntity
     {
-        [ValidateNever]
+        [ValidateNever] 
         public string FromEmailAddress { get; set; }
 
         public string ToEmailAddress { get; set; }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
@@ -18,8 +18,11 @@ namespace NewsTella.Data
         public DbSet<Subscription> Subscriptions { get; set; }
 		public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
-     
+
         
+
+        public DbSet<EmailSchedule> EmailSchedules { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -17,11 +17,27 @@ namespace NewsTella.Services
             _context = context;
             _logger = logger;
         }
+
         public List<Subscription> GetSubscriptions()
         {
-            var obj = _db.Subscriptions.ToList();
+            var obj = _db.Subscriptions.Include(s => s.User).Include(s => s.SubscriptionType).ToList();
             return obj;
         }
+
+        public List<Subscription> GetSubscriptionsCloserToExpire()
+        {
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+
+            var subscriptions = _db.Subscriptions
+                .Include(s => s.User)
+                .Where(s => s.Expires.AddDays(-2) < currentDate) // before two days -2
+                .GroupBy(s => s.User)
+                .Select(g => g.OrderBy(s => s.Expires).FirstOrDefault())
+                .ToList();
+
+            return subscriptions;
+        }
+
         public Subscription GetSubscriptionById(int id)
         {
             var subscription = _db.Subscriptions.FirstOrDefault(s => s.Id == id);

@@ -30,7 +30,7 @@ namespace NewsTella.Controllers
 
 		public IActionResult Index()
 		{
-			return View(_subscriptionTypeService.GetSubscriptionTypes());
+			return View(_subscriptionService.GetSubscriptions());
 		} 
 
 		[Authorize]
