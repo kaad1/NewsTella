@@ -51,8 +51,8 @@ namespace NewsTella.Controllers
         {
             ModelState.Remove("AllCategories");
             ModelState.Remove("ImageLink");
-            //ModelState.Remove("FormImage");
-            //ModelState.Remove("SelectedCategoryIds");
+            ModelState.Remove("FormImage");
+            ModelState.Remove("SelectedCategoryIds");
             if (ModelState.IsValid)
             {
                 var article = new Article
@@ -110,10 +110,10 @@ namespace NewsTella.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ArticleEditVM model)
         {
-            //ModelState.Remove("AllCategories");
-            //ModelState.Remove("ImageLink");
-            //ModelState.Remove("FormImage");
-            //ModelState.Remove("SelectedCategoryIds");
+            ModelState.Remove("AllCategories");
+            ModelState.Remove("ImageLink");
+            ModelState.Remove("FormImage");
+            ModelState.Remove("SelectedCategoryIds");
             if (ModelState.IsValid)
             {
                 Article article = _articlesService.GetArticleById(model.Id);

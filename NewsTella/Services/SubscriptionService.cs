@@ -30,7 +30,7 @@ namespace NewsTella.Services
 
             var subscriptions = _db.Subscriptions
                 .Include(s => s.User)
-                .Where(s => s.Expires.AddDays(-2) < currentDate) // before two days -2
+                .Where(s => s.Expires.AddDays(-3) < currentDate) // before two days -2
                 .GroupBy(s => s.User)
                 .Select(g => g.OrderBy(s => s.Expires).FirstOrDefault())
                 .ToList();
