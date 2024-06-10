@@ -1,25 +1,28 @@
 ﻿@using Humanizer
 @model NewsTella.Models.Database.Category
 
-
+<div class="text-center text-uppercase mt-3 mb-5 modeltext ">
+    <h3>@Model.Name</h3>
+</div>
+<div class="text-center font-weight-bold">Latest from the @Model.Name</div>
 <div class="row">
-    @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Skip(3).ToList())
+    @foreach (var article in Model.Articles)
     {
-        <div class="col-12 col-md-6 col-lg-3">
+
+        <div class="col-4 col-md-6 col-lg-4">
+
             <div class="card h-100 no-border d-flex flex-column card-body ">
                 <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
                     <img class="card-img-top " src="@article.ImageLink" alt="@article.Headline" height="200px" width="200px">
                 </a>
-                <div class="card-body d-flex flex-column">
+                <div class="card-body">
                     <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
                         <h5 class="card-title text-center mt-2 h5text">@article.Headline</h5>
                     </a>
 
                     <p class="card-text text-center">@article.ContentSummary</p>
-                    
                     <p class="d-flex flex-column"><small>Published on @article.DateStamp.ToUniversalTime().Humanize()</small></p>
-@*                     <p class="d-flex flex-column "><small>Published on @article.DateStamp.ToUniversalTime().Humanize()</small></p>
- *@                    @* <a href="@Url.Action("Details", "Article", new { id = article.Id })" class="btn btn-warning readbutton">Read More</a>  *@
+                    @* <a href="@Url.Action("Details", "Article", new { id = article.Id })" class="btn btn-warning readbutton">Read More</a>  *@
                 </div>
             </div>
         </div>
