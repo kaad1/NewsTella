@@ -1,0 +1,20 @@
+﻿@model IEnumerable<NewsTella.Models.Database.Article>
+
+@foreach (var latestArticle in Model) {
+	<div class="article-container">
+		<div class="img-container">
+			<div class="tab-img-wrapper">
+				<div class="tab-img" style="background-image: url('@latestArticle.ImageLink');"></div>
+			</div>
+		</div>
+		<div class="tab-article-section">
+			<a class="tab-category-heading" href="">
+				@foreach (var category in latestArticle.Categories)
+				{
+					@category.Name
+				}
+			</a>
+			<h3 class="tab-article-heading"><a title="@latestArticle.Headline" href="">@latestArticle.Headline</a></h3>
+		</div>
+	</div>
+}

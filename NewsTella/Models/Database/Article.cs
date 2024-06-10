@@ -51,5 +51,6 @@ namespace NewsTella.Models.Database
         {
             Categories = new HashSet<Category>();
         }
+		
     }
 }

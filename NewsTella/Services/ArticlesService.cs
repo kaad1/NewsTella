@@ -115,6 +115,11 @@ namespace NewsTella.Services
 		{
 			throw new NotImplementedException();
 		}
+		public List<Article> LatestArticles(int articleCount)
+        {
+            var latestArticles = _db.Articles.Include(a => a.Categories).OrderByDescending(a => a.DateStamp).Take(articleCount).ToList();
+            return latestArticles;
+        }
 
 		public Task GetArticleByIdAsync()
 		{
