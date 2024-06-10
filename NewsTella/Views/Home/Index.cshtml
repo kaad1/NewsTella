@@ -36,19 +36,8 @@
 				</ul>
 				<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab" tabindex="0">
-						<div class="article-container">
-							<div class="img-container">
-								<div class="tab-img-wrapper">
-									<div class="tab-img"></div>								
-								</div>
-							</div>
-								@* <img src="https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/50.jpg" class="img-fluid img-tab-wrap" alt="Alternate Text" /> *@
-							<div class="tab-article-section">
-								<a class="tab-category-heading" href="">Weather</a>
-								<h3 class="tab-article-heading"><a title="Capturing the Majestic Power and Beauty of Nature’s Elements" href="">Capturing the Majestic Power and Beauty of Nature’s Elements</a></h3>
-							</div>
-						</div>
-						<div class="article-container">
+						@await Component.InvokeAsync("LatestArticle", new { count = 6 })
+						@* <div class="article-container">
 							<div class="img-container">
 								<div class="tab-img-wrapper">
 									<div class="tab-img"></div>								
@@ -103,6 +92,17 @@
 								<h3 class="tab-article-heading"><a title="Capturing the Majestic Power and Beauty of Nature’s Elements" href="">Capturing the Majestic Power and Beauty of Nature’s Elements</a></h3>
 							</div>
 						</div>
+						<div class="article-container">
+							<div class="img-container">
+								<div class="tab-img-wrapper">
+									<div class="tab-img"></div>								
+								</div>
+							</div>
+							<div class="tab-article-section">
+								<a class="tab-category-heading" href="">Weather</a>
+								<h3 class="tab-article-heading"><a title="Capturing the Majestic Power and Beauty of Nature’s Elements" href="">Capturing the Majestic Power and Beauty of Nature’s Elements</a></h3>
+							</div>
+						</div> *@
 					</div>
 					<div class="tab-pane fade" id="pills-editors" role="tabpanel" aria-labelledby="pills-editors-tab" tabindex="0">
 					<div class="article-container">

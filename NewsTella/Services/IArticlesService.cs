@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using NewsTella.Models.Database;
+using NewsTella.Models.ViewModel;
 
 namespace NewsTella.Services
 {
@@ -15,7 +16,7 @@ namespace NewsTella.Services
 
         public Article GetArticleById(int id);             
         public List<Article> GetArticles();
-            
+        public List<LatestArticleVM> GetLatestArticles(int articleCount);
         public ICollection<Article> FindByCategory(string category);
         public ICollection<Article> FindByHeadline(string headline);
 
