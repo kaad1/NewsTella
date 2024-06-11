@@ -67,17 +67,17 @@ namespace NewsTella.Controllers
                 article.Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList();
 
 
-                if (model.FormImage != null && model.FormImage.Length > 0)
-                {
-                    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
-                    var fileName = Path.GetFileName(model.FormImage.FileName);
-                    var filePath = Path.Combine(uploadFolder, fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.FormImage.CopyToAsync(fileStream);
-                    }
-                    article.ImageLink = "/Images/" + fileName;
-                }
+                //if (model.FormImage != null && model.FormImage.Length > 0)
+                //{
+                //    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
+                //    var fileName = Path.GetFileName(model.FormImage.FileName);
+                //    var filePath = Path.Combine(uploadFolder, fileName);
+                //    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                //    {
+                //        await model.FormImage.CopyToAsync(fileStream);
+                //    }
+                //    article.ImageLink = "/Images/" + fileName;
+                //}
 
                 _articlesService.AddArticle(article);
                 return RedirectToAction("Index");

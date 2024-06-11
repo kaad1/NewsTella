@@ -210,15 +210,7 @@ namespace NewsTella
                     categoryService.AddCategory(category);
                 }
 
-                categoryName = "Weather";
-
-                if (categoryService.GetCategoryByName(categoryName) == null)
-                {
-                    var category = new Category();
-                    category.Name = categoryName;
-                    categoryService.AddCategory(category);
-                }
-
+              
                 categoryName = "Economy";
 
                 if (categoryService.GetCategoryByName(categoryName) == null)
