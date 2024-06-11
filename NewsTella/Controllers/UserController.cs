@@ -181,6 +181,68 @@ namespace NewsTella.Controllers
             var pagedUsers = users.ToPagedList(pageNumber, pageSize);
             return View(pagedUsers); // Return IPagedList<UserVM>
         }
+
+        public async Task<IActionResult> MyProfile(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            var model = new UserEditVM
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Roles = _roleManager.Roles.Select(r => r.Name).ToList(),
+                SelectedRoles = userRoles.ToList()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MyProfile(UserEditVM model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Error updating user");
+                return View(model);
+            }
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var rolesToAdd = model.SelectedRoles.Except(userRoles).ToList();
+            var rolesToRemove = userRoles.Except(model.SelectedRoles).ToList();
+
+            result = await _userManager.AddToRolesAsync(user, rolesToAdd);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Error adding roles");
+                return View(model);
+            }
+
+            result = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Error removing roles");
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
 
