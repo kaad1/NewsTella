@@ -92,17 +92,17 @@
 										<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 									</svg>
 								</a>
-								<form id="search-form" method="get" class="search-dropdown" role="search">
+                                <form asp-controller="Article" asp-action="SearchArticles" id="search-form" method="get" class="search-dropdown" role="search">
 									<div class="input-group">
-										<input type="text" class="input-text form-control" aria-label="Search" />
+                                        <input type="text" name="headline" class="input-text form-control" aria-label="Search" />
 										<button class="btn btn-red" type="submit">Search</button>
 									</div>
 								</form>
 							</li>
 							<li class="nav-item d-sm-none w-100">
-								<form id="search-form-mobile" method="get" role="search">
+                                <form asp-controller="Article" asp-action="SearchArticles" id="search-form-mobile" method="get" role="search">
 									<div class="input-group">
-										<input type="text" class="input-text form-control" aria-label="Search" />
+                                        <input type="text" name="headline" class="input-text form-control" aria-label="Search" />
 										<button class="btn btn-red" type="submit">Search</button>
 									</div>
 								</form>

@@ -228,5 +228,22 @@ namespace NewsTella.Controllers
         //                return View(article);
         //}  
 
+        [HttpGet]
+        public async Task<IActionResult> SearchArticles(string headline)
+        {
+            ICollection<Article> articles = new List<Article>();
+
+            if (!string.IsNullOrEmpty(headline))
+            {
+                articles = _articlesService.FindByHeadline(headline);
+            }
+            else
+            {
+                articles = _articlesService.GetArticles();
+            }
+
+            return View("SearchArticles", articles);
+        }
+
     }
 }

@@ -134,6 +134,7 @@ namespace NewsTella.Services
 			throw new NotImplementedException();
 		}
 
+
         public Article UploadFilesToContainer(Article article)
         {
             BlobContainerClient blobServiceClient = new BlobServiceClient(
@@ -150,5 +151,24 @@ namespace NewsTella.Services
             return article;
 
         }
+
+        public List<LatestArticleVM> GetLatestArticles(int articleCount)
+        {
+            return _db.Articles
+                      .Include(a => a.Categories)
+                      .OrderByDescending(a => a.DateStamp)
+                      .Take(articleCount)
+                      .Select(a => new LatestArticleVM
+                      {
+                          ArticleId = a.Id,
+                          ImageLink = a.ImageLink,
+                          Headline = a.Headline,
+                          CategoryIds = a.Categories.Select(c => c.Id).ToList(),
+                          CategoryNames = a.Categories.Select(c => c.Name).ToList()
+                      })
+                      .ToList();
+        }
+
+
     }
 }
