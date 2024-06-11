@@ -17,5 +17,7 @@ namespace NewsTella.Services
 
         void UpdateSubscription(Subscription subscription);
 
+        public List<Subscription> FindByEmailAsync(string email);
+
     }
 }

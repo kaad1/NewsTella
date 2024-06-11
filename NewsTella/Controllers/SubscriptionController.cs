@@ -6,7 +6,7 @@ using NewsTella.Data;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 using NewsTella.Services;
-
+using X.PagedList;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,12 +28,28 @@ namespace NewsTella.Controllers
             _context = context;
         }
 
-		public IActionResult Index()
-		{
-			return View(_subscriptionService.GetSubscriptions());
-		} 
+        public IActionResult Index(string email, int? page)
+        {
+            List<Subscription> subscriptions = new List<Subscription>();
 
-		[Authorize]
+            if (!string.IsNullOrEmpty(email))
+            {
+                subscriptions = _subscriptionService.FindByEmailAsync(email);
+            }
+            else 
+            {
+               subscriptions = _subscriptionService.GetSubscriptions();
+            }
+                
+            int pageSize = 2; // Number of users per page
+            int pageNumber = (page ?? 1); // Default to first page
+
+            var pagedSubscriptions = subscriptions.ToPagedList(pageNumber, pageSize);
+            return View(pagedSubscriptions); // Return IPagedList<UserVM>
+        }
+
+
+        [Authorize]
         public IActionResult SelectSubscription()
         {
             var subscriptions = _context.SubscriptionTypes
