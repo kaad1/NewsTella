@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -99,9 +98,8 @@ namespace NewsTella.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            public string FirstName {  get; set; }
-            public string LastName { get; set; }
         }
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -119,10 +117,7 @@ namespace NewsTella.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                await _userManager.AddToRoleAsync(user, Roles.Member.ToString());
 
                 if (result.Succeeded)
                 {
@@ -159,7 +154,6 @@ namespace NewsTella.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
-
 
         private User CreateUser()
         {

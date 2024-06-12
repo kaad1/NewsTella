@@ -49,6 +49,7 @@ namespace NewsTella
             builder.Services.AddTransient<IEmailSender, EmailHelper>();
             builder.Services.AddHostedService<ScheduledEmailService>();
             builder.Services.AddHostedService<EmailBackgroundService>();
+           
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
