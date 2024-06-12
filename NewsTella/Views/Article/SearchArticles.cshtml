@@ -1,7 +1,6 @@
 ﻿@using NewsTella.Models.ViewModel
 @model SearchArticlesViewModel
 
-<h2>Search Results "@Model.SearchValue"</h2>
 
 @* @if (Model.Articles.Count == 0)
 {
@@ -20,13 +19,26 @@ else
     </div>
 } *@
 
+<style>
+    .wrapper-search {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 40px !important;
+        padding-top: 80px !important;
+        padding-bottom: 40px !important;
+        position: relative;
+    }
+</style>
 
 <div class="container">
     <div class="row">
         <div class="wrapper-search">
             <div class="col-6">
                 <div class="search-result-heading">
-                    <div class="search-text">Search result for: </div>
+                    <div class="search-text">Search results for: </div>
                     <h2>@Model.SearchValue</h2>
                 </div>
             </div>
