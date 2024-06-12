@@ -191,12 +191,14 @@ namespace NewsTella.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Like(int id)
-        {
-            try
+		public async Task<IActionResult> Like([FromBody] int id)
+		{
+			try
             {
                 await _articlesService.LikeArticleAsync(id);
-                return RedirectToAction(nameof(Details), new { id = id });
+				Article article = _articlesService.GetArticleById(id);
+				int likeCount = article.Likes;
+                return Ok(new { success = true, likeCount = likeCount, message = "Article liked successfully" });
             }
             catch (Exception ex)
             {

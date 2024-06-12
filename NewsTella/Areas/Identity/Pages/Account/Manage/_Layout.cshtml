@@ -10,14 +10,22 @@
 }
 
 
-
-<div>
+  @*   <h1>Manage your account</h1> *@
+<div class="container col-lg-12 py-5 align-items-center">
     <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+        <div class="card border-0">
+            <div>
+                @* <h2>Change your account settings</h2>
+                <hr /> *@
+                <div class="row">
+                    <div class="col-md-3 card bg-body-secondary">
+                        <partial name="_ManageNav" />
+                    </div>
+                    <div class="col-md-9">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
