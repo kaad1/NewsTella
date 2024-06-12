@@ -196,7 +196,7 @@ namespace NewsTella.Controllers
             try
             {
                 await _articlesService.LikeArticleAsync(id);
-                return RedirectToAction(nameof(Details), new { id = id });
+				Article article = _articlesService.GetArticleById(id);
             }
             catch (Exception ex)
             {
