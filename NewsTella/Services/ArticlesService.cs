@@ -148,5 +148,12 @@ namespace NewsTella.Services
                       .ToList();
         }
 
+		public Article GetLatestArticle()
+		{
+            var article =  _db.Articles.Where(a => !a.IsDeleted && a.Status == "Published").OrderByDescending(a => a.DateStamp).FirstOrDefault();
+
+			return article;
+		}
+
     }
 }
