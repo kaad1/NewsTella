@@ -364,7 +364,7 @@ namespace NewsTella.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("RenewalEmailSentTime")
+                    b.Property<DateTime>("RenewalEmailSentTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("SubscriptionTypeId")

@@ -27,11 +27,6 @@
 			<div class="col-md-6 mb-3">
 				<h3>Article List</h3>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6 mb-3">
-			<a asp-controller="Article" asp-action="EditorsChoice" class="btn btn-dark">Editor's Chouce</a>
-			</div>
 			<div class="col-md-6">
 				<form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
 					<div class="input-group">
@@ -41,8 +36,17 @@
 				</form>
 			</div>
 		</div>
-	</div>
-		<br />
+		</div>
+			<div class="row">
+			@if (!User.IsInRole("Admin") && !User.IsInRole("Writer"))
+			{
+				<div class="col-md-6 mb-3">
+					<a asp-controller="Article" asp-action="EditorsChoice" class="btn btn-dark">Editor's Chouce</a>
+				</div>
+			}
+			</div>
+		</div>
+	<br />
 	<br />
 	<table id="sortBy" class="table table-striped">
 		<thead>
@@ -133,8 +137,11 @@
 							{
 								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
 								// Buttons disabled for writer if already Submitted and/or Published
-								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
-								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
+								@if (!User.IsInRole("Admin") && !User.IsInRole("Writer"))
+								{
+									<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
+									<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
+								}
 							}
 							else if (item.Status == "Draft")
 							{
@@ -153,8 +160,11 @@
 						{
 							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
 							// Buttons disabled for User..
-							<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
-							<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
+							@if (!User.IsInRole("Admin"))
+							{
+								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
+								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
+							}
 						}
 					</td>
 				</tr>

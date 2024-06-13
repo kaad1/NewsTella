@@ -11,6 +11,10 @@
                 <h3>Editor's Choice</h3>
             </div>
             <form asp-action="UpdateEditorsChoice" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <span id="selectedCount">0</span> articles selected out of 6 (max 6)
+                </div>
                 <table id="sortBy" class="table table-striped">
                     <thead>
                         <tr>
@@ -52,3 +56,31 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const maxSelections = 6;
+        const checkboxes = document.querySelectorAll('input[name="selectedEditorsChoiceIds"]');
+        const selectedCountSpan = document.getElementById("selectedCount");
+
+        function updateSelectedCount() {
+            const checkedCount = document.querySelectorAll('input[name="selectedEditorsChoiceIds"]:checked').length;
+            selectedCountSpan.textContent = checkedCount;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                let checkedCount = document.querySelectorAll('input[name="selectedEditorsChoiceIds"]:checked').length;
+                if (checkedCount > maxSelections) {
+                    this.checked = false;
+                    alert(`You can only select up to ${maxSelections} articles.`);
+                }
+                updateSelectedCount();
+            });
+        });
+
+        // Initialize the counter on page load
+        updateSelectedCount();
+    });
+</script>
