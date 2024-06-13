@@ -403,6 +403,7 @@ body {
     display: block;
 }
 
+/* Search Articles */
 .wrapper-search {
     display: flex;
     flex-direction: row;
@@ -417,6 +418,120 @@ body {
     padding-left: 0;
     padding-right: 0;
 }
+
+.container-new {
+    width: auto !important;
+    max-width: 1440px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.searchtext-lsection {
+    padding-right: 40px !important;
+}
+
+.search-result-heading .search-text {
+    font-family: var(--tt-secondary) !important;
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+}
+
+.search-result-heading .articleheading-text {
+    font-family: var(--tt-primary-font) !important;
+    font-size: 50px !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    text-transform: none !important;
+    margin-bottom: 0;
+}
+
+.search-result-heading {
+    line-height: 21px;
+}
+
+.articleheading-text {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    word-wrap: break-word;
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: 700;
+}
+
+.search-borderbottom {
+    content: '' !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    display: block !important;
+    z-index: 0 !important;
+    border-color: var(--tt-primary-color) !important;
+    border-style: solid !important;
+    border-width: 0px 0px 5px 0px !important;
+}
+
+.articlesearch {
+    font-family: var(--tt-extra) !important;
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    padding: 15px 20px;
+    border: 0;
+}
+
+.searchbar-wrapper .input-form-border {
+    border-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e1e1e1;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+
+.searchbar-wrapper .articlesearch:focus + .input-form-border {
+    border-color: black !important;
+    z-index: 6;
+    outline: 0 none;
+}
+
+.btn-search {
+    padding: 0 25px;
+    font-family: var(--tt-extra) !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    z-index: 7 !important;
+    border-radius: 0;
+    border: 0;
+}
+
+.title-line {
+    height: 50px;
+    display: none;
+    position: relative;
+}
+
+    .title-line::after {
+        content: '';
+        width: 100%;
+        position: absolute;
+        background-color: #4db2ec;
+        top: 0;
+        left: 0;
+        margin: auto;
+        height: 2px;
+        bottom: 40%;
+    } 
+
+/**************************************************/
 
 .fromHorisontal {
     position: absolute;
@@ -616,6 +731,23 @@ body {
         margin-bottom: 20px !important;
         padding-right: 0px !important;
     }
+
+    .btn-search {
+        padding: 0 20px;
+    }
+
+    .articlesearch {
+        padding: 12px 16px;
+    }
+
+    .search-result-heading .articleheading-text {
+        font-size: 36px !important;
+    }
+
+    .search-result-heading .search-text {
+        font-size: 16px !important;
+    }
+
 }
 
 @media (min-width: 768px) {
@@ -693,6 +825,24 @@ body {
         padding-bottom: 20px !important;
         padding-left: 15px !important;
     }
+
+    .btn-search {
+        padding: 0 20px;
+        font-size: 13px !important;
+    }
+
+    .articlesearch {
+        font-size: 15px !important;
+        padding: 12px 16px;
+    }
+
+    .search-result-heading .search-text  {
+        font-size: 16px !important;
+    }
+
+    .search-result-heading .articleheading-text {
+        font-size: 36px !important;
+    }
 }
 
 @media (max-width: 392px) {
@@ -723,6 +873,14 @@ body {
 
     .front-img {
         padding-bottom: 80%;
+    }
+
+    .search-result-heading .articleheading-text {
+        font-size: 42px !important;
+    }
+
+    .search-result-heading .search-text {
+        font-size: 18px !important;
     }
 }
 
