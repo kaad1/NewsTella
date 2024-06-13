@@ -51,6 +51,6 @@ namespace NewsTella.Models.Database
         {
             Categories = new HashSet<Category>();
         }
-		
+        public bool IsEditorsChoice { get; set; } = false;
     }
 }

@@ -39,7 +39,15 @@ namespace NewsTella.Controllers
             return View(pagedArticles); // Return IPagedList<Article>
         }
 
-        public IActionResult Create()
+		[HttpGet]
+		public async Task<IActionResult> EditorsChoice()
+		{
+			ICollection<Article> articles = new List<Article>();
+		    articles = _articlesService.GetArticles();
+			return View(articles); 
+		}
+
+		public IActionResult Create()
         {
             ArticleCreateVM model = new ArticleCreateVM();
             model.AllCategories = _categoryService.GetCategories();
@@ -245,6 +253,19 @@ namespace NewsTella.Controllers
             }
 
             return View("SearchArticles", articles);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEditorsChoice(int[] selectedEditorsChoiceIds)
+        {
+            var articles = _articlesService.GetArticles();
+            foreach (var article in articles)
+            {
+                bool isEditorsChoice = selectedEditorsChoiceIds.Contains(article.Id);
+                _articlesService.UpdateEditorsChoiceStatus(article.Id, isEditorsChoice);
+            }
+
+            return RedirectToAction("EditorsChoice");
         }
 
     }
