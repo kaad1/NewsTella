@@ -39,15 +39,17 @@ namespace NewsTella.Controllers
             return View(pagedArticles); // Return IPagedList<Article>
         }
 
-		[HttpGet]
-		public async Task<IActionResult> EditorsChoice()
-		{
-			ICollection<Article> articles = new List<Article>();
-		    articles = _articlesService.GetArticles();
-			return View(articles); 
-		}
+        //[HttpGet]
+        //public async Task<IActionResult> EditorsChoice()
+        //{
+        //    var latestArticle = _articlesService.GetLatestArticles(icount);
+        //    return View(latestArticle);
+        //    ICollection<Article> articles = new List<Article>();
+        //    articles = _articlesService.GetLatestArticles();
+        //    return View(articles);
+        //}
 
-		public IActionResult Create()
+        public IActionResult Create()
         {
             ArticleCreateVM model = new ArticleCreateVM();
             model.AllCategories = _categoryService.GetCategories();
@@ -258,14 +260,19 @@ namespace NewsTella.Controllers
         [HttpPost]
         public IActionResult UpdateEditorsChoice(int[] selectedEditorsChoiceIds)
         {
-            var articles = _articlesService.GetArticles();
-            foreach (var article in articles)
+            const int maxSelections = 6;
+            ICollection<Article> articles = _articlesService.GetArticles();
+            if (selectedEditorsChoiceIds.Length > maxSelections)
             {
-                bool isEditorsChoice = selectedEditorsChoiceIds.Contains(article.Id);
-                _articlesService.UpdateEditorsChoiceStatus(article.Id, isEditorsChoice);
+                ModelState.AddModelError(string.Empty, $"You can only select up to {maxSelections} articles");
+                return View("EditorsChoice", articles);
             }
 
-            return RedirectToAction("EditorsChoice");
+            foreach (var article in articles)
+            {
+                _articlesService.UpdateEditorsChoiceStatus(article.Id, selectedEditorsChoiceIds.Contains(article.Id));
+            }
+            return RedirectToAction("Index");
         }
 
     }

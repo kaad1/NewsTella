@@ -19,7 +19,7 @@ namespace NewsTella.Models.Database
 
         public bool PaymentComplete { get; set; }
 
-        public DateTime? RenewalEmailSentTime { get; set; } = null;
+        public DateTime RenewalEmailSentTime { get; set; }
 
         public bool IsDeleted { get; set; } = false;
 
