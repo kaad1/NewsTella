@@ -20,6 +20,10 @@ else
 } *@
 
 <style>
+    .searchtext-lsection {
+        padding-right: 40px !important;
+    }
+    
     .wrapper-search {
         display: flex;
         flex-direction: row;
@@ -30,16 +34,49 @@ else
         padding-top: 80px !important;
         padding-bottom: 40px !important;
         position: relative;
+        min-height: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
+    .search-text {
+        font-family: var(--tt-secondary) !important;
+        font-size: 20px !important;
+        line-height: 1.2 !important;
+    }
+    .articleheading-text {
+        font-family: var(--tt-primary-font) !important;
+        font-size: 50px !important;
+        line-height: 1.2 !important;
+        font-weight: 800 !important;
+        text-transform: none !important;
+        margin-bottom: 0;
+    }
+
+    .search-borderbottom {
+        content: '' !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        display: block !important;
+        z-index: 0 !important;
+        border-color: var(--tt-primary-color) !important;
+        border-style: solid !important;
+        border-width: 0px 0px 5px 0px !important;
+    }
+
 </style>
 
 <div class="container">
     <div class="row">
         <div class="wrapper-search">
-            <div class="col-6">
+            <div class="search-borderbottom">
+            </div>
+            <div class="col-6 searchtext-lsection">
                 <div class="search-result-heading">
                     <div class="search-text">Search results for: </div>
-                    <h2>@Model.SearchValue</h2>
+                    <h2 class="articleheading-text">@Model.SearchValue</h2>
                 </div>
             </div>
             <div class="col-6">
