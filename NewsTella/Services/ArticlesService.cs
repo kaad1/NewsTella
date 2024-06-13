@@ -169,6 +169,15 @@ namespace NewsTella.Services
                       .ToList();
         }
 
+        public void UpdateEditorsChoiceStatus(int id, bool isEditorsChoice)
+        {
+            var article = _db.Articles.Find(id);
+            if (article != null)
+            {
+                article.IsEditorsChoice = isEditorsChoice;
+                _db.SaveChanges();
+            }
+        }
 
     }
 }
