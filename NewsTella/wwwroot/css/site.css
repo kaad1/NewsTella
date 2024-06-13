@@ -403,6 +403,21 @@ body {
     display: block;
 }
 
+.wrapper-search {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 40px !important;
+    padding-top: 80px !important;
+    padding-bottom: 40px !important;
+    position: relative;
+    min-height: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .fromHorisontal {
     position: absolute;
     margin: auto;
@@ -561,9 +576,9 @@ body {
         margin-left: auto;
     }
 
-    .container-rework {
-        padding-left: 20px;
-        padding-right: 20px;
+    .container-rework, .container-new {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 
     .col-margin, .tab-sm {
@@ -584,6 +599,23 @@ body {
         padding-top: 24px !important;
         padding-bottom: 60px !important;
     }
+
+    .row-new {
+        margin-left: 0;
+        margin-right: 0;
+    } 
+
+    .wrapper-search {
+        padding-top: 60px !important;
+        padding-bottom: 45px !important;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .searchtext-lsection {
+        margin-bottom: 20px !important;
+        padding-right: 0px !important;
+    }
 }
 
 @media (min-width: 768px) {
@@ -595,6 +627,11 @@ body {
     .col-margin, .tab-sm {
         padding-left: 20px;
         padding-right: 20px;
+    }
+
+    .row-new {
+        margin-left: -0px;
+        margin-right: -0px;
     }
 }
 
@@ -649,6 +686,13 @@ body {
         padding-top: 40px !important;
         padding-bottom: 40px !important;
     }
+
+    .wrapper-search {
+        padding-top: 60px !important;
+        padding-right: 15px !important;
+        padding-bottom: 20px !important;
+        padding-left: 15px !important;
+    }
 }
 
 @media (max-width: 392px) {
@@ -667,9 +711,14 @@ body {
         margin-bottom: 10px !important;
     }
 
-    .container-rework {
-        padding-left: 20px;
-        padding-right: 20px;
+    .container-rework, .container-new {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .wrapper-search {
+        padding-top: 70px !important;
+        padding-bottom: 30px !important;
     }
 
     .front-img {
@@ -678,9 +727,9 @@ body {
 }
 
 @media (min-width: 1141px) {
-    .container-rework {
-        padding-left: 24px;
-        padding-right: 24px;
+    .container-rework, .container-new {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
     }
 }
 
@@ -706,6 +755,7 @@ body {
         }
     }
 }
+
 
 /* Removes container for 1200px and less */
 
@@ -924,7 +974,8 @@ a {
     margin-top: 0;
     position: relative;
     text-transform: capitalize;
-=======
+}
+
 /*********************************************************/
 
 /* Likes & Views-function for article */
