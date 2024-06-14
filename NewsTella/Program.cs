@@ -21,7 +21,7 @@ namespace NewsTella
             //builder.Services.AddDbContext<AppDbContext>(options =>
             //    options.UseSqlServer(connectionString));
 
-            //"LexiconConnection": "Data Source=dreammaker-it.se;Initial Catalog=newstelladb;User ID=newstellaadmin;Password=Nutella2024!;Encrypt=False;Trust Server Certificate=True"
+           //"LexiconConnection": "Data Source=dreammaker-it.se;Initial Catalog=newstelladb;User ID=newstellaadmin;Password=Nutella2024!;Encrypt=False;Trust Server Certificate=True"
 
             var connectionString = builder.Configuration.GetConnectionString("LexiconConnection") ?? throw new InvalidOperationException("Connection string 'LexiconConnection' not found.");
             builder.Services.AddDbContext<AppDbContext>(options =>

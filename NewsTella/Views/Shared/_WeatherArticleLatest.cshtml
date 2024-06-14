@@ -1,36 +1,13 @@
 ﻿@using Humanizer
 @model NewsTella.Models.Database.Category
 
-@if (Model.Name.Contains("Weather"))
-{
-    
-}
-else{
-<div class="text-center text-uppercase mt-3 mb-5 modeltext ">
-    <h3>@Model.Name</h3>
-</div>
-    <div class="text-center font-weight-bold">Latest from the @Model.Name</div>
-}
 
 <div class="row">
-    
-    @if ((Model.Name.Contains("Weather")))
+    @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Skip(1).ToList())
     {
 
-        <h3 class="text-center" style="color:#87B27F;">@Model.Name</h3>
-        
-        <div >
-            @Html.Partial("_WeatherArticle", Model)
-
-        </div>
-    }
-
-    else{
-    @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Take(3).ToList())
-    {
-        
         <div class="col-12 col-md-6 col-lg-4">
-            
+
             <div class="card h-100 no-border d-flex flex-column card-body ">
                 <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
                     <img class="card-img-top " src="@article.ImageLink" alt="@article.Headline" height="200px" width="200px">
@@ -46,6 +23,6 @@ else{
                 </div>
             </div>
         </div>
-    }
+
     }
 </div>

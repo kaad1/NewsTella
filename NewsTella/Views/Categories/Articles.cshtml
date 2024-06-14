@@ -1,8 +1,7 @@
 ﻿@model NewsTella.Models.Database.Category
-@using PagedList; 
+@using PagedList;
 
-
-<div class="container">
+@* <div class="container">
     <div class="row">
         <div class="col-md-12">
             @Html.Partial("_LatestArticles", Model)
@@ -11,9 +10,48 @@
 </div>
 
 
-
-
 <div class="container">
     <div class="border-bottom border-black m-3 mt-5 mb-5 lineborder "></div>
     @Html.Partial("_ArticlePartial", Model)
-</div>
+</div> *@
+@if (Model.Name.Contains("Weather"))
+{
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-8">
+                @Html.Partial("_LatestArticles", Model)
+
+
+
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mt-9  ">
+                @Html.Partial("_WeatherPartial", Model)
+
+
+                </div>
+                <div class="col-12 col-md-12 col-lg-12">
+                @Html.Partial("_WeatherArticleLatest", Model)
+                </div>
+            </div>
+        </div>
+
+
+}
+
+else
+{
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                @Html.Partial("_LatestArticles", Model)
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="border-bottom border-black m-3 mt-5 mb-5 lineborder "></div>
+        @Html.Partial("_ArticlePartial", Model)
+        </div>
+
+}
