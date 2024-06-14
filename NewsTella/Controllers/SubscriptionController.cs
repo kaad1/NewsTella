@@ -41,7 +41,7 @@ namespace NewsTella.Controllers
                subscriptions = _subscriptionService.GetSubscriptions();
             }
                 
-            int pageSize = 2; // Number of users per page
+            int pageSize = 8; // Number of users per page
             int pageNumber = (page ?? 1); // Default to first page
 
             var pagedSubscriptions = subscriptions.ToPagedList(pageNumber, pageSize);

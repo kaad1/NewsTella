@@ -117,24 +117,6 @@
 										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 									</li>
                                     @await Component.InvokeAsync("Category")
-									@* <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Local">Local</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sweden</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">World</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Economy</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Weather</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
-									</li> *@
 								</ul>
 							</li>
 							<li class="nav-item">
@@ -161,6 +143,15 @@
 						}
 						else if (User.IsInRole("Editor"))
 						{
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    @await Component.InvokeAsync("Category")
+                                </ul>
+                            </li>
 							<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All&nbsp;Article</a>
 							</li>
@@ -174,6 +165,15 @@
 						}
 						else if (User.IsInRole("Writer"))
 						{
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    @await Component.InvokeAsync("Category")
+                                </ul>
+                            </li>
 							<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create&nbsp;Artical</a>
 							</li>
