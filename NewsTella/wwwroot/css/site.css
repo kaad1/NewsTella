@@ -836,7 +836,7 @@ body {
 
         .pricing_design .single-pricing:before {
             content: "";
-            background-color: #f5f0f0;
+            background-color: #fff0f0;
             width: 100%;
             height: 100%;
             border-radius: 18px 18px 190px 18px;
@@ -949,5 +949,20 @@ button i {
 .fa-thumbs-down:before {
     display: flex;
     margin-left: 4px;
+}
+/***********************************Personal data*/
+.personal-data-container {
+    background-color: #f9f0f0;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.personal-data-header {
+    color: #333;
+    font-size: 1.5em;
+}
+
+.personal-data-field {
+    margin-bottom: 15px;
 }
 
