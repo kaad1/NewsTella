@@ -141,10 +141,10 @@
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User&nbsp;Management</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription Types</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription&nbsp;Types</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
@@ -156,38 +156,38 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscribers</a>
                             </li>
 							<li class="nav-item">
-                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
 							</li>
 						}
 						else if (User.IsInRole("Editor"))
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All Article</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All&nbsp;Article</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create Article</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create&nbsp;Article</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
                             </li>
 
 						}
 						else if (User.IsInRole("Writer"))
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create Artical</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create&nbsp;Artical</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">My Article</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">My&nbsp;Article</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
                             </li>
 						}
 						else if (User.Identity.IsAuthenticated)
 						{
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
                             </li>
 						}
 					</ul>
