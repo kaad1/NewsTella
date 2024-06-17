@@ -42,12 +42,19 @@ namespace NewsTella.Controllers
         //[HttpGet]
         //public async Task<IActionResult> EditorsChoice()
         //{
-        //    var latestArticle = _articlesService.GetLatestArticles(icount);
+        //    var latestArticle = _articlesService.GetArticles();
         //    return View(latestArticle);
-        //    ICollection<Article> articles = new List<Article>();
-        //    articles = _articlesService.GetLatestArticles();
-        //    return View(articles);
+        //    //ICollection<Article> articles = new List<Article>();
+        //    //articles = _articlesService.GetLatestArticles();
+        //    //return View(articles);
         //}
+
+        [HttpGet]
+        public async Task<IActionResult> EditorsChoice()
+        {
+            var articles = _articlesService.GetArticlesForEditorsChoice();
+            return View(articles);
+        }
 
         public IActionResult Create()
         {
