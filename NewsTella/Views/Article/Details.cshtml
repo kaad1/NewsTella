@@ -39,7 +39,17 @@
 					@Html.DisplayFor(model => model.ContentSummary)
 				</div>
 				<div class="mb-3">
-					@Html.DisplayFor(model => model.Content)
+					@{
+
+						var paragraphs = Model.Content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+						foreach (var paragraph in paragraphs)
+						{
+							if (!string.IsNullOrWhiteSpace(paragraph))
+							{
+								<p>@paragraph</p>
+							}
+						}
+					}
 				</div>
 			</div>
 		</div>
