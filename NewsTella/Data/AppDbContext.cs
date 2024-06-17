@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 
@@ -18,11 +19,8 @@ namespace NewsTella.Data
         public DbSet<Subscription> Subscriptions { get; set; }
 		public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
-
-        
-
         public DbSet<EmailSchedule> EmailSchedules { get; set; }
-
+        public DbSet<FavoriteCategory> FavoriteCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +30,11 @@ namespace NewsTella.Data
                 .HasMany(a => a.Categories)
                 .WithMany(c => c.Articles)
                 .UsingEntity(j => j.ToTable("ArticleCategory"));
+
+            modelBuilder.Entity<User>()
+                  .HasMany(u => u.FavoriteCategories)
+                  .WithMany(c => c.SubscribedUsers)
+                  .UsingEntity<FavoriteCategory>();
         }
     }
 }
