@@ -1,24 +1,44 @@
-﻿
+﻿@using NewsTella.Models
+@using NewsTella.Services
+@inject IArticlesService articleService
+@inject ICategoryService categoryService
 
-
+@{
+	var latestArticle = articleService.GetLatestArticle();
+}
 
 
 
 <div class="container container-rm-margin container-rework">
 	<div class="row row-margin">
-		<div class="col-sm-12 col-md-6 col-lg-7 col-margin">				
-			<div class="d-flex flex-column">	
-				<div class="front-img-container">
-					<div class="front-img"></div>
-				@* <img src="https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/49-scaled.jpg" class="img-fluid img-size" style="width: 100%;" alt="Alternate Text" /> *@
+		@if (latestArticle != null)
+		{
+			<div class="col-sm-12 col-md-6 col-lg-7 col-margin">				
+				<div class="d-flex flex-column">	
+					<div class="front-img-container">
+						@if (!string.IsNullOrEmpty(latestArticle.ImageLink))
+						{
+							<div class="front-img" style="background-image: url('@latestArticle.ImageLink');"></div>							
+						}
+					</div>
+				<div class="article-section">
+						@if (latestArticle.Categories.Any())
+						{
+							var category = latestArticle.Categories.First();
+							<a class="category-link icon-link icon-link-hover" asp-controller="Categories" asp-action="Articles" asp-route-categoryId="@category.Id">@category.Name</a>							
+						}
+						<h3 class="article-heading" title="@latestArticle.Headline">
+							<a asp-controller="Article" asp-action="Details" asp-route-id="@latestArticle.Id">@latestArticle.Headline</a>
+						</h3>
+						<div class="article-paragraph">@latestArticle.ContentSummary</div>
 				</div>
-			<div class="article-section">
-				<a class="category-link icon-link icon-link-hover" href="#">Local</a>
-				<h3 class="article-heading" title="Advances in Predicting and Monitoring Atmospheric Conditions"><a href="">Advances in Predicting and Monitoring Atmospheric Conditions</a></h3>
-				<div class="article-paragraph">In the dynamic world of business and entrepreneurship, success is not just about having a great idea or a solid business plan. It requires a combination of factors, including setting goals,...</div>
+				</div>
 			</div>
-			</div>
-		</div>
+		}
+		else
+		{
+			<p>No latest published article found.</p>
+		}
 		<div class="col-sm-12 col-md-6 col-lg-5 tab-sm">
 				<div class="tab-wrapper">
 
