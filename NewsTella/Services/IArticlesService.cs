@@ -33,7 +33,9 @@ namespace NewsTella.Services
 
         public Article GetArticleById(int id);             
         public List<Article> GetArticles();
-        public List<LatestArticleVM> GetLatestArticles(int articleCount);
+        public List<FrontPageArticleVM> GetLatestArticles(int articleCount);
+        public List<FrontPageArticleVM> GetMostPopularArticles(int articleCount);
+        public List<FrontPageArticleVM> GetEditorsChoiceArticles(int articleCount);
         public Article GetLatestArticle();
 
 

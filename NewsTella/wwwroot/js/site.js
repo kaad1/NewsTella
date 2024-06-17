@@ -46,7 +46,7 @@ const smallNav = document.querySelector('.small-nav .navbar-collapse');
 const accountRegistration = document.querySelector('.account-login-registration');
 
 function moveSmallNavLinksToMainNav() {
-    if (window.innerWidth <= 576) {
+    if (window.innerWidth <= 575) {
        
         myAccountLink.remove();
         mobileMenuPlaceholder.innerHTML = '';
