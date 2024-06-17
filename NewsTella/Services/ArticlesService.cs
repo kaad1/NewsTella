@@ -4,6 +4,7 @@ using NewsTella.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore;
+using Azure.Storage.Blobs;
 
 namespace NewsTella.Services
 {
@@ -20,7 +21,9 @@ namespace NewsTella.Services
 
 		public void AddArticle(Article article)
 		{
-			_db.Articles.Add(article);
+			UploadFilesToContainer(article);
+
+            _db.Articles.Add(article);
 			_db.SaveChanges();
 		}
 		public void UpdateArticle(Article article)
@@ -131,6 +134,24 @@ namespace NewsTella.Services
 			throw new NotImplementedException();
 		}
 
+
+        public Article UploadFilesToContainer(Article article)
+        {
+            BlobContainerClient blobServiceClient = new BlobServiceClient(
+                                   _configuration["AzureWebJobsStorage"]).GetBlobContainerClient("newstellacontainer");
+            //foreach (var file in article.FormImage)
+            //{
+                BlobClient blobClient = blobServiceClient.GetBlobClient(article.FormImage.FileName);
+                using (var stream = article.FormImage.OpenReadStream())
+                {
+                    blobClient.Upload(stream);
+                }
+                article.ImageLink = blobClient.Uri.AbsoluteUri;
+            //}
+            return article;
+
+        }
+
         public List<LatestArticleVM> GetLatestArticles(int articleCount)
         {
             return _db.Articles
@@ -148,12 +169,24 @@ namespace NewsTella.Services
                       .ToList();
         }
 
+
 		public Article GetLatestArticle()
 		{
             var article =  _db.Articles.Where(a => !a.IsDeleted && a.Status == "Published").OrderByDescending(a => a.DateStamp).FirstOrDefault();
 
 			return article;
 		}
+
+        public void UpdateEditorsChoiceStatus(int id, bool isEditorsChoice)
+        {
+            var article = _db.Articles.Find(id);
+            if (article != null)
+            {
+                article.IsEditorsChoice = isEditorsChoice;
+                _db.SaveChanges();
+            }
+        }
+
 
     }
 }

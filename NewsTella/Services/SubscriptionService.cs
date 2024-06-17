@@ -62,5 +62,12 @@ namespace NewsTella.Services
             _db.Subscriptions.Update(subscription);
             _db.SaveChanges();
         }
+
+        public List<Subscription> FindByEmailAsync(string email)
+        {
+            var obj = _db.Subscriptions.Include(s => s.User).Include(s => s.SubscriptionType).
+                                        Where(s => s.User.Email.Contains(email)).ToList();
+            return obj;
+        }
     }
 }

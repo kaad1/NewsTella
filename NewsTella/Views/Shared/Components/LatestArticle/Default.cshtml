@@ -10,10 +10,9 @@
 		display: inline-block;
 		color: #e41b13;
 	}
-
 </style>
 
-@foreach (var latestArticle in Model) {
+@foreach (var latestArticle in Model){
 	<div class="article-container">
 		<div class="img-container">
 			<div class="tab-img-wrapper">
@@ -24,17 +23,18 @@
 			<div class="tab-category-wrapper">
 				@for (int i = 0; i < latestArticle.CategoryNames.Count; i++)
 				{
-						<a class="tab-category-heading" asp-controller="Categories" asp-action="Articles" asp-route-categoryId="@latestArticle.CategoryIds[i]">
-							@latestArticle.CategoryNames[i]
-						</a>
-						@if (i < latestArticle.CategoryNames.Count - 1)
-						{
-							<span class="comma">, </span>
-						}
+					<a class="tab-category-heading" asp-controller="Categories" asp-action="Articles" asp-route-categoryId="@latestArticle.CategoryIds[i]">
+						@latestArticle.CategoryNames[i]
+					</a>
+					@if (i < latestArticle.CategoryNames.Count - 1)
+					{
+						<span class="comma">, </span>
+					}
 				}
+			
 			</div>
 			<h3 class="tab-article-heading">
-				<a asp-controller="Article" asp-action="Details" asp-route-id="@latestArticle.ArticleId" title="@latestArticle.Headline" >@latestArticle.Headline</a>
+				<a asp-controller="Article" asp-action="Details" asp-route-id="@latestArticle.ArticleId" title="@latestArticle.Headline">@latestArticle.Headline</a>
 			</h3>
 		</div>
 	</div>

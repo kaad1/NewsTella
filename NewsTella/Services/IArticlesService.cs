@@ -43,7 +43,7 @@ namespace NewsTella.Services
         public Task GetArticleByIdAsync(int id, Article article);
         public Task GetArticleByIdAsync();
         Task<string?> GetArticleByIdAsync(int id);
-       
+        public void UpdateEditorsChoiceStatus(int id, bool isEditorsChoice);
 
     }
 

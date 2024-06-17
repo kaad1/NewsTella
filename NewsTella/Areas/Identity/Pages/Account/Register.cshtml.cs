@@ -99,9 +99,10 @@ namespace NewsTella.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            public string FirstName {  get; set; }
+            public string FirstName { get; set; }
             public string LastName { get; set; }
         }
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -159,7 +160,6 @@ namespace NewsTella.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
-
 
         private User CreateUser()
         {

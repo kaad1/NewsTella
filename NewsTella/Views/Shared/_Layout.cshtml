@@ -63,6 +63,7 @@
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 							</li>
+                           
                             @await Component.InvokeAsync("Category")
 
 							@* <li class="nav-item">
@@ -116,34 +117,16 @@
 										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 									</li>
                                     @await Component.InvokeAsync("Category")
-									@* <li class="dropdown-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Local">Local</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sweden</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">World</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Economy</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Weather</a>
-									</li>
-									<li class="dropdown-item">
-										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Sports</a>
-									</li> *@
 								</ul>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Dashboard</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User Management</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User&nbsp;Management</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription Types</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription&nbsp;Types</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
@@ -155,39 +138,57 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Subscription" asp-action="Index">Subscribers</a>
                             </li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
 							</li>
 						}
 						else if (User.IsInRole("Editor"))
 						{
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    @await Component.InvokeAsync("Category")
+                                </ul>
+                            </li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All Article</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All&nbsp;Article</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create Article</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create&nbsp;Article</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
                             </li>
 
 						}
 						else if (User.IsInRole("Writer"))
 						{
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    @await Component.InvokeAsync("Category")
+                                </ul>
+                            </li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create Artical</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create&nbsp;Artical</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All Article</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">My&nbsp;Article</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">My Profile</a>
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
                             </li>
 						}
 						else if (User.Identity.IsAuthenticated)
 						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="SubscriptionType" asp-action="Index">Subscription</a>
-							</li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/Identity/Account/Manage">My&nbsp;Profile</a>
+                            </li>
 						}
 					</ul>
                         

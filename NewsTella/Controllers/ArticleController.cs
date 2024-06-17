@@ -39,6 +39,16 @@ namespace NewsTella.Controllers
             return View(pagedArticles); // Return IPagedList<Article>
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> EditorsChoice()
+        //{
+        //    var latestArticle = _articlesService.GetLatestArticles(icount);
+        //    return View(latestArticle);
+        //    ICollection<Article> articles = new List<Article>();
+        //    articles = _articlesService.GetLatestArticles();
+        //    return View(articles);
+        //}
+
         public IActionResult Create()
         {
             ArticleCreateVM model = new ArticleCreateVM();
@@ -67,17 +77,17 @@ namespace NewsTella.Controllers
                 article.Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList();
 
 
-                if (model.FormImage != null && model.FormImage.Length > 0)
-                {
-                    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
-                    var fileName = Path.GetFileName(model.FormImage.FileName);
-                    var filePath = Path.Combine(uploadFolder, fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.FormImage.CopyToAsync(fileStream);
-                    }
-                    article.ImageLink = "/Images/" + fileName;
-                }
+                //if (model.FormImage != null && model.FormImage.Length > 0)
+                //{
+                //    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images");
+                //    var fileName = Path.GetFileName(model.FormImage.FileName);
+                //    var filePath = Path.Combine(uploadFolder, fileName);
+                //    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                //    {
+                //        await model.FormImage.CopyToAsync(fileStream);
+                //    }
+                //    article.ImageLink = "/Images/" + fileName;
+                //}
 
                 _articlesService.AddArticle(article);
                 return RedirectToAction("Index");
@@ -191,12 +201,14 @@ namespace NewsTella.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Like(int id)
-        {
-            try
+		public async Task<IActionResult> Like([FromBody] int id)
+		{
+			try
             {
                 await _articlesService.LikeArticleAsync(id);
-                return RedirectToAction(nameof(Details), new { id = id });
+				Article article = _articlesService.GetArticleById(id);
+				int likeCount = article.Likes;
+                return Ok(new { success = true, likeCount = likeCount, message = "Article liked successfully" });
             }
             catch (Exception ex)
             {
@@ -249,6 +261,24 @@ namespace NewsTella.Controllers
 			};
 
 			return View(searchArticles);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEditorsChoice(int[] selectedEditorsChoiceIds)
+        {
+            const int maxSelections = 6;
+            ICollection<Article> articles = _articlesService.GetArticles();
+            if (selectedEditorsChoiceIds.Length > maxSelections)
+            {
+                ModelState.AddModelError(string.Empty, $"You can only select up to {maxSelections} articles");
+                return View("EditorsChoice", articles);
+            }
+
+            foreach (var article in articles)
+            {
+                _articlesService.UpdateEditorsChoiceStatus(article.Id, selectedEditorsChoiceIds.Contains(article.Id));
+            }
+            return RedirectToAction("Index");
         }
 
     }

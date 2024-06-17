@@ -43,7 +43,7 @@ namespace NewsTella.Models.Database
 		[NotMapped]
 		public string TestImage { get; set; } = string.Empty;
 
-		public bool IsDeleted { get; set; } = false;
+		public bool IsDeleted { get; set; } 
 
         public string Status { get; set; } = "Draft"; //default value
 
@@ -51,6 +51,6 @@ namespace NewsTella.Models.Database
         {
             Categories = new HashSet<Category>();
         }
-		
+        public bool IsEditorsChoice { get; set; } = false;
     }
 }

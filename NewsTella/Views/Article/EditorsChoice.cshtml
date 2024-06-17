@@ -1,0 +1,86 @@
+﻿@model IEnumerable<NewsTella.Models.Database.Article>
+
+@{
+    ViewData["Title"] = "Editor's Choice";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row mb-3">
+                <h3>Editor's Choice</h3>
+            </div>
+            <form asp-action="UpdateEditorsChoice" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <span id="selectedCount">0</span> articles selected out of 6 (max 6)
+                </div>
+                <table id="sortBy" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>@Html.DisplayNameFor(model => model.DateStamp)</th>
+                            <th>@Html.DisplayNameFor(model => model.LinkText)</th>
+                            <th>@Html.DisplayNameFor(model => model.Headline)</th>
+                            <th>Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align: left;" align="left">
+                                    <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; align-content: left" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateStamp)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LinkText)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Headline)
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="chk_@item.Id" name="selectedEditorsChoiceIds" value="@item.Id" @(item.IsEditorsChoice ? "checked" : "")>
+                                        <label class="form-check-label" for="chk_@item.Id"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-dark mb-3">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const maxSelections = 6;
+        const checkboxes = document.querySelectorAll('input[name="selectedEditorsChoiceIds"]');
+        const selectedCountSpan = document.getElementById("selectedCount");
+
+        function updateSelectedCount() {
+            const checkedCount = document.querySelectorAll('input[name="selectedEditorsChoiceIds"]:checked').length;
+            selectedCountSpan.textContent = checkedCount;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                let checkedCount = document.querySelectorAll('input[name="selectedEditorsChoiceIds"]:checked').length;
+                if (checkedCount > maxSelections) {
+                    this.checked = false;
+                    alert(`You can only select up to ${maxSelections} articles.`);
+                }
+                updateSelectedCount();
+            });
+        });
+
+        // Initialize the counter on page load
+        updateSelectedCount();
+    });
+</script>

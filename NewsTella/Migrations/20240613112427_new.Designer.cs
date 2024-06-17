@@ -12,8 +12,8 @@ using NewsTella.Data;
 namespace NewsTella.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240609162929_emailScheduler")]
-    partial class emailScheduler
+    [Migration("20240613112427_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -210,6 +210,9 @@ namespace NewsTella.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsEditorsChoice")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
@@ -364,7 +367,7 @@ namespace NewsTella.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("RenewalEmailSentTime")
+                    b.Property<DateTime>("RenewalEmailSentTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("SubscriptionTypeId")

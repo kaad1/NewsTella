@@ -1,11 +1,31 @@
 ﻿@using Humanizer
 @model NewsTella.Models.Database.Category
 
+@if (Model.Name.Contains("Weather"))
+{
+    
+}
+else{
 <div class="text-center text-uppercase mt-3 mb-5 modeltext ">
     <h3>@Model.Name</h3>
 </div>
-<div class="text-center font-weight-bold">Latest from the @Model.Name</div>
+    <div class="text-center font-weight-bold">Latest from the @Model.Name</div>
+}
+
 <div class="row">
+    
+    @if ((Model.Name.Contains("Weather")))
+    {
+
+        <h3 class="text-center" style="color:#87B27F;">@Model.Name</h3>
+        
+        <div >
+            @Html.Partial("_WeatherArticle", Model)
+
+        </div>
+    }
+
+    else{
     @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Take(3).ToList())
     {
         
@@ -26,5 +46,6 @@
                 </div>
             </div>
         </div>
+    }
     }
 </div>
