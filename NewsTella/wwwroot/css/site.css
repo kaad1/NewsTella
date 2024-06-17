@@ -653,6 +653,19 @@ body {
     overflow-wrap: anywhere;
 }
 
+.articleseach-noresults {
+    width: 100%;
+}
+
+    .articleseach-noresults h2 {
+        font-size: 16px;
+        font-weight: normal;
+        text-align: left;
+        padding: 20px;
+        border: 1px solid rgba(190, 190, 190, 0.35);
+        color: rgba(125, 125, 125, 0.8);
+        text-align: center;
+    }
 /**************************************************/
 .fromHorisontal {
     position: absolute;

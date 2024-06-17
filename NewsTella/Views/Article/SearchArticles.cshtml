@@ -1,4 +1,5 @@
 ﻿@using NewsTella.Models.ViewModel
+@using NewsTella.Models.Database
 @model SearchArticlesViewModel
 
 
@@ -52,26 +53,39 @@ else
     <div class="row row-articlesearch">
         <div class="articlesearch-wrapper">
             <div class="articlesearch-row">
-                <div class="articlesearch-col">
-                    <div class="articlesearch-content">
-                    @* <div class="articlesearch-container"> *@
-                        <div class="articlesearch-imgcontainer">
-                            <div class="articlesearch-imgwrapper">
-                                    <div class="articlesearch-img" style="background-image: url('https://demo.tagdiv.com/newspaper_towntalk_pro/wp-content/uploads/2023/06/50.jpg')"></div>
+                @if (Model.Articles.Count == 0)
+                {
+                    <div class="articleseach-noresults">
+                        <h2>No results</h2>
+                    </div>
+                }
+                else
+                {
+                    @foreach(var articles in Model.Articles)
+                    {
+                        <div class="articlesearch-col">
+                            <div class="articlesearch-content">
+                                <div class="articlesearch-imgcontainer">
+                                    <div class="articlesearch-imgwrapper">
+                                            <div class="articlesearch-img" style="background-image: url('@articles.ImageLink')"></div>
+                                    </div>
+                                </div>
+                            <div class="articlesearch-info">
+                                    @foreach(var category in articles.Categories)
+                                    {
+                                        <a class="articlesearch-category" href="">@category.Name</a>                                    
+                                    }
+                                <h3 class="articlesearch-headline">
+                                    <a title="@articles.Headline" asp-controller="Article" asp-action="Details" asp-route-id="@articles.Id">@articles.Headline</a>
+                                </h3>
+                                <div class="articlesearch-summary">
+                                    @articles.ContentSummary
+                                </div>
                             </div>
-                        </div>
-                    @* </div> *@
-                    <div class="articlesearch-info">
-                        <a class="articlesearch-category" href="">Weather</a>
-                        <h3 class="articlesearch-headline">
-                            <a title="Capturing the Majestic Power and Beauty of Nature’s Elements" href="">Capturing the Majestic Power and Beauty of Nature’s Elements</a>
-                        </h3>
-                        <div class="articlesearch-summary">
-                            In the dynamic world of business and entrepreneurship, success is not just about having a great idea or a solid business plan. It requires...
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                            </div>
+                        </div>                    
+                    }                    
+                }
             </div>
         </div>
     </div>
