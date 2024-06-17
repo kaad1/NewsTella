@@ -34,9 +34,10 @@ namespace NewsTella.Services
         public Article GetArticleById(int id);             
         public List<Article> GetArticles();
         public List<LatestArticleVM> GetLatestArticles(int articleCount);
+        public Article GetLatestArticle();
 
 
-        public Task LikeArticleAsync(int id);              
+		public Task LikeArticleAsync(int id);              
         public Task IncrementViewsAsync(int id);
 
         public Task GetArticleByIdAsync(int id, Article article);

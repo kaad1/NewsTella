@@ -261,7 +261,13 @@ namespace NewsTella.Controllers
                 articles = _articlesService.GetArticles();
             }
 
-            return View("SearchArticles", articles);
+			var searchArticles = new SearchArticlesViewModel
+			{
+				SearchValue = headline,
+				Articles = articles
+			};
+
+			return View(searchArticles);
         }
 
         [HttpPost]
