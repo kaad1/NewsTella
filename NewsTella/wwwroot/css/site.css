@@ -289,11 +289,11 @@ body {
         color: #000;
     }
 
-.tab-category-heading:hover {
+.tab-category-heading:hover, .articlesearch-category:hover {
     color: #13DCE4;
 }
 
-.tab-article-heading a:hover {
+.tab-article-heading a:hover, .articlesearch-headline a:hover {
     color: #e41b13;
 }
 
@@ -657,15 +657,15 @@ body {
     width: 100%;
 }
 
-    .articleseach-noresults h2 {
-        font-size: 16px;
-        font-weight: normal;
-        text-align: left;
-        padding: 20px;
-        border: 1px solid rgba(190, 190, 190, 0.35);
-        color: rgba(125, 125, 125, 0.8);
-        text-align: center;
-    }
+.articleseach-noresults h2 {
+    font-size: 16px;
+    font-weight: normal;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid rgba(190, 190, 190, 0.35);
+    color: rgba(125, 125, 125, 0.8);
+    text-align: center;
+}
 /**************************************************/
 .fromHorisontal {
     position: absolute;

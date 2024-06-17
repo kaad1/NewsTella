@@ -73,7 +73,7 @@ else
                             <div class="articlesearch-info">
                                     @foreach(var category in articles.Categories)
                                     {
-                                        <a class="articlesearch-category" href="">@category.Name</a>                                    
+                                        <a class="articlesearch-category" asp-controller="Categories" asp-action="Articles" asp-route-categoryId=@category.Id>@category.Name</a>
                                     }
                                 <h3 class="articlesearch-headline">
                                     <a title="@articles.Headline" asp-controller="Article" asp-action="Details" asp-route-id="@articles.Id">@articles.Headline</a>
