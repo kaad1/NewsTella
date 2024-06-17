@@ -231,7 +231,7 @@ namespace NewsTella.Services
         {
             var articles = _db.Articles
                 .Include(a => a.Categories)
-                .Where(a => a.IsDeleted == false)
+                .Where(a => a.IsDeleted == false && a.Status == "Published")
                 .OrderByDescending(a => a.IsEditorsChoice)  // First, order by Editor's Choice
                 .ThenByDescending(a => a.DateStamp)        // Then, order by DateStamp
                 .ToList();
