@@ -156,7 +156,8 @@ namespace NewsTella.Services
         {
             var articles = _db.Articles
                       .Include(a => a.Categories)
-                      .OrderByDescending(a => a.DateStamp)
+					  .Where(a => !a.IsDeleted && a.Status == "Published")
+					  .OrderByDescending(a => a.DateStamp)
                       .Take(articleCount)
                       .Select(a => new FrontPageArticleVM
                       {
@@ -174,6 +175,7 @@ namespace NewsTella.Services
 		{
 			var articles = _db.Articles
 				.Include(a => a.Categories)
+				.Where(a => !a.IsDeleted && a.Status == "Published")
 				.OrderByDescending(a => a.Views)
 				.ThenByDescending(a => a.DateStamp)
 				.Take(articleCount)
@@ -192,7 +194,7 @@ namespace NewsTella.Services
 		{
 			var articles = _db.Articles
 				.Include(a => a.Categories)
-				.Where(a => a.IsEditorsChoice.Equals(true))
+				.Where(a => !a.IsDeleted && a.Status == "Published" && a.IsEditorsChoice.Equals(true))
 				.OrderByDescending(a => a.DateStamp)
 				.Take(articleCount)
 				.Select(a => new FrontPageArticleVM
