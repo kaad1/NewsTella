@@ -179,5 +179,16 @@ namespace NewsTella.Services
             }
         }
 
+        public List<Article> GetArticlesForEditorsChoice()
+        {
+            var articles = _db.Articles
+                .Include(a => a.Categories)
+                .Where(a => a.IsDeleted == false)
+                .OrderByDescending(a => a.IsEditorsChoice)  // First, order by Editor's Choice
+                .ThenByDescending(a => a.DateStamp)        // Then, order by DateStamp
+                .ToList();
+
+            return articles;
+        }
     }
 }
