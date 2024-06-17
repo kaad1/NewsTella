@@ -169,6 +169,14 @@ namespace NewsTella.Services
                       .ToList();
         }
 
+		public List<Article> GetMostPopularArticles(int articleCount)
+		{
+			throw new NotImplementedException();
+		}
+		public List<Article> GetEditorsChoiceArticles(int articleCount)
+		{
+			throw new NotImplementedException(); 		
+		}
 
 		public Article GetLatestArticle()
 		{
