@@ -1,0 +1,26 @@
+﻿@model NewsTella.Models.ViewModel.FavoriteCategoriesVM 
+@using NewsTella.Models.Database;
+
+@{
+    ViewData["Title"] = "Favorite Categories";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Select Your Favorite Categories</h3>
+
+            <form asp-action="Create" method="post">
+                @foreach (Category item in Model.AllCategories)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="SelectedCategoryIds"
+                               value="@item.Id" @(Model.SelectedCategoryIds.Contains(item.Id) ? "checked" : "")>
+                        <label class="form-check-label" for="@item">@item.Name</label>
+                    </div>
+                }
+                <button type="submit" class="btn btn-dark mb-3">Save</button>
+            </form>
+        </div>
+    </div>
+</div>

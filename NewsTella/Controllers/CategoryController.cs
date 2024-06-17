@@ -22,7 +22,7 @@ namespace NewsTella.Controllers
 			return View(_categoryService.GetCategories());
 		}
 
-		public IActionResult Create()
+        public IActionResult Create()
 		{
 			return View();
 		}
