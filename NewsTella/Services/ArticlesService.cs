@@ -175,6 +175,7 @@ namespace NewsTella.Services
 			var articles = _db.Articles
 				.Include(a => a.Categories)
 				.OrderByDescending(a => a.Views)
+				.ThenByDescending(a => a.DateStamp)
 				.Take(articleCount)
 				.Select(a => new FrontPageArticleVM
 				{
