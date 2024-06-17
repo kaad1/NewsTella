@@ -1,16 +1,16 @@
-﻿﻿@using NewsTella.Models.Database
-@model ICollection<Article>
+﻿@using NewsTella.Models.ViewModel
+@using NewsTella.Models.Database
+@model SearchArticlesViewModel
 
-<h2>Search Results</h2>
 
-@if (Model.Count == 0)
+@* @if (Model.Articles.Count == 0)
 {
     <p>No articles found.</p>
 }
 else
 {
     <div class="article-list">
-        @foreach (var article in Model)
+        @foreach (var article in Model.Articles)
         {
             <div class="article">
                 <h3>@article.Headline</h3>
@@ -18,4 +18,75 @@ else
             </div>
         }
     </div>
-}
+} *@
+
+<div class="container container-new">
+    <div class="row row-new">
+        <div class="wrapper-search">
+            <div class="search-borderbottom">
+            </div>
+            <div class="col-12 col-md-6 searchtext-lsection">
+                <div class="search-result-heading">
+                    <div class="search-text">Search results for: </div>
+                    <h1 class="articleheading-text">@Model.SearchValue</h1>
+                    <div class="title-line"></div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="searchbar-wrapper">
+                    <div class="search-form">
+                        <form asp-controller="Article" asp-action="SearchArticles" class="articlesearch-form" method="get" role="search">
+                            <div class="input-group">
+                                <input type="text" name="headline" class="input-text form-control articlesearch" aria-label="Search" />
+                                <div class="input-form-border"></div>
+                                <button class="btn btn-red btn-search" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container container-new">
+    <div class="row row-articlesearch">
+        <div class="articlesearch-wrapper">
+            <div class="articlesearch-row">
+                @if (Model.Articles.Count == 0)
+                {
+                    <div class="articleseach-noresults">
+                        <h2>No results</h2>
+                    </div>
+                }
+                else
+                {
+                    @foreach(var articles in Model.Articles)
+                    {
+                        <div class="articlesearch-col">
+                            <div class="articlesearch-content">
+                                <div class="articlesearch-imgcontainer">
+                                    <div class="articlesearch-imgwrapper">
+                                            <div class="articlesearch-img" style="background-image: url('@articles.ImageLink')"></div>
+                                    </div>
+                                </div>
+                            <div class="articlesearch-info">
+                                    @foreach(var category in articles.Categories)
+                                    {
+                                        <a class="articlesearch-category" href="">@category.Name</a>                                    
+                                    }
+                                <h3 class="articlesearch-headline">
+                                    <a title="@articles.Headline" asp-controller="Article" asp-action="Details" asp-route-id="@articles.Id">@articles.Headline</a>
+                                </h3>
+                                <div class="articlesearch-summary">
+                                    @articles.ContentSummary
+                                </div>
+                            </div>
+                            </div>
+                        </div>                    
+                    }                    
+                }
+            </div>
+        </div>
+    </div>
+</div>
