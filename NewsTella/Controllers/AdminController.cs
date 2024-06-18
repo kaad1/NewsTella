@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using NewsTella.Data;
 using NewsTella.Models.ViewModel;
 
@@ -23,4 +24,5 @@ public class AdminController : Controller
 
         return View(dashboardViewModel);
     }
+        //admin
 }
