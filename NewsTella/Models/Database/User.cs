@@ -13,6 +13,8 @@ namespace NewsTella.Models.Database
         //public string Email {  get; set; }
 
         public bool IsDeleted { get; set; } = false;
+       
+
 
         //public List<Article> NewsletterArticles { get; set; }
 
