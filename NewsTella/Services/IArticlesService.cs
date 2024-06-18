@@ -46,6 +46,7 @@ namespace NewsTella.Services
         public void UpdateEditorsChoiceStatus(int id, bool isEditorsChoice);
         public List<Article> GetArticlesForEditorsChoice();
 
+        public List<Article> GetLatestArticleByCategoryIds(IEnumerable<int> categoryIds);
 
     }
 

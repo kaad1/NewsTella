@@ -30,5 +30,14 @@ namespace NewsTella.Services
             _db.FavoriteCategories.RemoveRange(favoriteCategories);
             _db.SaveChanges();
         }
+
+        public List<int> GetFavoriteCategoryIdsByUser(string userId)
+        {
+            return _db.FavoriteCategories
+                      .Where(fc => fc.UserId == userId)
+                      .Select(fc => fc.CategoryId)
+                      .ToList();
+        }
+
     }
 }

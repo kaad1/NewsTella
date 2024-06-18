@@ -200,5 +200,16 @@ namespace NewsTella.Services
             return articles;
         }
 
+        public List<Article> GetLatestArticleByCategoryIds(IEnumerable<int> categoryIds)
+        {
+            return _db.Articles
+                      .Include(a => a.Categories)
+                      .Where(a => a.Categories.Any(c => categoryIds.Contains(c.Id)) && a.IsDeleted == false && a.Status == "Published")
+                      .OrderByDescending(a => a.DateStamp)
+                      .Take(3)
+					  .ToList();
+						
+        }
+
     }
 }
