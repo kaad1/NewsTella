@@ -18,5 +18,7 @@ namespace NewsTella.Models.Database
 
         //public List<Article> NewsletterArticles { get; set; }
 
+        public virtual ICollection<Category> FavoriteCategories { get; set; }
+
     }
 }

@@ -3,19 +3,19 @@ using NewsTella.Services;
 
 namespace NewsTella.ViewComponents
 {
-    public class LatestArticleViewComponent : ViewComponent
+    public class PopularArticleViewComponent : ViewComponent
     {
         private readonly IArticlesService _articlesService;
 
-        public LatestArticleViewComponent(IArticlesService articlesService)
+        public PopularArticleViewComponent(IArticlesService articlesService)
         {
             _articlesService = articlesService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int count)
         {
-            var latestArticles = _articlesService.GetLatestArticles(count);
-            return View(latestArticles);
+            var articles = _articlesService.GetMostPopularArticles(count);
+            return View(articles);
         }
     }
 }

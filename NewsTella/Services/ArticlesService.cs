@@ -152,13 +152,14 @@ namespace NewsTella.Services
 
         }
 
-        public List<LatestArticleVM> GetLatestArticles(int articleCount)
+        public List<FrontPageArticleVM> GetLatestArticles(int articleCount)
         {
-            return _db.Articles
+            var articles = _db.Articles
                       .Include(a => a.Categories)
-                      .OrderByDescending(a => a.DateStamp)
+					  .Where(a => !a.IsDeleted && a.Status == "Published")
+					  .OrderByDescending(a => a.DateStamp)
                       .Take(articleCount)
-                      .Select(a => new LatestArticleVM
+                      .Select(a => new FrontPageArticleVM
                       {
                           ArticleId = a.Id,
                           ImageLink = a.ImageLink,
@@ -167,7 +168,53 @@ namespace NewsTella.Services
                           CategoryNames = a.Categories.Select(c => c.Name).ToList()
                       })
                       .ToList();
+			return articles;
         }
+
+		public List<FrontPageArticleVM> GetMostPopularArticles(int articleCount)
+		{
+			var articles = _db.Articles
+				.Include(a => a.Categories)
+				.Where(a => !a.IsDeleted && a.Status == "Published")
+				.OrderByDescending(a => a.Views)
+				.ThenByDescending(a => a.DateStamp)
+				.Take(articleCount)
+				.Select(a => new FrontPageArticleVM
+				{
+					ArticleId = a.Id,
+					ImageLink = a.ImageLink,
+					Headline = a.Headline,
+					CategoryIds = a.Categories.Select(c => c.Id).ToList(),
+					CategoryNames = a.Categories.Select (c => c.Name).ToList()	
+				})
+				.ToList();
+			return articles;
+		}
+		public List<FrontPageArticleVM> GetEditorsChoiceArticles(int articleCount)
+		{
+			var articles = _db.Articles
+				.Include(a => a.Categories)
+				.Where(a => !a.IsDeleted && a.Status == "Published" && a.IsEditorsChoice.Equals(true))
+				.OrderByDescending(a => a.DateStamp)
+				.Take(articleCount)
+				.Select(a => new FrontPageArticleVM
+				{
+					ArticleId = a.Id,
+					ImageLink = a.ImageLink,
+					Headline = a.Headline,
+					CategoryIds = a.Categories.Select(c => c.Id).ToList(),
+					CategoryNames = a.Categories.Select(c => c.Name).ToList()
+				})
+				.ToList();
+			return articles;
+		}
+
+		public Article GetLatestArticle()
+		{
+            var article =  _db.Articles.Where(a => !a.IsDeleted && a.Status == "Published").OrderByDescending(a => a.DateStamp).FirstOrDefault();
+
+			return article;
+		}
 
         public void UpdateEditorsChoiceStatus(int id, bool isEditorsChoice)
         {
@@ -177,6 +224,30 @@ namespace NewsTella.Services
                 article.IsEditorsChoice = isEditorsChoice;
                 _db.SaveChanges();
             }
+        }
+
+
+        public List<Article> GetArticlesForEditorsChoice()
+        {
+            var articles = _db.Articles
+                .Include(a => a.Categories)
+                .Where(a => a.IsDeleted == false && a.Status == "Published")
+                .OrderByDescending(a => a.IsEditorsChoice)  // First, order by Editor's Choice
+                .ThenByDescending(a => a.DateStamp)        // Then, order by DateStamp
+                .ToList();
+
+            return articles;
+        }
+
+        public List<Article> GetLatestArticleByCategoryIds(IEnumerable<int> categoryIds)
+        {
+            return _db.Articles
+                      .Include(a => a.Categories)
+                      .Where(a => a.Categories.Any(c => categoryIds.Contains(c.Id)) && a.IsDeleted == false && a.Status == "Published")
+                      .OrderByDescending(a => a.DateStamp)
+                      .Take(3)
+					  .ToList();
+						
         }
 
     }

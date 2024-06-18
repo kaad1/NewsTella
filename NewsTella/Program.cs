@@ -40,6 +40,7 @@ namespace NewsTella
             builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IPaymentDetailService, PaymentDetailService>();
+            builder.Services.AddScoped<IFavoriteCategoryService, FavoriteCategoryService>();
 
             builder.Services.AddControllersWithViews();
 
