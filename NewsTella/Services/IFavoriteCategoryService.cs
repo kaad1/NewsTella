@@ -10,5 +10,8 @@ namespace NewsTella.Services
         void AddCategories(IEnumerable<FavoriteCategory> favoriteCategories);
 
         void RemoveCategories(IEnumerable<FavoriteCategory> favoriteCategories);
+
+        public List<int> GetFavoriteCategoryIdsByUser(string userId);
+
     }
 }

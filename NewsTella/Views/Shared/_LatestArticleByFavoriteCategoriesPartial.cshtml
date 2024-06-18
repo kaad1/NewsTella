@@ -1,0 +1,22 @@
+﻿@model NewsTella.Models.Database.Article
+
+@{
+    ViewData["Title"] = "Latest Article from Your Favorite Categories";
+}
+
+
+@if (Model != null)
+{
+    <div class="article">
+        <h2>@Model.Headline</h2>
+        <img src="@Model.ImageLink" alt="@Model.Headline" />
+        <p>@Model.ContentSummary</p>
+        <a href="@Url.Action("Details", "Article", new { id = Model.Id })">Read More</a>
+    </div>
+}
+else
+{
+    <p>No articles found in your favorite categories.</p>
+}
+
+
