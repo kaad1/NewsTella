@@ -1,0 +1,19 @@
+﻿@model IEnumerable<NewsTella.Models.Database.Article>
+
+@{
+    ViewData["Title"] = "Latest Article from Your Favorite Categories";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <partial name="_LatestArticleByFavoriteCategoriesPartial" model="item"></partial>
+            </div>
+        }
+    </div>
+</div>
+
+
+

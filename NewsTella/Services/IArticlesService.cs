@@ -33,16 +33,22 @@ namespace NewsTella.Services
 
         public Article GetArticleById(int id);             
         public List<Article> GetArticles();
-        public List<LatestArticleVM> GetLatestArticles(int articleCount);
+        public List<FrontPageArticleVM> GetLatestArticles(int articleCount);
+        public List<FrontPageArticleVM> GetMostPopularArticles(int articleCount);
+        public List<FrontPageArticleVM> GetEditorsChoiceArticles(int articleCount);
+        public Article GetLatestArticle();
 
 
-        public Task LikeArticleAsync(int id);              
+		public Task LikeArticleAsync(int id);              
         public Task IncrementViewsAsync(int id);
 
         public Task GetArticleByIdAsync(int id, Article article);
         public Task GetArticleByIdAsync();
         Task<string?> GetArticleByIdAsync(int id);
         public void UpdateEditorsChoiceStatus(int id, bool isEditorsChoice);
+        public List<Article> GetArticlesForEditorsChoice();
+
+        public List<Article> GetLatestArticleByCategoryIds(IEnumerable<int> categoryIds);
 
     }
 

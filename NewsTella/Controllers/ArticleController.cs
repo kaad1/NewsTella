@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
 using X.PagedList;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace NewsTella.Controllers
 {
@@ -10,12 +12,13 @@ namespace NewsTella.Controllers
     {
         private readonly IArticlesService _articlesService;
         private readonly ICategoryService _categoryService;
+        private readonly IFavoriteCategoryService _favoriteCategoryService;
 
-        public ArticleController(IArticlesService articlesService, ICategoryService categoryService)
+        public ArticleController(IArticlesService articlesService, ICategoryService categoryService, IFavoriteCategoryService favoriteCategoryService)
         {
             _articlesService = articlesService;
             _categoryService = categoryService;
-
+            _favoriteCategoryService = favoriteCategoryService;
         }
 
         [HttpGet]
@@ -42,12 +45,19 @@ namespace NewsTella.Controllers
         //[HttpGet]
         //public async Task<IActionResult> EditorsChoice()
         //{
-        //    var latestArticle = _articlesService.GetLatestArticles(icount);
+        //    var latestArticle = _articlesService.GetArticles();
         //    return View(latestArticle);
-        //    ICollection<Article> articles = new List<Article>();
-        //    articles = _articlesService.GetLatestArticles();
-        //    return View(articles);
+        //    //ICollection<Article> articles = new List<Article>();
+        //    //articles = _articlesService.GetLatestArticles();
+        //    //return View(articles);
         //}
+
+        [HttpGet]
+        public async Task<IActionResult> EditorsChoice()
+        {
+            var articles = _articlesService.GetArticlesForEditorsChoice();
+            return View(articles);
+        }
 
         public IActionResult Create()
         {
@@ -254,7 +264,13 @@ namespace NewsTella.Controllers
                 articles = _articlesService.GetArticles();
             }
 
-            return View("SearchArticles", articles);
+			var searchArticles = new SearchArticlesViewModel
+			{
+				SearchValue = headline,
+				Articles = articles
+			};
+
+			return View(searchArticles);
         }
 
         [HttpPost]
@@ -274,6 +290,23 @@ namespace NewsTella.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult LatestArticleByFavoriteCategory()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var favoriteCategoryIds = _favoriteCategoryService.GetFavoriteCategoryIdsByUser(userId);
+            var latestArticle = _articlesService.GetLatestArticleByCategoryIds(favoriteCategoryIds);
+
+            if (latestArticle == null)
+            {
+                return View("NoArticles"); // Create a view to handle no articles found case
+            }
+
+            return View(latestArticle);
+        }
+
 
     }
 }

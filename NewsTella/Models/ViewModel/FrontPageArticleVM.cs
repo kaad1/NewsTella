@@ -1,6 +1,6 @@
 ﻿namespace NewsTella.Models.ViewModel
 {
-    public class LatestArticleVM
+    public class FrontPageArticleVM
     {
         public int ArticleId { get; set; }
         public string ImageLink { get; set; }
