@@ -27,6 +27,19 @@ namespace NewsTella.Controllers
 			return View(model);
 		}
 
+
+		[HttpGet]
+		public IActionResult BreakingNews() {
+			var breakingNews = _articlesService.GetBreakingNews(8).Select(a => new
+			{
+				a.Id,
+				a.Headline,
+				a.LinkText
+			}).ToList();
+
+			return Json(breakingNews);
+		}
+
 		public IActionResult Privacy()
 		{
 			return View();
