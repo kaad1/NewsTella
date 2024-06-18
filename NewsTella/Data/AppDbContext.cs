@@ -18,8 +18,9 @@ namespace NewsTella.Data
         public DbSet<Subscription> Subscriptions { get; set; }
 		public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        
+
 
         public DbSet<EmailSchedule> EmailSchedules { get; set; }
 
