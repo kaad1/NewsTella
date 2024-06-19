@@ -8,8 +8,61 @@
 }
 
 
-<div id="breaking-news">
+<style>
+	.breaking-news-wrapper {
+		padding: 0 18px;
+		margin-bottom: 24px !important;
+		padding-top: 14px !important;
+	}
 
+	.breaking-news-inner {
+		display: flex;
+		align-items: center;
+		position: relative;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+		overflow: hidden;
+	}
+
+	.breaking-news-title {
+		font-family: Rubik !important;
+		font-size: 18px !important;
+		font-weight: 400 !important;
+		letter-spacing: .6px !important;
+		background-color: #e41b13;
+		color: #fff;
+		text-transform: uppercase;
+		padding: 5px 10px;
+		display: inline-block;
+		line-height: 22px;
+	}
+
+	.breaking-news-display {
+		display: flex;
+		align-items: center;
+		vertical-align: top;
+		padding: 0 0 0 15px;
+	}
+
+	.breaking-news-headline {
+		font-size: 15px;
+		line-height: 32px;
+		margin: 0;
+		word-wrap: break-word;
+	}
+
+	
+</style>
+
+<div class="container container-rm-margin container-rework">
+	<div class="breaking-news-wrapper">		
+		<div class="breaking-news-inner">
+			<div class="breaking-news-title">Breaking News</div>
+			<div class="breaking-news-display" id="breaking-news">
+
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="container container-rm-margin container-rework">
@@ -72,4 +125,42 @@
 		</div>
 	</div>
 </div>	
+
+@section Scripts {
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const breakingNewsContainer = document.getElementById('breaking-news');
+			let articles = [];
+			let currentIndex = 0;
+
+			function fetchBreakingNews() {
+				fetch('/Home/GetBreakingNews')
+					.then(response => response.json())
+					.then(data => {
+						articles = data;
+						currentIndex = 0;
+						displayArticle();
+					})
+					.catch(error => console.error('Error fetching breaking news:', error));
+			}
+
+			function displayArticle() {
+				if (articles.length > 0) {
+					const article = articles[currentIndex];
+					breakingNewsContainer.innerHTML = `<div class="headline"><h2 class="breaking-news-headline"><a href="/Article/Details/${article.id}">${article.headline}</a></h2></div>`;
+					currentIndex = (currentIndex + 1) % articles.length;
+				}
+			}
+
+			
+			fetchBreakingNews();
+
+			
+			//setInterval(displayArticle, 5000);
+
+			
+			setInterval(fetchBreakingNews, 300000);
+		});
+	</script>
+}
 

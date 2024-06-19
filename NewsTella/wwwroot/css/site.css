@@ -49,6 +49,47 @@ body {
     padding-top: 80px !important;
 }
 
+
+
+@keyframes slideInOut {
+    0% {
+        opacity: 1;
+        transform: translateX(20px);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+.headline {
+    /*text-align: center;*/
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    padding-right: 119px;
+    overflow: hidden;
+    animation: slideInOut 5s linear infinite;
+}
+
+.breaking-news-headline a {
+    font-family: Rubik !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #111;
+}
+
 /*   Navbrand Navheading  */
 
 .logo-heading {

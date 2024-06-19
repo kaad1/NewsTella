@@ -29,13 +29,15 @@ namespace NewsTella.Controllers
 
 
 		[HttpGet]
-		public IActionResult BreakingNews() {
-			var breakingNews = _articlesService.GetBreakingNews(8).Select(a => new
-			{
-				a.Id,
-				a.Headline,
-				a.LinkText
-			}).ToList();
+		public IActionResult GetBreakingNews() {
+			var breakingNews = _articlesService.GetBreakingNews(7)
+											 .Select(a => new
+											 {
+												 a.Id,
+												 a.Headline,
+												 a.LinkText
+											 })
+											 .ToList();
 
 			return Json(breakingNews);
 		}
