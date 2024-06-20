@@ -8,58 +8,20 @@
 }
 
 
-<style>
-	.breaking-news-wrapper {
-		padding: 0 18px;
-		margin-bottom: 24px !important;
-		padding-top: 14px !important;
-	}
-
-	.breaking-news-inner {
-		display: flex;
-		align-items: center;
-		position: relative;
-		-webkit-transform: translate3d(0, 0, 0);
-		transform: translate3d(0, 0, 0);
-		overflow: hidden;
-	}
-
-	.breaking-news-title {
-		font-family: Rubik !important;
-		font-size: 18px !important;
-		font-weight: 400 !important;
-		letter-spacing: .6px !important;
-		background-color: #e41b13;
-		color: #fff;
-		text-transform: uppercase;
-		padding: 5px 10px;
-		display: inline-block;
-		line-height: 22px;
-	}
-
-	.breaking-news-display {
-		display: flex;
-		align-items: center;
-		vertical-align: top;
-		padding: 0 0 0 15px;
-	}
-
-	.breaking-news-headline {
-		font-size: 15px;
-		line-height: 32px;
-		margin: 0;
-		word-wrap: break-word;
-	}
-
-	
-</style>
-
 <div class="container container-rm-margin container-rework">
 	<div class="breaking-news-wrapper">		
 		<div class="breaking-news-inner">
 			<div class="breaking-news-title">Breaking News</div>
 			<div class="breaking-news-display" id="breaking-news">
 
+			</div>
+			<div class="breaking-news-button-wrap">
+				<a class="breaking-news-prev" id="prev-breaking-news">
+					<i class="bi bi-chevron-left"></i>
+				</a> 
+				<a class="breaking-news-next" id="next-breaking-news">
+					<i class="bi bi-chevron-right"></i>
+				</a> 
 			</div>
 		</div>
 	</div>
@@ -130,8 +92,12 @@
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			const breakingNewsContainer = document.getElementById('breaking-news');
+			const prevButton = document.getElementById('prev-breaking-news');
+			const nextButton = document.getElementById('next-breaking-news');
 			let articles = [];
 			let currentIndex = 0;
+			let autoUpdateTimer;
+			let inactivityTimer;
 
 			function fetchBreakingNews() {
 				fetch('/Home/GetBreakingNews')
@@ -147,18 +113,62 @@
 			function displayArticle() {
 				if (articles.length > 0) {
 					const article = articles[currentIndex];
-					breakingNewsContainer.innerHTML = `<div class="headline"><h2 class="breaking-news-headline"><a href="/Article/Details/${article.id}">${article.headline}</a></h2></div>`;
-					currentIndex = (currentIndex + 1) % articles.length;
+					const headlineDiv = document.createElement('div');
+					headlineDiv.className = 'headline';
+					headlineDiv.innerHTML = `
+								<h2 class="breaking-news-headline">
+									<a href="/Article/Details/${article.id}">${article.headline}</a>
+								</h2>`;
+					breakingNewsContainer.innerHTML = '';
+					breakingNewsContainer.appendChild(headlineDiv);
 				}
 			}
 
+			function showNextArticle() {
+				currentIndex = (currentIndex + 1) % articles.length;
+				displayArticle();
+			}
+
+			function showPrevArticle() {
+				currentIndex = (currentIndex - 1) % articles.length;
+				if (currentIndex < 0) {
+					currentIndex += articles.length;
+				}
+				displayArticle();
+			}
+
+			function resetAutoUpdateTimer() {
+				clearInterval(autoUpdateTimer);
+				autoUpdateTimer = setInterval(function () {
+					currentIndex = (currentIndex + 1) % articles.length;
+					displayArticle();
+				}, 5000);
+			}
+
+			function handleButtonClick() {
+				clearInterval(autoUpdateTimer);
+				clearTimeout(inactivityTimer);
+				inactivityTimer = setTimeout(function () {
+					currentIndex = (currentIndex + 1) % articles.length;
+					displayArticle();
+					resetAutoUpdateTimer();
+				}, 5000);
+			}
+
+			prevButton.addEventListener('click', () => {
+				showPrevArticle();
+				handleButtonClick();
+			});
+
+			nextButton.addEventListener('click', () => {
+				showNextArticle();
+				handleButtonClick();
+			});
 			
 			fetchBreakingNews();
-
 			
-			//setInterval(displayArticle, 5000);
+			autoUpdateTimer = setInterval(showNextArticle, 5000);
 
-			
 			setInterval(fetchBreakingNews, 300000);
 		});
 	</script>

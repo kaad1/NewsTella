@@ -214,6 +214,7 @@ namespace NewsTella.Services
 			return _db.Articles
 						   .Where(a => !a.IsDeleted && a.Status == "Published")
 						   .OrderByDescending(a => a.DateStamp)
+						   .ThenByDescending(a => a.Views)
 						   .Take(count)
 						   .ToList();
 		}

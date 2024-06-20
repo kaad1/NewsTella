@@ -30,7 +30,7 @@ namespace NewsTella.Controllers
 
 		[HttpGet]
 		public IActionResult GetBreakingNews() {
-			var breakingNews = _articlesService.GetBreakingNews(7)
+			var breakingNews = _articlesService.GetBreakingNews(8)
 											 .Select(a => new
 											 {
 												 a.Id,
