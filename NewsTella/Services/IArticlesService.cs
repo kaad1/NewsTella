@@ -36,7 +36,7 @@ namespace NewsTella.Services
         public List<Article> GetArticles();
 
 
-        public List<LatestArticleVM> GetLatestArticles(int articleCount);
+       // public List<LatestArticleVM> GetLatestArticles(int articleCount);
 
         public List<FrontPageArticleVM> GetLatestArticles(int articleCount);
         public List<FrontPageArticleVM> GetMostPopularArticles(int articleCount);
@@ -44,7 +44,7 @@ namespace NewsTella.Services
         public Article GetLatestArticle();
 
 
-        public Article GetLatestArticle();
+        //public Article GetLatestArticle();
 
 		public Task LikeArticleAsync(int id);  
         

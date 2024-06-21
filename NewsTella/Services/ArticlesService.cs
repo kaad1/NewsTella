@@ -241,16 +241,26 @@ namespace NewsTella.Services
 
         public List<Article> GetLatestArticleByCategoryIds(IEnumerable<int> categoryIds)
         {
-            return _db.Articles
-                      .Include(a => a.Categories)
-                      .Where(a => a.Categories.Any(c => categoryIds.Contains(c.Id)) && a.IsDeleted == false && a.Status == "Published")
-                      .OrderByDescending(a => a.DateStamp)
-                      .Take(3)
-					  .ToList();
-						
+            // Step 1: Retrieve all relevant articles from the database.
+            var articles = _db.Articles
+                              .Include(a => a.Categories)
+                              .Where(a => a.Categories.Any(c => categoryIds.Contains(c.Id)) && a.IsDeleted == false && a.Status == "Published")
+                              .OrderByDescending(a => a.DateStamp)
+                              .ToList();
+
+            // Step 2: Group by category and select the top three articles from each category.
+            var groupedArticles = articles
+                                  .SelectMany(a => a.Categories.Select(c => new { CategoryId = c.Id, Article = a }))
+                                  .GroupBy(x => x.CategoryId)
+                                  .SelectMany(g => g.Take(3))
+                                  .Select(x => x.Article)
+                                  .Distinct()
+                                  .ToList();
+
+            return groupedArticles;
         }
 
-		public List<Article> GetPublishedArticlesByCategoryId(int categoryId)
+        public List<Article> GetPublishedArticlesByCategoryId(int categoryId)
 		{
 			return _db.Articles
                       .Include(a => a.Categories)

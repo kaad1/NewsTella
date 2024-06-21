@@ -225,6 +225,7 @@ namespace NewsTella.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
+        
         public async Task<IActionResult> Details(int id)
         {
             var article = _articlesService.GetArticleById(id);
