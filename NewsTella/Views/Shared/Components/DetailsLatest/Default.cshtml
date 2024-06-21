@@ -1,0 +1,41 @@
+﻿@model IEnumerable<NewsTella.Models.ViewModel.FrontPageArticleVM>
+
+<style>
+	.tab-category-wrapper {
+		display: inline-block;
+	}
+
+	.comma {
+		display: inline-block;
+		color: #e41b13;
+	}
+</style>
+
+@foreach (var popularArticles in Model)
+{
+	<div class="article-container">
+		@* <div class="img-container">
+	<div class="tab-img-wrapper">
+	<div class="tab-img" style="background-image: url('@popularArticles.ImageLink');"></div>
+	</div>
+	</div> *@
+		<div class="tab-article-section">
+			<div class="tab-category-wrapper">
+				@for (int i = 0; i < popularArticles.CategoryNames.Count; i++)
+				{
+					<a class="tab-category-heading" asp-controller="Categories" asp-action="Articles" asp-route-categoryId="@popularArticles.CategoryIds[i]">
+						@popularArticles.CategoryNames[i]
+					</a>
+					@if (i < popularArticles.CategoryNames.Count - 1)
+					{
+						<span class="comma">, </span>
+					}
+				}
+
+			</div>
+			<h3 class="tab-article-heading">
+				<a asp-controller="Article" asp-action="Details" asp-route-id="@popularArticles.ArticleId" title="@popularArticles.Headline">@popularArticles.Headline</a>
+			</h3>
+		</div>
+	</div>
+}

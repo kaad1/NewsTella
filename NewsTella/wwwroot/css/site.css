@@ -688,7 +688,7 @@ body {
 
 /* Mobile view for small nav and its content */
 
-@media (max-width: 576px) {
+@media (max-width: 575px) {
     .small-nav {
         display: none;
     }
