@@ -8,13 +8,11 @@ namespace NewsTella.Services
     public class SubscriptionService : ISubscriptionService
     {
         private readonly AppDbContext _db;
-        private readonly AppDbContext _context;
         private readonly ILogger<SubscriptionService> _logger;
 
-        public SubscriptionService(AppDbContext db, AppDbContext context, ILogger<SubscriptionService> logger)
+        public SubscriptionService(AppDbContext db, ILogger<SubscriptionService> logger)
         {
             _db = db;
-            _context = context;
             _logger = logger;
         }
 
