@@ -35,7 +35,7 @@ namespace NewsTella.Controllers
                 articles = _articlesService.GetArticles();
             }
 
-            int pageSize = 4; // Number of articles per page
+            int pageSize = 5; // Number of articles per page
             int pageNumber = (page ?? 1); // Default to first page
 
             var pagedArticles = articles.ToPagedList(pageNumber, pageSize);

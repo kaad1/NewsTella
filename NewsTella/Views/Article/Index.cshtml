@@ -1,322 +1,139 @@
 ﻿@model X.PagedList.IPagedList<NewsTella.Models.Database.Article>
 @using X.PagedList.Mvc.Core
 @using X.PagedList
-@{
-	ViewData["Title"] = "Index";
-}
 
-@* <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head> *@
+@{
+    ViewData["Title"] = "Index";
+}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="container">
-	@* <div class="row">
-	<div class="col" style="margin-bottom: 50px;">
-
-	<a asp-action="Create" class="btn btn-dark">Create Article</a>
-	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-	</div>
-	</div> *@
-	<div class="row">
-		<div class="col">
-		<div class="row">
-			<div class="col-md-6 mb-3">
-				<h3>Article List</h3>
-			</div>
-			<div class="col-md-6">
-				<form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
-					<div class="input-group">
-						<input type="text" name="headline" class="form-control" placeholder="Search by headline" />
-						<input type="submit" value="Search" class="btn btn-dark ml-2" />
-					</div>
-				</form>
-			</div>
-		</div>
-		</div>
-			<div class="row">
-			@if (!User.IsInRole("Admin") && !User.IsInRole("Writer"))
-			{
-				<div class="col-md-6 mb-3">
-					<a asp-controller="Article" asp-action="EditorsChoice" class="btn btn-dark">Editor's Chouce</a>
-				</div>
-			}
-			</div>
-		</div>
-	<br />
-	<br />
-	<table id="sortBy" class="table table-striped">
-		<thead>
-			<tr>
-				<th>
-					Image
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model[0].Headline)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model[0].DateStamp)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model[0].Categories)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model[0].Likes)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model[0].Views)
-				</th>
-				<th>
-					@Html.DisplayNameFor(model => model[0].Status)
-				</th>
-				<th>
-					Actions
-				</th>
-			</tr>
-		</thead>
-
-
-
-		<tbody id="myTable">
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td style="text-align: center;" align="center">
-						<img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
-					</td>
-					@* <td style="text-align: center;" align="center">
-				<img src="@item.FormImage" alt="@item.Headline" style="max-width: 100px; " />
-				</td>  *@
-					<td>
-						<a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.DateStamp)
-					</td>
-					<td>
-						@string.Join(", ", item.Categories.Select(c => c.Name))
-					</td>
-
-					<td>
-						@Html.DisplayFor(modelItem => item.Likes)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Views)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Status)
-					</td>
-					<td>
-						@if (User.IsInRole("Editor"))
-						{
-							if (item.Status == "Submitted" || item.Status == "Edited")
-							{
-								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
-								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
-								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-
-								<form asp-action="ChangeStatus" method="post" style="display:inline;">
-									<input type="hidden" name="id" value="@item.Id" />
-									<input type="hidden" name="newStatus" value="Redo" />
-									<button type="submit" class="btn btn-warning">Publish</button>
-								</form>
-							}
-							else if (item.Status == "Published")
-							{
-								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
-								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
-								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-							}
-						}
-						else if (User.IsInRole("Writer"))
-						{
-							if (item.Status == "Submitted" || item.Status == "Published" || item.Status == "Edited")
-							{
-								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
-								// Buttons disabled for writer if already Submitted and/or Published
-								@if (!User.IsInRole("Admin") && !User.IsInRole("Writer"))
-								{
-									<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
-									<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
-								}
-							}
-							else if (item.Status == "Draft")
-							{
-								<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
-								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
-								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-
-								<form asp-action="ChangeStatus" method="post" style="display:inline;">
-									<input type="hidden" name="id" value="@item.Id" />
-									<input type="hidden" name="newStatus" value="Redo" />
-									<button type="submit" class="btn btn-warning">Submit</button>
-								</form>
-							}
-						}
-						else
-						{
-							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
-							// Buttons disabled for User..
-							@if (!User.IsInRole("Admin"))
-							{
-								<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark" disabled data-bs-toggle="button">Edit</a>
-								<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" disabled data-bs-toggle="button">Delete</a>
-							}
-						}
-					</td>
-				</tr>
-			}
-		</tbody>
-
-	</table>
-	<div class="row">
-		<div class="col-md-12">
-			@Html.PagedListPager(
-							Model,
-							page => Url.Action("Index", new { page, email = ViewContext.HttpContext.Request.Query["email"] }),
-							new PagedListRenderOptions
-			{
-				Display = PagedListDisplayMode.IfNeeded,
-				DisplayPageCountAndCurrentLocation = true,
-				DisplayLinkToFirstPage = PagedListDisplayMode.Always,
-				DisplayLinkToLastPage = PagedListDisplayMode.Always,
-				DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-				DisplayLinkToNextPage = PagedListDisplayMode.Always
-			}
-							)
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h3>Article List</h3>
+                </div>
+                <div class="col-md-6">
+                    <form asp-controller="Article" asp-action="Index" method="get" class="form-inline float-right">
+                        <div class="input-group">
+                            <input type="text" name="headline" class="form-control" placeholder="Search by headline" />
+                            <input type="submit" value="Search" class="btn btn-dark ml-2" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (!User.IsInRole("Admin") && !User.IsInRole("Writer"))
+            {
+                <div class="col-md-6 mb-3">
+                    <a asp-controller="Article" asp-action="EditorsChoice" class="btn btn-dark">Editor's Choice</a>
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <table id="sortBy" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>@Html.DisplayNameFor(model => model[0].Headline)</th>
+                <th>@Html.DisplayNameFor(model => model[0].DateStamp)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Categories)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Likes)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Views)</th>
+                <th>@Html.DisplayNameFor(model => model[0].Status)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align: center;" align="center">
+                        <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px;" />
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.DateStamp)</td>
+                    <td>@string.Join(", ", item.Categories.Select(c => c.Name))</td>
+                    <td>@Html.DisplayFor(modelItem => item.Likes)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Views)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            @if (User.IsInRole("Editor"))
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                @if (item.Status == "Submitted" || item.Status == "Edited")
+                                {
+                                    <form asp-action="ChangeStatus" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="newStatus" value="Redo" />
+                                        <button type="submit" class="btn btn-warning">Publish</button>
+                                    </form>
+                                }
+                            }
+                            else if (User.IsInRole("Writer"))
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+                                @if (item.Status == "Draft")
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-dark">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                    <form asp-action="ChangeStatus" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="newStatus" value="Redo" />
+                                        <button type="submit" class="btn btn-warning">Submit</button>
+                                    </form>
+                                }
+                            }
+                            else
+                            {
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Read</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.PagedListPager(
+                     Model,
+                     page => Url.Action("Index", new { page, email = ViewContext.HttpContext.Request.Query["email"] }),
+                     new PagedListRenderOptions
+            {
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = true,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always
+            }
+                     )
+        </div>
+    </div>
 </div>
 
 <script>
-	$(document).ready(function () {
-		$("#articleSearch").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#myTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
-		});
-	});
+    $(document).ready(function () {
+        $("#articleSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 <script>
-	function myFunction(elem) {
-		elem.classList.toggle('clicked');
-	}
+    function myFunction(elem) {
+        elem.classList.toggle('clicked');
+    }
 </script>
-
-
-@* below works well
-    @model IEnumerable<NewsTella.Models.Database.Article>
-
-    @{
-    ViewData["Title"] = "Index";
-    }
-
-    <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    </head>
-
-    <button>
-    <a asp-action="Create">Create New Article</a>
-    </button>
-    <div class="container">
-    <h2>Article List</h2>
-
-    <div class="row">
-    <div class="col-md-9"></div>
-    <div class="col-md-3">
-    <input class="form-control" id="myInput" type="text" placeholder="Search..">
-    </div>
-    </div>
-
-    <br>
-    <table id="sortBy" class="table table-bordered table-striped">
-    <thead>
-    <tr>
-    <th>
-    Image
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Headline)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.DateStamp)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Category)
-    </th>
-    <th>
-    @Html.DisplayNameFor(model => model.Status)
-    </th>
-    <th>
-    Actions
-    </th>
-    </tr>
-    </thead>
-
-
-    <tbody id="myTable">
-    @foreach (var item in Model)
-    {
-    <tr>
-    <td style="text-align: center;" align="center">
-    <img src="@item.ImageLink" alt="@item.Headline" style="max-width: 100px; " />
-    </td>
-    <td>
-    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Headline)</a>
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.DateStamp)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Category)
-    </td>
-    <td>
-    @Html.DisplayFor(modelItem => item.Status)
-    </td>
-    <td>
-    <button class="btn btn-success" style="margin:10px"><a asp-action="Details" asp-route-id="@item.Id">Read</a></button>
-    <button class="btn btn-info" style="margin:10px" ><a asp-action="Edit" asp-route-id="@item.Id">Edit</a></button>
-    <button class="btn btn-danger" style="margin:10px"><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></button>
-
-    @if (item.Status == "Draft")
-    {
-    <form asp-action="ChangeStatus" method="post" style="display:inline; margin-inline-start: 60px; margin-inline-end:-5px; ">
-    <input type="hidden" name="id" value="@item.Id" />
-    <input type="hidden" name="newStatus" value="Redo" />
-    <button type="submit" class="btn btn-warning">Publish</button>
-    </form>
-    }
-    </td>
-    </tr>
-    }
-    </tbody>
-    </table>
-    </div>
-
-
-
-
-
-    <script>
-    $(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function () {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-    });
-    });
-    </script>
-
-
-    *@
