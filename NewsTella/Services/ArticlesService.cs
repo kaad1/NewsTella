@@ -250,5 +250,13 @@ namespace NewsTella.Services
 						
         }
 
+		public List<Article> GetPublishedArticlesByCategoryId(int categoryId)
+		{
+			return _db.Articles
+                      .Include(a => a.Categories)
+                      .Where(a => a.Categories.Any(c => categoryId == c.Id) && a.IsDeleted == false && a.Status == "Published")
+                      .OrderByDescending(a => a.DateStamp)
+					  .ToList();
+		}
     }
 }
