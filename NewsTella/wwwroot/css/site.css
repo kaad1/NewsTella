@@ -1415,3 +1415,10 @@ footer {
 }
 
 
+#articlesCarousel .carousel-control-next, .carousel-control-prev {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: black;
+    top: 50%;
+}

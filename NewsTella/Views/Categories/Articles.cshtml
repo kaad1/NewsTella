@@ -37,6 +37,24 @@
 
 
 }
+else if (Model.Name.Contains("Sport"))
+{
+    <p class="text-center text-danger" style="font-size:35px; text-shadow: 2px 2px 4px #000000; font-weight:bold;">Sport</p>
+    <div class="container">
+        <div class="row">
+            <div>
+                @Html.Partial("_LatestSportArticle", Model)
+            </div>
+
+            <div class="border-bottom border-black m-3 mt-5 mb-5 lineborder ">
+                @Html.Partial("_SportArticles", Model)
+            </div>
+
+        </div>
+
+
+    </div>
+}
 
 else
 {

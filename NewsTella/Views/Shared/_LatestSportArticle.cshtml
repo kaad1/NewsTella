@@ -1,0 +1,73 @@
+﻿@using Humanizer
+@model NewsTella.Models.Database.Category
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles Carousel</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div id="articlesCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < Model.Articles.Count(); i++)
+            {
+                <li data-target="#articlesCarousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+            }
+        </ol>
+        <div class="carousel-inner">
+            @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Take(5).ToList())
+            {
+
+                var isActive = article.Equals(Model.Articles.First()) ? "active" : "";
+                <div class="carousel-item col-12 col-lg-12 @isActive">
+                    <div class="card " style="width: 60rem; margin: auto; ">
+                        <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
+                            <img src="@article.ImageLink" class="card-img-top" alt="@article.Headline">
+                        </a>
+
+                        <div class="card-body">
+
+                            <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
+                                <h5 class="card-title h5text">@article.Headline</h5>
+                            </a>
+                            <p class="card-text">@article.ContentSummary</p>
+                            <p class="d-flex flex-column"><small>Published on @article.DateStamp.ToUniversalTime().Humanize()</small></p>
+                            @*  <a href="#" class="btn btn-primary">Read More</a> *@
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <a class="carousel-control-prev" href="#articlesCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#articlesCarousel" role="button" style="background-color:black;" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('.carousel').carousel({
+                interval: 1000 // Slide interval in milliseconds
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
