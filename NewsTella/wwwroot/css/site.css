@@ -1414,4 +1414,47 @@ footer {
     flex-shrink: 0;
 }
 
+/*********************************** Pagination Index view Article*/
+
+.center {
+    text-align: center;
+}
+
+.pagination {
+    /* display: inline-block;  */
+}
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        border-color: lightgray;
+        background-color: lightgray;
+        margin: 5px;
+    }
+
+        .pagination a.active {
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: solid 2px;
+            border-radius: 8px;
+            border-color: #dee2e6;
+            background-color: #dee2e6;
+        }
+
+
+
+
 
