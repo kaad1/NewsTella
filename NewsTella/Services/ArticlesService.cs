@@ -209,6 +209,17 @@ namespace NewsTella.Services
 			return articles;
 		}
 
+		public List<Article> GetBreakingNews(int count)
+		{
+			return _db.Articles
+						   .Where(a => !a.IsDeleted && a.Status == "Published")
+						   .OrderByDescending(a => a.DateStamp)
+						   .ThenByDescending(a => a.Views)
+						   .Take(count)
+						   .ToList();
+		}
+
+
 		public Article GetLatestArticle()
 		{
             var article =  _db.Articles.Where(a => !a.IsDeleted && a.Status == "Published").OrderByDescending(a => a.DateStamp).FirstOrDefault();

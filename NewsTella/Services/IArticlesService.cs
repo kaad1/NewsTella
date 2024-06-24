@@ -42,7 +42,7 @@ namespace NewsTella.Services
         public List<FrontPageArticleVM> GetMostPopularArticles(int articleCount);
         public List<FrontPageArticleVM> GetEditorsChoiceArticles(int articleCount);
         public Article GetLatestArticle();
-
+        public List<Article> GetBreakingNews(int count);
 
         //public Article GetLatestArticle();
 
