@@ -22,6 +22,17 @@ namespace NewsTella.Services
             return obj;
         }
 
+        public SubscriptionType GetSubscriptionTypeByUserId(string userId)
+        {
+            var subscriptionType = _db.Subscriptions
+                .Include(s => s.SubscriptionType)
+                .Where(s => !s.IsDeleted && s.User.Id == userId)
+                .Select(s => s.SubscriptionType)
+                .FirstOrDefault();
+
+            return subscriptionType;
+        }
+
         public List<Subscription> GetSubscriptionsCloserToExpire()
         {
             var currentDate = DateOnly.FromDateTime(DateTime.Now);

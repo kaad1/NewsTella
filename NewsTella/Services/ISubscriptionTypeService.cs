@@ -9,6 +9,8 @@ namespace NewsTella.Services
 
         SubscriptionType GetSubscriptionTypeById(int id);
 
+        public SubscriptionType GetSubscriptionTypeByUserId(string userId);
+
         void AddSubscriptionType(SubscriptionType subscriptionType);
 
         void RemoveSubscriptionType(SubscriptionType subscriptionType);

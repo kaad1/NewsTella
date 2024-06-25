@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NewsTella.Models.Database.Article>
+
+@{
+    ViewData["Title"] = "Search Archived News";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Search Archived News</h3>
+
+            <form method="get" asp-action="SearchArchivedNews">
+                <input type="text" name="Headline" placeholder="Search..." class="form-control" />
+                <input type="submit" value="Search" class="btn btn-dark mt-2" />
+            </form>
+
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Headline</th>
+                        @* <th>Date Published</th> *@
+                        <th>Created Date</th>
+                        <th>Content Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var article in Model)
+                    {
+                        <tr>
+                            <td>@article.Headline</td>
+                            @* <td>@article.DatePublished.ToString("MM/dd/yyyy")</td> *@
+                            <td>@article.DateStamp</td>
+                            <td>@article.ContentSummary</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

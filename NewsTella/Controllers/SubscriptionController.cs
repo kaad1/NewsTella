@@ -19,8 +19,10 @@ namespace NewsTella.Controllers
         private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
 
-        public SubscriptionController(ISubscriptionTypeService subscriptionTypeService, AppDbContext context, 
-                                      ISubscriptionService subscriptionService,  UserManager<User> userManager)
+        public SubscriptionController(ISubscriptionTypeService subscriptionTypeService, 
+                                      AppDbContext context, 
+                                      ISubscriptionService subscriptionService,  
+                                      UserManager<User> userManager)
         {
             _subscriptionTypeService = subscriptionTypeService;
             _subscriptionService = subscriptionService;

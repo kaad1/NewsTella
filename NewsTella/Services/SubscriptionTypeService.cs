@@ -20,6 +20,18 @@ namespace NewsTella.Services
             //var obj = _db.SubscriptionTypes.ToList();
             //return obj;
         }
+
+        public SubscriptionType GetSubscriptionTypeByUserId(string userId)
+        {
+            var subscriptionType = _db.Subscriptions
+                .Include(s => s.SubscriptionType)
+                .Where(s => !s.IsDeleted && s.User.Id == userId)
+                .Select(s => s.SubscriptionType)
+                .FirstOrDefault();
+
+            return subscriptionType;
+        }
+
         public SubscriptionType GetSubscriptionTypeById(int id)
         {
             var subscriptionType = _db.SubscriptionTypes.FirstOrDefault(s => s.Id == id);
