@@ -19,7 +19,7 @@ namespace NewsTella.Services
 			_configuration = configuration;
 		}
 
-		public void AddArticle(Article article)
+        public void AddArticle(Article article)
 		{
 			UploadFilesToContainer(article);
 

@@ -5,6 +5,9 @@ using NewsTella.Models.ViewModel;
 using X.PagedList;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using NewsTella.Data;
+using System;
 
 namespace NewsTella.Controllers
 {
@@ -13,12 +16,17 @@ namespace NewsTella.Controllers
         private readonly IArticlesService _articlesService;
         private readonly ICategoryService _categoryService;
         private readonly IFavoriteCategoryService _favoriteCategoryService;
+        private readonly AppDbContext _context;
 
-        public ArticleController(IArticlesService articlesService, ICategoryService categoryService, IFavoriteCategoryService favoriteCategoryService)
+        public ArticleController(IArticlesService articlesService, 
+                                 ICategoryService categoryService, 
+                                 IFavoriteCategoryService favoriteCategoryService, 
+                                 AppDbContext context)
         {
             _articlesService = articlesService;
             _categoryService = categoryService;
             _favoriteCategoryService = favoriteCategoryService;
+            _context = context;
         }
 
         [HttpGet]
@@ -170,9 +178,6 @@ namespace NewsTella.Controllers
                 model.AllCategories = _categoryService.GetCategories();
                 return View(model);
             }
-
-
-
         }
 
         public IActionResult Delete(int id)
@@ -308,6 +313,14 @@ namespace NewsTella.Controllers
             return View(latestArticle);
         }
 
+        public IActionResult SearchArchivedNews(string Headline)
+        {
+            var results = _context.Articles
+                .Where(a => a.IsArchived && (a.Headline.Contains(Headline) || a.Content.Contains(Headline)))
+                .ToList();
+
+            return View(results);
+        }
 
     }
 }

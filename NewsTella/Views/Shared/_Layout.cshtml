@@ -12,6 +12,15 @@
     var test = "";
 }
 
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var session = HttpContextAccessor.HttpContext.Session;
+    // var roleSessionValue = Session.GetString("Role");
+
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,6 +202,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="FavoriteCategory" asp-action="Create">Favorite&nbsp;Categories</a>
                             </li>
+                            @if (session.GetString("SubscriptionType") != "Basic")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Article" asp-action="SearchArchivedNews">Archived News</a>
+                                </li>
+                            }
 						}
 					</ul>
                         
