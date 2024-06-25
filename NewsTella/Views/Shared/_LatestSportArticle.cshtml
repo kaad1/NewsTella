@@ -26,7 +26,7 @@
 
                 var isActive = article.Equals(Model.Articles.First()) ? "active" : "";
                 <div class="carousel-item col-12 col-lg-12 @isActive">
-                    <div class="card " style="width: 60rem; margin: auto; ">
+                    <div class="card " >
                         <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
                             <img src="@article.ImageLink" class="card-img-top" alt="@article.Headline">
                         </a>
