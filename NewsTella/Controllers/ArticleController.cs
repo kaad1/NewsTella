@@ -315,9 +315,7 @@ namespace NewsTella.Controllers
 
         public IActionResult SearchArchivedNews(string Headline)
         {
-            var results = _context.Articles
-                .Where(a => a.IsArchived && (a.Headline.Contains(Headline) || a.Content.Contains(Headline)))
-                .ToList();
+            var results = _articlesService.FindByHeadline(Headline);
 
             return View(results);
         }

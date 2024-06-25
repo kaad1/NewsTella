@@ -64,6 +64,8 @@ namespace NewsTella.Services
 
         public List<Article> GetPublishedArticlesByCategoryId(int categoryId);
 
+        public List<Article> GetArchivedNeewsByHeadLine(string Headline);
+
     }
 
 }
