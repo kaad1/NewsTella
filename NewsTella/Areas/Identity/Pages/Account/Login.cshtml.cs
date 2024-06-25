@@ -123,8 +123,9 @@ namespace NewsTella.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    if (subType != null) { 
                     HttpContext.Session.SetString("SubscriptionType", subType.TypeName);
-
+                    }
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
