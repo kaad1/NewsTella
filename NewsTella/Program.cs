@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,8 @@ namespace NewsTella
 				.AddRoles<IdentityRole>()
 
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            builder.Services.Configure<FormOptions>(options => options.MultipartBodyLengthLimit = 10485760);
 
             builder.Services.AddScoped<UserManager<User>, AppUserManager>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();

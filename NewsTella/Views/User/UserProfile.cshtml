@@ -1,0 +1,96 @@
+﻿@model NewsTella.Models.ViewModel.UserProfileVM
+@using NewsTella.Models.Database;
+@using NewsTella.Data;
+
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>My Profile</h3>
+            @if (Model.ProfileImageUrl != null)
+            {
+                <div class="profile-picture centered">
+                    <img src="@Model.ProfileImageUrl" alt="Profile Image" style="max-width: 200px;" />
+                </div>
+            }
+            <br />
+            <div class="card border-0">
+                <div>
+                    <div class="row">
+                        <div class="col-md-3 card bg-body-secondary">
+                            <form asp-action="UserProfile" enctype="multipart/form-data" method="post">                              <div class="form-group">
+                                    <label asp-for="FirstName"></label>
+                                    <input disabled asp-for="FirstName" class="form-control" />
+                                </div>
+
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="LastName"></label>
+                                    <input disabled asp-for="LastName" class="form-control" />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input disabled asp-for="Email" class="form-control" />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="UserName"></label>
+                                    <input disabled asp-for="UserName" class="form-control" readonly />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input disabled asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber"></label>
+                                    <input disabled asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <br />
+
+                                @if (Model.ProfileImageUrl == null)
+                                {
+                                    <div class="form-group">
+                                        <label asp-for="ProfileImage"></label>
+                                        <input asp-for="ProfileImage" type="file" class="form-control" />
+                                        <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label asp-for="ProfileImage"></label>
+                                        <input disabled asp-for="ProfileImage" type="file" class="form-control" />
+                                        <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                    </div>
+                                }
+
+
+                                <br />
+
+                                <div class="form-group">
+                                    <a asp-controller="User" asp-action="UserProfileEdit" asp-route-userId="@item.Id" class="btn btn-dark">Edit Profile</a>
+                                </div>
+                                <br />
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
