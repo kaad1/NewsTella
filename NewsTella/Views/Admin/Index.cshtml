@@ -5,52 +5,74 @@
 <head>
     <title>Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 <body>
  
     
     <div class="container">
       <div class="row mb-4 h-25">
-            <div class="col-12 col-md-6 col-lg-6 " style="background-color:#80808033;">
-           <h2 class="text-center text-danger mb-3 mt-3">Dashboard</h2>
-            <canvas id="myChart"></canvas>
-         </div>
-            <div class="col-12 col-md-6 col-lg-6 " style="background-color:#80808033;">
+            
+                           @*  Page Statistics *@
+            <div class="col-12 col-md-6 col-lg-6 " >
+              <h2 class="text-center text-danger mb-3 mt-3">Dashboard</h2>
+                <canvas id="myChart" style="background-color:#80808033;"></canvas>
+            </div>
+                            @*  Subscription Statistics *@
+            <div class="col-12 col-md-6 col-lg-6 " >
                 <h2 class="text-center text-danger mb-3 mt-3">Subscription Statistics</h2>
-                <canvas id="myCharts"></canvas>
+                <canvas id="myCharts" style="background-color:#80808033;"></canvas>
             </div>
 
 
+                         @*  Recent Articles *@
 
             <div class="col-12 col-md-6 col-lg-6">
                <h2 class="text-center text-danger mb-3 mt-5 ">Recent Articles</h2>
                <ul class="list-group">
+                  
                    @foreach (var article in Model.RecentArticles)
                    {
-                        <li class="list-group-item" >
+                        <li class="list-group-item" style="background-color:#80808033;" >
                           <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
+                          
                            <p>@article.DateStamp.ToShortDateString()</p>
-                           <p>Views: @article.Views, Likes: @article.Likes</p>
+                            <p>
+
+                                <i class="bi bi-eye-fill"></i> @article.Views
+                                <i class="bi bi-hand-thumbs-up-fill ml-4"></i> @article.Likes
+                            </p>
                        </li> 
                    }
+
                </ul>
             </div>
+       
+                        @*   Popluar Articles *@
+
             <div class="col-12 col-md-6 col-lg-6" >
                 <h2 class="text-center text-danger mb-3 mt-5 ">Popular Articles</h2>
                 <ul class="list-group">
                     @foreach (var article in Model.PopularArticles)
                     {
-                        <li class="list-group-item">
+                        <li class="list-group-item" style="background-color:#80808033;">
                             <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
                             <p>@article.DateStamp.ToShortDateString()</p>
-                            
-                            <p>Views: @article.Views, Likes: @article.Likes</p>
+                            <p>
+
+                                <i class="bi bi-eye-fill"></i> @article.Views
+                                <i class="bi bi-hand-thumbs-up-fill"></i> @article.Likes
+                            </p>
                         </li>
                     }
                 </ul>
             </div>
       </div>
     </div>
+
+                         @*  Page Statistics  JS*@
+
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -83,6 +105,8 @@
         });
     </script>
 
+
+                     @*  Subscription Statistics JS *@
 
     <script>
         var ctx = document.getElementById('myCharts').getContext('2d');
