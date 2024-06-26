@@ -11,5 +11,6 @@ namespace NewsTella.Models.ViewModel
         public int ProCount { get; set; }
         public int PremiumCount { get; set; }
         public List<Article> RecentArticles { get; set; }
+        public List<Article> PopularArticles { get; set; }
     }
 }
