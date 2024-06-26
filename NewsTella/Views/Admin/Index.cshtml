@@ -10,17 +10,24 @@
  
     
     <div class="container ">
-      <div class="row mb-4">
-        <div class="col-12 col-md-6 col-lg-8">
-        <h2 class="text-center text-danger mb-3">Dashboard</h2>
+      <div class="row mb-4 h-25">
+            <div class="col-12 col-md-6 col-lg-4 ">
+        <h2 class="text-center text-danger mb-3 mt-3">Dashboard</h2>
         <canvas id="myChart"></canvas>
        </div>
-        <div class="col-12 col-md-6 col-lg-4 ">
-        <h2 class="text-center text-danger mb-5">Recent Articles</h2>
+            <div class="col-12 col-md-6 col-lg-4 " >
+                <h2 class="text-center text-danger mb-3 mt-3">Subscription Statistics</h2>
+                <canvas id="myCharts"></canvas>
+            </div>
+
+
+
+            <div class="col-12 col-md-6 col-lg-4">
+            <h2 class="text-center text-danger mb-5 mt-3 ">Recent Articles</h2>
         <ul class="list-group">
             @foreach (var article in Model.RecentArticles)
             {
-                <li class="list-group-item bg-light">
+                <li class="list-group-item">
                    <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
                     <p>@article.DateStamp.ToShortDateString()</p>
                     <p>Views: @article.Views, Likes: @article.Likes</p>
@@ -49,7 +56,40 @@
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)'
                     ],
-                    hoverOffset: 6
+                    hoverOffset: 25
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+    <script>
+        var ctx = document.getElementById('myCharts').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Basic', 'Pro', 'Premium'],
+                datasets: [{
+                    label: 'Statistics',
+                    data: [@Model.BasicCount, @Model.ProCount, @Model.PremiumCount],
+                    backgroundColor: [
+                        'green',
+                        'red',
+                        'pink'
+                    ],
+                    borderColor: [
+                        'black',
+                        'black',
+                        'black'
+                    ],
+                    hoverOffset: 25
                 }]
             },
             options: {
