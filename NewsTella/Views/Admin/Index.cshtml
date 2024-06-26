@@ -9,32 +9,46 @@
 <body>
  
     
-    <div class="container ">
+    <div class="container">
       <div class="row mb-4 h-25">
-            <div class="col-12 col-md-6 col-lg-4 ">
-        <h2 class="text-center text-danger mb-3 mt-3">Dashboard</h2>
-        <canvas id="myChart"></canvas>
-       </div>
-            <div class="col-12 col-md-6 col-lg-4 " >
+            <div class="col-12 col-md-6 col-lg-6 " style="background-color:#80808033;">
+           <h2 class="text-center text-danger mb-3 mt-3">Dashboard</h2>
+            <canvas id="myChart"></canvas>
+         </div>
+            <div class="col-12 col-md-6 col-lg-6 " style="background-color:#80808033;">
                 <h2 class="text-center text-danger mb-3 mt-3">Subscription Statistics</h2>
                 <canvas id="myCharts"></canvas>
             </div>
 
 
 
-            <div class="col-12 col-md-6 col-lg-4">
-            <h2 class="text-center text-danger mb-5 mt-3 ">Recent Articles</h2>
-        <ul class="list-group">
-            @foreach (var article in Model.RecentArticles)
-            {
-                <li class="list-group-item">
-                   <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
-                    <p>@article.DateStamp.ToShortDateString()</p>
-                    <p>Views: @article.Views, Likes: @article.Likes</p>
-                </li> 
-            }
-        </ul>
-        </div>
+            <div class="col-12 col-md-6 col-lg-6">
+               <h2 class="text-center text-danger mb-3 mt-5 ">Recent Articles</h2>
+               <ul class="list-group">
+                   @foreach (var article in Model.RecentArticles)
+                   {
+                        <li class="list-group-item" >
+                          <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
+                           <p>@article.DateStamp.ToShortDateString()</p>
+                           <p>Views: @article.Views, Likes: @article.Likes</p>
+                       </li> 
+                   }
+               </ul>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6" >
+                <h2 class="text-center text-danger mb-3 mt-5 ">Popular Articles</h2>
+                <ul class="list-group">
+                    @foreach (var article in Model.PopularArticles)
+                    {
+                        <li class="list-group-item">
+                            <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
+                            <p>@article.DateStamp.ToShortDateString()</p>
+                            
+                            <p>Views: @article.Views, Likes: @article.Likes</p>
+                        </li>
+                    }
+                </ul>
+            </div>
       </div>
     </div>
     <script>

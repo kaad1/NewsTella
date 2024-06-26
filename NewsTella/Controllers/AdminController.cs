@@ -19,7 +19,8 @@ public class AdminController : Controller
             TotalUsers = _context.Users.Count(),
             TotalArticles = _context.Articles.Count(),
             TotalSubscriptions = _context.Subscriptions.Count(),
-            RecentArticles = _context.Articles.OrderByDescending(a => a.DateStamp).Take(6).ToList(),
+            RecentArticles = _context.Articles.OrderByDescending(a => a.DateStamp).Take(10).ToList(),
+            PopularArticles = _context.Articles.OrderByDescending(a => a.Likes).Take(10).ToList(),
             ProCount = _context.Subscriptions.Count(s => s.SubscriptionType.TypeName == "Pro"),
             PremiumCount = _context.Subscriptions.Count(s => s.SubscriptionType.TypeName == "Premium"),
             BasicCount = _context.Subscriptions.Count(s => s.SubscriptionType.TypeName == "Basic")
