@@ -280,11 +280,18 @@ namespace NewsTella.Services
 					  .ToList();
 		}
 
-        public List<Article> GetArchivedNeewsByHeadLine(string Headline)
+        public List<Article> GetArchivedNewsByHeadLine(string Headline)
 		{
             return _db.Articles
                 .Where(a => a.Status == "Archived" && (a.Headline.Contains(Headline) || a.Content.Contains(Headline)))
                 .ToList();
         }
-    }
+
+		public List<Article> GetArticlesByUserId(string userId)
+		{
+			return _db.Articles
+				.Where(a => a.User.Id == userId)
+				.ToList();
+		}
+	}
 }
