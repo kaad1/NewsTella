@@ -218,7 +218,7 @@ namespace NewsTella.Controllers
             {
                 return View(model);
             }
-
+            
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {

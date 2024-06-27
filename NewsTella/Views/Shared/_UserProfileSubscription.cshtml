@@ -1,0 +1,67 @@
+﻿@model NewsTella.Models.Database.Subscription
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card border-0">
+                <div>
+                    <div class="row">
+                        <div class="col-md-3 card bg-body-secondary container-prof" style="padding: 20px 10px">
+                            <h3 style="padding: 10px 10px">My Subscription</h3>
+                            <div>
+                                <h4>Subscription</h4>
+                                <hr />
+                                <dl class="row">
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.Price)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Price)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.Created)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Created)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.Expires)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Expires)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.PaymentComplete)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.PaymentComplete)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.RenewalEmailSentTime)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.RenewalEmailSentTime)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.IsDeleted)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.IsDeleted)
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+                                <a asp-action="Index">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
