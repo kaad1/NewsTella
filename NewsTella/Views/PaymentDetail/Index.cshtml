@@ -3,93 +3,35 @@
     ViewData["Title"] = "Index";
 }
 
-
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert alert-success">
-        <strong>Success! </strong> @TempData["AlertMessage"]
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <div id="statusMessageContainer">
+                @if (TempData["AlertMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        <strong>Success! </strong> @TempData["AlertMessage"]
+                    </div>
+                }
+            </div>
+        </div>
     </div>
-}
+</div>
 
+@section Scripts {
+    <script type="text/javascript">
+        // Function to hide the status message
+        function hideStatusMessage() {
+            var statusMessageContainer = document.getElementById('statusMessageContainer');
+            if (statusMessageContainer) {
+                statusMessageContainer.style.display = 'none';
+            }
 
-@* @{
-    ViewData["Title"] = "Create";
-}
-<h3>Payment Detail</h3>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CardType" class="control-label"></label>
-                <input asp-for="CardType" class="form-control" disabled />
-                <span asp-validation-for="CardType" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="NameOnCard" class="control-label"></label>
-                <input asp-for="NameOnCard" class="form-control" disabled />
-                <span asp-validation-for="NameOnCard" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="CardNumber" class="control-label"></label>
-                <input asp-for="CardNumber" class="form-control" disabled/>
-                <span asp-validation-for="CardNumber" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="ExpireDate" class="control-label"></label>
-                <input asp-for="ExpireDate" class="form-control" disabled/>
-                <span asp-validation-for="ExpireDate" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="CardSecurityCode" class="control-label"></label>
-                <input asp-for="CardSecurityCode" class="form-control" disabled />
-                <span asp-validation-for="CardSecurityCode" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" disabled/>
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" disabled/>
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" disabled/>
-                <span asp-validation-for="State" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="PostalCode" class="control-label"></label>
-                <input asp-for="PostalCode" class="form-control" disabled/>
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" disabled />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Confirm" class="btn btn-primary" />
-            </div>
-        </form>
-        @if (TempData["AlertMessage"] != null)
-        {
-            <div class="alert alert-success">
-                <strong>Success! </strong> @TempData["AlertMessage"]
-            </div>
+            // Redirect to the home page
+            window.location.href = '/';
         }
-    </div>
-</div> *@
+
+        // Hide the status message after 10 seconds (10000 milliseconds) and then redirect
+        setTimeout(hideStatusMessage, 10000);
+    </script>
+}
