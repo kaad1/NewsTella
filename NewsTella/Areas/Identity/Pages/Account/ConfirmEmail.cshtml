@@ -4,5 +4,32 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="statusMessageContainer">
+
+                <h3>@ViewData["Title"]</h3>
+
+                <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+            </div>
+
+            <a class="btn btn-success text-white" asp-area="" asp-controller="Subscription" asp-action="SelectSubscription">Log In</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        // Function to hide the status message
+        function hideStatusMessage() {
+            var statusMessageContainer = document.getElementById('statusMessageContainer');
+            if (statusMessageContainer) {
+                statusMessageContainer.style.display = 'none';
+            }
+        }
+
+        // Hide the status message after 10 seconds (10000 milliseconds)
+        setTimeout(hideStatusMessage, 10000);
+    </script>
+}
