@@ -9,6 +9,8 @@ using NewsTella.Services;
 using X.PagedList;
 using System.Collections.Generic;
 using System.Linq;
+using NewsTella.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace NewsTella.Controllers
 {
@@ -92,7 +94,7 @@ namespace NewsTella.Controllers
                     User = user
                 };
                 _subscriptionService.AddSubscription(subscription);
-
+                HttpContext.Session.Set<Subscription>("SubscriptionToPay", subscription);
                 return RedirectToAction("Create", "PaymentDetail");
             }
             return View(model);
