@@ -1,0 +1,132 @@
+﻿@model NewsTella.Models.ViewModel.PaymentDetailVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Payment Detail</h3>
+            <br/>
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @* <div class="row form-group">
+                            <div class="col-6">
+                                <label asp-for="CardType" class="control-label">Card Type</label>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <input type="radio" name="CardType" asp-for="CardType" value="Visa" required />
+                                    <label for="CardType">Visa</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="CardType" asp-for="CardType" value="MasterCard" required />
+                                    <label for="CardType">MasterCard</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="CardType" asp-for="CardType" value="AmericanExpress" required />
+                                    <label for="CardType">American Express</label>
+                                </div>
+                                <span asp-validation-for="CardType" class="text-danger"></span>
+                            </div>
+                        </div> *@
+                        @* <br/>
+                        <div class="row">
+                            <div class="col-6 accept-policy">
+                                <label asp-for="NameOnCard" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="NameOnCard" class="form-control" required/>
+                                <span asp-validation-for="NameOnCard" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="CardNumber" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="CardNumber" class="form-control" required/>
+                                <span asp-validation-for="CardNumber" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="col-6 form-group">
+                                <label asp-for="ExpireDate" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="ExpireDate" class="form-control" required/>
+                                <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                            </div>
+                        </div> *@
+                        <br/>
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="CardSecurityCode" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="CardSecurityCode" class="form-control" required/>
+                                <span asp-validation-for="CardSecurityCode" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="col-6 form-group">
+                                <label asp-for="Address" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="Address" class="form-control" required/>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="City" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="City" class="form-control" required/>
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="col-6 form-group">
+                                <label asp-for="State" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="State" class="form-control" required/>
+                                <span asp-validation-for="State" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="PostalCode" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="PostalCode" class="form-control" required/>
+                                <span asp-validation-for="PostalCode" class="text-danger"></span>
+                            </div>
+                            <br />
+                            <br/>
+                            <div class="col-6 form-group">
+                                <label asp-for="Country" class="control-label"></label>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="Country" class="form-control" required/>
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-dark mb-3" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

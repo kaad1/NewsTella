@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using NewsTella.Data;
 using NewsTella.Helpers;
 using NewsTella.Models.Database;
 using NewsTella.Services;
+using Stripe;
 
 namespace NewsTella
 {
@@ -31,6 +31,8 @@ namespace NewsTella
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.SetApiKey(builder.Configuration.GetSection("Stripe")["SecretKey"]);
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -43,7 +45,7 @@ namespace NewsTella
 
             builder.Services.AddScoped<UserManager<User>, AppUserManager>();
             builder.Services.AddScoped<ISubscriptionTypeService, SubscriptionTypeService>();
-            builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+            builder.Services.AddScoped<ISubscriptionService, Services.SubscriptionService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IPaymentDetailService, PaymentDetailService>();
             builder.Services.AddScoped<IFavoriteCategoryService, FavoriteCategoryService>();
@@ -56,7 +58,7 @@ namespace NewsTella
             builder.Services.AddTransient<IEmailSender, EmailHelper>();
             //builder.Services.AddHostedService<ScheduledEmailService>();
             //builder.Services.AddHostedService<EmailBackgroundService>();
-           
+            
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {

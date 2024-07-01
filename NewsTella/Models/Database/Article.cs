@@ -9,7 +9,9 @@ namespace NewsTella.Models.Database
         public int Id { get; set; }
         public DateTime DateStamp { get; set; } = DateTime.Now;
 
-		[Required]
+        public User User { get; set; }
+
+        [Required]
 		[StringLength(200)]
 		[Display(Name = "Link Text")]
 		public string LinkText { get; set; } = string.Empty;

@@ -29,6 +29,9 @@
                             SubscriptionType
                         </th>
                         <th>
+                            Price
+                        </th>
+                        <th>
                             Created
                         </th>
                         <th>
@@ -47,6 +50,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.SubscriptionType.TypeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubscriptionType.Price)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Created)

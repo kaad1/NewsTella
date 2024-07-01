@@ -42,6 +42,7 @@
     <PackageReference Include="NETCore.MailKit" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
+    <PackageReference Include="Stripe.net" Version="45.1.0" />
     <PackageReference Include="X.PagedList" Version="9.1.2" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="9.1.2" />
   </ItemGroup>

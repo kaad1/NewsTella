@@ -1,0 +1,34 @@
+﻿@model IEnumerable<NewsTella.Models.ViewModel.FrontPageArticleVM>
+@using Humanizer
+<div class="row">
+    @foreach (var latestArticle in Model.OrderByDescending(a => a.DateStamp).Skip(1).ToList())
+    {
+        <div class="col-12 col-md-6 col-lg-4">
+
+            <div class="card h-100 no-border d-flex flex-column card-body cardquery ">
+                <a href=" @Url.Action("Details", "Article", new { id =  @latestArticle.ArticleId })" class="text-decoration-none text-reset">
+                    <img class="card-img-top " src="@latestArticle.ImageLink" height="200px" width="200px">
+                </a>
+                <div class="card-body">
+                    <a href=" @Url.Action("Details", "Article", new { id = @latestArticle.ArticleId })" class="text-decoration-none text-reset">
+                        <h5 class="card-title text-center mt-2 h5text">@latestArticle.Headline</h5>
+                    </a>
+                   
+                    <p class="d-flex flex-column"><small>Published on @latestArticle.DateStamp.ToUniversalTime().Humanize()</small></p> 
+                   @*   <a href="@Url.Action("Details", "Article", new { id = article.Id })" class="btn btn-warning readbutton">Read More</a> *@ 
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".cardquery").hover(function () {
+            $(this).css("background-color", "#80808033");
+        }, function () {
+            $(this).css("background-color", "white");
+        });
+    });
+</script>

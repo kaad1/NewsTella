@@ -3,33 +3,76 @@
 
 <html>
 <head>
-    <title>Dashboard</title>
+    <title> Admin Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
-<body>
- 
+<body >
+    <h1 class="text-center" style=" font-weight:bold;">Admin Dashboard</h1>
     
-    <div class="container ">
-      <div class="row mb-4">
-        <div class="col-12 col-md-6 col-lg-8">
-        <h2 class="text-center text-danger mb-3">Dashboard</h2>
-        <canvas id="myChart"></canvas>
-       </div>
-        <div class="col-12 col-md-6 col-lg-4 ">
-        <h2 class="text-center text-danger mb-5">Recent Articles</h2>
-        <ul class="list-group">
-            @foreach (var article in Model.RecentArticles)
-            {
-                <li class="list-group-item bg-light">
-                   <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
-                    <p>@article.DateStamp.ToShortDateString()</p>
-                    <p>Views: @article.Views, Likes: @article.Likes</p>
-                </li> 
-            }
-        </ul>
-        </div>
+    <div class="container">
+      <div class="row mb-4 h-25">
+            
+                           @*  Page Statistics *@
+            <div class="col-12 col-md-6 col-lg-6 " >
+                <h2 class="text-center text-danger mb-3 mt-3" style=" text-shadow: 2px 2px 5px black;">Dashboard</h2>
+                <canvas id="myChart" style="background-color:#80808033;box-shadow: 10px 10px 5px #80808080;"></canvas>
+            </div>
+                            @*  Subscription Statistics *@
+            <div class="col-12 col-md-6 col-lg-6 " >
+                <h2 class="text-center text-danger mb-3 mt-3" style=" text-shadow: 2px 2px 5px black;">Subscription Statistics</h2>
+                <canvas id="myCharts" style="background-color:#80808033;box-shadow: 10px 10px 5px #80808080;"></canvas>
+            </div>
+
+
+                         @*  Recent Articles *@
+
+            <div class="col-12 col-md-6 col-lg-6">
+                <h2 class="text-center text-danger mb-3 mt-5" style=" text-shadow: 2px 2px 5px black;">Recent Articles</h2>
+               <ul class="list-group">
+                  
+                   @foreach (var article in Model.RecentArticles)
+                   {
+                        <li class="list-group-item" style="background-color:#80808033;box-shadow: 10px 10px 5px #80808080;">
+                          <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
+                          
+                           <p>@article.DateStamp.ToShortDateString()</p>
+                            <p>
+
+                                <i class="bi bi-eye-fill"></i> @article.Views
+                                <i class="bi bi-hand-thumbs-up-fill ml-4"></i> @article.Likes
+                            </p>
+                       </li> 
+                   }
+
+               </ul>
+            </div>
+       
+                        @*   Popluar Articles *@
+
+            <div class="col-12 col-md-6 col-lg-6" >
+                <h2 class="text-center text-danger mb-3 mt-5 " style=" text-shadow: 2px 2px 5px black;">Popular Articles</h2>
+                <ul class="list-group">
+                    @foreach (var article in Model.PopularArticles)
+                    {
+                        <li class="list-group-item" style="background-color:#80808033; box-shadow: 10px 10px 5px #80808080;">
+                            <h5 class="text-dark" style="font-weight:bold">@article.Headline</h5>
+                            <p>@article.DateStamp.ToShortDateString()</p>
+                            <p>
+
+                                <i class="bi bi-eye-fill"></i> @article.Views
+                                <i class="bi bi-hand-thumbs-up-fill"></i> @article.Likes
+                            </p>
+                        </li>
+                    }
+                </ul>
+            </div>
       </div>
     </div>
+
+                         @*  Page Statistics  JS*@
+
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -49,7 +92,42 @@
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)'
                     ],
-                    hoverOffset: 6
+                    hoverOffset: 25
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+                     @*  Subscription Statistics JS *@
+
+    <script>
+        var ctx = document.getElementById('myCharts').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Basic', 'Pro', 'Premium'],
+                datasets: [{
+                    label: 'Statistics',
+                    data: [@Model.BasicCount, @Model.ProCount, @Model.PremiumCount],
+                    backgroundColor: [
+                        'green',
+                        'red',
+                        'pink'
+                    ],
+                    borderColor: [
+                        'green',
+                        'red',
+                        'pink'
+                    ],
+                    hoverOffset: 25
                 }]
             },
             options: {

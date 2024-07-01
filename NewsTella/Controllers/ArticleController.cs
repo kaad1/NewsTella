@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using NewsTella.Data;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace NewsTella.Controllers
 {
@@ -16,16 +17,20 @@ namespace NewsTella.Controllers
         private readonly IArticlesService _articlesService;
         private readonly ICategoryService _categoryService;
         private readonly IFavoriteCategoryService _favoriteCategoryService;
+        private readonly UserManager<User> _userManager;
         private readonly AppDbContext _context;
+
 
         public ArticleController(IArticlesService articlesService, 
                                  ICategoryService categoryService, 
-                                 IFavoriteCategoryService favoriteCategoryService, 
-                                 AppDbContext context)
+                                 IFavoriteCategoryService favoriteCategoryService,
+                                 UserManager<User> userManager,
+                                 AppDbContext context )
         {
             _articlesService = articlesService;
             _categoryService = categoryService;
             _favoriteCategoryService = favoriteCategoryService;
+            _userManager = userManager;
             _context = context;
         }
 
@@ -41,6 +46,28 @@ namespace NewsTella.Controllers
             else
             {
                 articles = _articlesService.GetArticles();
+            }
+
+            int pageSize = 5; // Number of articles per page
+            int pageNumber = (page ?? 1); // Default to first page
+
+            var pagedArticles = articles.ToPagedList(pageNumber, pageSize);
+            return View(pagedArticles); // Return IPagedList<Article>
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyArticle(string headline, int? page)
+        {
+            ICollection<Article> articles = new List<Article>();
+
+            if (!string.IsNullOrEmpty(headline))
+            {
+                articles = _articlesService.FindByHeadline(headline);
+            }
+            else
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                articles = _articlesService.GetArticlesByUserId( userId);
             }
 
             int pageSize = 5; // Number of articles per page
@@ -83,6 +110,7 @@ namespace NewsTella.Controllers
             ModelState.Remove("SelectedCategoryIds");
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
                 var article = new Article
                 {
                     LinkText = model.LinkText,
@@ -90,6 +118,7 @@ namespace NewsTella.Controllers
                     ContentSummary = model.ContentSummary,
                     Content = model.Content,
                     FormImage = model.FormImage,
+                    User = user,
                 };
 
                 article.Categories = _categoryService.GetCategories().Where(c => model.SelectedCategoryIds.Contains(c.Id)).ToList();
