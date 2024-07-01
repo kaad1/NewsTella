@@ -200,12 +200,14 @@ namespace NewsTella.Controllers
 
             var model = new UserProfileVM
             {
-                FirstName = user.FirstName, 
+                FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                ProfileImageUrl = user.ProfileImageUrl 
+                ProfileImageUrl = user.ProfileImageUrl,
+                ProfileImage = user.ProfileImage,
+
             };
 
             return View(model);
@@ -218,7 +220,7 @@ namespace NewsTella.Controllers
             {
                 return View(model);
             }
-            
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -228,6 +230,8 @@ namespace NewsTella.Controllers
             user.UserName = model.UserName;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
+            user.ProfileImageUrl = model.ProfileImageUrl;
+            user.ProfileImage = model.ProfileImage;
 
             if (model.ProfileImage != null && model.ProfileImage.Length > 0)
             {
@@ -276,7 +280,8 @@ namespace NewsTella.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                ProfileImageUrl = user.ProfileImageUrl
+                ProfileImageUrl = user.ProfileImageUrl,
+                ProfileImage = user.ProfileImage,
             };
 
             return View(model);
@@ -299,6 +304,8 @@ namespace NewsTella.Controllers
             user.UserName = model.UserName;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
+            user.ProfileImageUrl = model.ProfileImageUrl;
+            user.ProfileImage = model.ProfileImage;
 
             if (model.ProfileImage != null && model.ProfileImage.Length > 0)
             {
@@ -330,79 +337,142 @@ namespace NewsTella.Controllers
             }
 
             return View(model);
+
         }
+        [HttpPost]
+        public async Task<IActionResult> SaveProfileChanges(UserProfileVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.ProfileImageUrl = model.ProfileImageUrl;
+            user.ProfileImage = model.ProfileImage;
 
+            if (model.ProfileImage != null && model.ProfileImage.Length > 0)
+            {
+                var uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profiles");
 
-        //public async Task<IActionResult> MyProfile(string userId)
-        //{
-        //    var user = await _userManager.FindByIdAsync(userId);
-        //    if (user == null)
+                if (!Directory.Exists(uploadDir))
+                {
+                    Directory.CreateDirectory(uploadDir);
+                }
+
+                var filePath = Path.Combine("wwwroot/images/profiles", model.ProfileImage.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ProfileImage.CopyToAsync(stream);
+                }
+                user.ProfileImageUrl = $"/images/profiles/{model.ProfileImage.FileName}";
+            }
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("UserProfile", new { Message = "Your profile has been updated" });
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
+
+        }
+        //    [HttpPost]
+        //    public IActionResult SaveProfileChanges(UserProfileVM model)
         //    {
-        //        return NotFound();
+        //        if (ModelState.IsValid)
+        //        {
+
+        //            return PartialView("_UserProfile", model);
+        //        }
+
+        //        return PartialView("_EditUserProfile", model);
         //    }
-
-        //    var userRoles = await _userManager.GetRolesAsync(user);
-
-        //    var model = new UserEditVM
-        //    {
-        //        UserId = user.Id,
-        //        FirstName = user.FirstName,
-        //        LastName = user.LastName,
-        //        Email = user.Email,
-        //        Roles = _roleManager.Roles.Select(r => r.Name).ToList(),
-        //        SelectedRoles = userRoles.ToList()
-        //    };
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> MyProfile(UserEditVM model)
-        //{
-        //    var user = await _userManager.FindByIdAsync(model.UserId);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    user.FirstName = model.FirstName;
-        //    user.LastName = model.LastName;
-        //    user.Email = model.Email;
-        //    var result = await _userManager.UpdateAsync(user);
-        //    if (!result.Succeeded)
-        //    {
-        //        ModelState.AddModelError("", "Error updating user");
-        //        return View(model);
-        //    }
-
-        //    var userRoles = await _userManager.GetRolesAsync(user);
-        //    var rolesToAdd = model.SelectedRoles.Except(userRoles).ToList();
-        //    var rolesToRemove = userRoles.Except(model.SelectedRoles).ToList();
-
-        //    result = await _userManager.AddToRolesAsync(user, rolesToAdd);
-        //    if (!result.Succeeded)
-        //    {
-        //        ModelState.AddModelError("", "Error adding roles");
-        //        return View(model);
-        //    }
-
-        //    result = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
-        //    if (!result.Succeeded)
-        //    {
-        //        ModelState.AddModelError("", "Error removing roles");
-        //        return View(model);
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
     }
+
+
 }
 
-        
+//public async Task<IActionResult> MyProfile(string userId)
+//{
+//    var user = await _userManager.FindByIdAsync(userId);
+//    if (user == null)
+//    {
+//        return NotFound();
+//    }
 
-        
+//    var userRoles = await _userManager.GetRolesAsync(user);
+
+//    var model = new UserEditVM
+//    {
+//        UserId = user.Id,
+//        FirstName = user.FirstName,
+//        LastName = user.LastName,
+//        Email = user.Email,
+//        Roles = _roleManager.Roles.Select(r => r.Name).ToList(),
+//        SelectedRoles = userRoles.ToList()
+//    };
+//    return View(model);
+//}
+
+//[HttpPost]
+//public async Task<IActionResult> MyProfile(UserEditVM model)
+//{
+//    var user = await _userManager.FindByIdAsync(model.UserId);
+//    if (user == null)
+//    {
+//        return NotFound();
+//    }
+
+//    user.FirstName = model.FirstName;
+//    user.LastName = model.LastName;
+//    user.Email = model.Email;
+//    var result = await _userManager.UpdateAsync(user);
+//    if (!result.Succeeded)
+//    {
+//        ModelState.AddModelError("", "Error updating user");
+//        return View(model);
+//    }
+
+//    var userRoles = await _userManager.GetRolesAsync(user);
+//    var rolesToAdd = model.SelectedRoles.Except(userRoles).ToList();
+//    var rolesToRemove = userRoles.Except(model.SelectedRoles).ToList();
+
+//    result = await _userManager.AddToRolesAsync(user, rolesToAdd);
+//    if (!result.Succeeded)
+//    {
+//        ModelState.AddModelError("", "Error adding roles");
+//        return View(model);
+//    }
+
+//    result = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
+//    if (!result.Succeeded)
+//    {
+//        ModelState.AddModelError("", "Error removing roles");
+//        return View(model);
+//    }
+
+//    return RedirectToAction("Index");
+//}
 
 
-        
+
+
+
+
+
 
