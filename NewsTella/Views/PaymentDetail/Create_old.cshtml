@@ -12,7 +12,7 @@
                 <div class="col-md-4">
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="row form-group">
+                        @* <div class="row form-group">
                             <div class="col-6">
                                 <label asp-for="CardType" class="control-label">Card Type</label>
                             </div>
@@ -31,8 +31,8 @@
                                 </div>
                                 <span asp-validation-for="CardType" class="text-danger"></span>
                             </div>
-                        </div>
-                        <br/>
+                        </div> *@
+                        @* <br/>
                         <div class="row">
                             <div class="col-6 accept-policy">
                                 <label asp-for="NameOnCard" class="control-label"></label>
@@ -60,7 +60,7 @@
                                 <input asp-for="ExpireDate" class="form-control" required/>
                                 <span asp-validation-for="ExpireDate" class="text-danger"></span>
                             </div>
-                        </div>
+                        </div> *@
                         <br/>
                         <div class="row">
                             <div class="col-6 form-group">
