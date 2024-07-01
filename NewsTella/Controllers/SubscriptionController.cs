@@ -94,7 +94,9 @@ namespace NewsTella.Controllers
                     User = user
                 };
                 _subscriptionService.AddSubscription(subscription);
+
                 HttpContext.Session.Set<Subscription>("SubscriptionToPay", subscription);
+
                 return RedirectToAction("Create", "PaymentDetail");
             }
             return View(model);
