@@ -40,7 +40,7 @@ namespace NewsTella.Data
             modelBuilder.Entity<User>()
                   .HasMany(u => u.FavoriteCategories)
                   .WithMany(c => c.SubscribedUsers)
-                  .UsingEntity<FavoriteCategory>();
+                  .UsingEntity<FavoriteCategory>();                 
         }
     }
 }

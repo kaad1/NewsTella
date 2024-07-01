@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.Contracts;
 
 namespace NewsTella.Models.Database
@@ -12,6 +13,10 @@ namespace NewsTella.Models.Database
         public bool IsDeleted { get; set; } = false;
 
         public virtual ICollection<Category> FavoriteCategories { get; set; }
+        [NotMapped]
+        public IFormFile ProfileImage { get; set; } 
+     
+        public string ProfileImageUrl { get; set; } 
 
     }
 }

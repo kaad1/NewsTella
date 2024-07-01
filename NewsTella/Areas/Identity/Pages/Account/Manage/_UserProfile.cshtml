@@ -1,0 +1,73 @@
+﻿@model NewsTella.Models.ViewModel.UserProfileVM
+@using NewsTella.Models.Database;
+@using NewsTella.Data;
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card border-0">
+                <div>
+                    <div class="row">
+                        <div class="col-md-3 card bg-body-secondary container-prof" style="padding: 20px 10px">
+                            <h3 style="padding: 10px 10px">My Profile</h3>
+                            @if (Model.ProfileImageUrl != null)
+                            {
+                                <div class="profile-picture profile-picture-border">
+                                    <img src="@Model.ProfileImageUrl" alt="Profile Image" />
+                                </div>
+                            }
+                            <br />
+                            @* <form id="profile-form" asp-action="SaveProfileChanges" method="post" enctype="multipart/form-data">
+                            <form asp-action="UserProfile" id="profile-form" enctype="multipart/form-data" method="post"> *@
+                            <form asp-action="SaveProfileChanges" id="profile-form" enctype="multipart/form-data" method="post">
+                                <div class="form-group">
+                                    <label asp-for="FirstName"></label>
+                                    <input disabled asp-for="FirstName" class="form-control" />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="LastName"></label>
+                                    <input disabled asp-for="LastName" class="form-control" />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="UserName"></label>
+                                    <input disabled asp-for="UserName" class="form-control" readonly />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input disabled asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber"></label>
+                                    <input disabled asp-for="PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ProfileImage"></label>
+                                    <input disabled asp-for="ProfileImageUrl" type="file" class="form-control" />
+                                    <span asp-validation-for="ProfileImageUrl" class="text-danger"></span>
+                                </div>
+                                <br />
+
+                              @*   <li class="nav-item btn btn-danger">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="_EditUserProfile">Edit Profile</a>
+                                </li> 
+                                *@
+                                <button type="button" class="btn btn-primary" onclick="showEditProfile()">Edit Profile</button>
+                            </form>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
