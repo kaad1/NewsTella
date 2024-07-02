@@ -1,4 +1,5 @@
-﻿@using NewsTella.Models.ViewModel
+﻿@using X.PagedList.Mvc.Core
+@using NewsTella.Models.ViewModel
 @using NewsTella.Models.Database
 @model SearchArticlesViewModel
 
@@ -88,5 +89,17 @@ else
                 }
             </div>
         </div>
+    </div>
+    <div class="row">
+        @Html.PagedListPager(Model.Articles, page => Url.Action("SearchArticles", new { headline = Model.SearchValue, page = page }),
+                 new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            //DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            //DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always
+        }
+        )
     </div>
 </div>

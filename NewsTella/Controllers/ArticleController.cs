@@ -286,7 +286,7 @@ namespace NewsTella.Controllers
         //}  
 
         [HttpGet]
-        public async Task<IActionResult> SearchArticles(string headline)
+        public async Task<IActionResult> SearchArticles(string headline, int? page)
         {
             ICollection<Article> articles = new List<Article>();
 
@@ -299,10 +299,17 @@ namespace NewsTella.Controllers
                 articles = _articlesService.GetArticles();
             }
 
-			var searchArticles = new SearchArticlesViewModel
+			var publishedArticles = articles.Where(a => a.Status == "Published").ToList();
+            
+            int pageSize = 12; // Number of articles per page
+			int pageNumber = (page ?? 1); // Default to first page
+
+			var pagedArticles = publishedArticles.ToPagedList(pageNumber, pageSize);
+			
+            var searchArticles = new SearchArticlesViewModel
 			{
 				SearchValue = headline,
-				Articles = articles
+				Articles = pagedArticles
 			};
 
 			return View(searchArticles);
