@@ -1,0 +1,28 @@
+﻿@model NewsTella.Models.ViewModel.WeatherVM
+
+<div class="weather-details">
+    <h4>@Model.City, @Model.Country</h4>
+    <div>
+        <h4>Temperature</h4>
+        <p>@Model.Temperature °C</p>
+        <p>Feels Like: @Model.FeelsLike °C</p>
+        <p>Min: @Model.MinTemperature °C</p>
+        <p>Max: @Model.MaxTemperature °C</p>
+    </div>
+    <div>
+        <h4>Conditions</h4>
+        <p>Weather: @Model.Weather</p>
+        <p>Description: @Model.WeatherDescription</p>
+        <p>Humidity: @Model.Humidity %</p>
+        <p>Pressure: @Model.Pressure hPa</p>
+    </div>
+    <div>
+        <h4>Wind</h4>
+        <p>Speed: @Model.WindSpeed m/s</p>
+        <p>Direction: @Model.WindDirection °</p>
+    </div>
+    <div>
+        <h4>Cloudiness</h4>
+        <p>Cloudiness: @Model.Cloudiness %</p>
+    </div>
+</div>
