@@ -90,7 +90,16 @@ else
             </div>
         </div>
     </div>
-    <div class="pagination">
-        @Html.PagedListPager(Model.Articles, page => Url.Action("SearchArticles", new { headline = Model.SearchValue, page = page }))
+    <div class="row">
+        @Html.PagedListPager(Model.Articles, page => Url.Action("SearchArticles", new { headline = Model.SearchValue, page = page }),
+                 new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            //DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            //DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always
+        }
+        )
     </div>
 </div>
