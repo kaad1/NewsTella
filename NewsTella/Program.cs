@@ -46,6 +46,8 @@ namespace NewsTella
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IPaymentDetailService, PaymentDetailService>();
             builder.Services.AddScoped<IFavoriteCategoryService, FavoriteCategoryService>();
+            builder.Services.AddHttpClient();
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
 
             builder.Services.AddControllersWithViews();
 
