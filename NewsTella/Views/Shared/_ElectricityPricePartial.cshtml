@@ -1,0 +1,28 @@
+﻿@model NewsTella.Models.ViewModel.ElectricityPriceVM
+@using System.Globalization
+
+<div class="card mt-4 mb-3">
+    <div class="card-header text-white bg-dark">
+        <h3><i class="fas fa-bolt"></i> Electricity Prices</h3>
+    </div>
+    <div class="card-body">
+        <h4>Country: @Model.Country</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Area Name</th>
+                    <th>Price per kWh</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var areaPrice in Model.AreaPrices)
+                {
+                    <tr>
+                        <td>@areaPrice.AreaName</td>
+                        <td>@areaPrice.Price.ToString("N2", new CultureInfo("sv-SE"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
