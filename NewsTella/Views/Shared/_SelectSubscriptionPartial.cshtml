@@ -1,31 +1,5 @@
 ﻿@model IEnumerable<NewsTella.Models.Database.SubscriptionType>
 
-@* <div class="container">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div style="height:350px;width:130px" class="col md-4 text-center mt-4 mb-4">
-                <div class="mt-2 pt-4 border border-5">
-                    <i class="mdi mdi-account h1 mb-3 "></i>
-                    <h4 class="f-20 card-title fw-bold"><strong>@item.TypeName</strong></h4>
-                    <div class="mt-4 pt-2">
-                        <p class="mb-2 f-18 font-weight-bold h5">Features</p>
-                        <p class="card-text text-muted">@item.Description</p>
-                    </div>
-                    <div class="pricing-plan mt-4 pt-2">
-                        <h4 class="text-muted"><s> </s> <span class="plan pl-3 text-dark card-price">@item.Price</span></h4>
-                        <p class="text-muted mb-0 card-text text-muted">Per Month</p>
-                    </div>
-                    <div class="mt-4 mb-4 pt-3">
-                        <a class="btn btn-dark btn-rounded" asp-controller="Subscription" asp-route-subscriptionTypeId="@item.Id" asp-action="Create">Select</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
- *@
-
 <section id="pricing" class="pricing-content section-padding">
 	<h3 class="text-center text-danger">Pricing Plans</h3>
 	<p class="text-center">Join now and continue reading the stories important to you..</p>
@@ -42,16 +16,13 @@
 							<span>Monthly</span>
 						</div>
 						<div class="pricing_design .single-pricing:before text-center">
-								<pre>@item.Description</pre>
+							<pre>@item.Description</pre>
 						</div>
-						<div class="pricing-price">
-						</div>
+						<div class="pricing-price"></div>
 							<a class="btn btn-dark btn-rounded price_btn" asp-controller="Subscription" asp-route-subscriptionTypeId="@item.Id" asp-action="Create">Select</a>
-						</div>
-				
 					</div>
 				</div>
-		   
+			</div>
 		}
 	</div>
 </section>
