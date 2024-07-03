@@ -45,4 +45,16 @@ public class AdminController : Controller
 
         return View(dashboardViewModel);
     }
+    public IActionResult TermsofUse()
+    {
+        return View();
+    }
+    public IActionResult PrivacyandPolicy()
+    {
+        return View();
+    }
+    public IActionResult Cookies()
+    {
+        return View();
+    }
 }
