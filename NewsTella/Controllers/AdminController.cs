@@ -57,4 +57,12 @@ public class AdminController : Controller
     {
         return View();
     }
+    public IActionResult AboutUs()
+    {
+        return View();
+    }
+    public IActionResult PartnerWithUs()
+    {
+        return View();
+    }
 }
