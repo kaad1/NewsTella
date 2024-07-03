@@ -4,7 +4,7 @@
     {
         public WeatherVM WeatherVM { get; set; }
 
-        public ElectricityPricesVM ElectricityPricesVM { get; set;}
+        public ElectricityPriceVM ElectricityPriceVM { get; set;}
 
         public CurrencyExchangeVM CurrencyExchangeVM { get; set; }
     }
