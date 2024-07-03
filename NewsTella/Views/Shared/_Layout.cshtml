@@ -74,7 +74,7 @@
 								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 							</li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="GlobleDashbord" asp-action="Detail">Global&nbsp;Dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GlobalDashboard" asp-action="Detail">Global&nbsp;Dashboard</a>
                             </li>
                            
                             @await Component.InvokeAsync("Category")
@@ -132,8 +132,11 @@
                                     @await Component.InvokeAsync("Category")
 								</ul>
 							</li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GlobalDashboard" asp-action="Detail">Global&nbsp;Dashboard</a>
+                            </li>
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Statistics</a>
 							</li>
 							<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">User&nbsp;Management</a>
@@ -168,6 +171,9 @@
                                     @await Component.InvokeAsync("Category")
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GlobalDashboard" asp-action="Detail">Global&nbsp;Dashboard</a>
+                            </li>
 							<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Index">All&nbsp;Article</a>
 							</li>
@@ -195,6 +201,9 @@
                                     </li>
                                     @await Component.InvokeAsync("Category")
                                 </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="GlobalDashboard" asp-action="Detail">Global&nbsp;Dashboard</a>
                             </li>
 							<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Create&nbsp;Artical</a>
