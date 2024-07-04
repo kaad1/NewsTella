@@ -1,0 +1,32 @@
+﻿@model List<NewsTella.Models.StockQuote>
+
+@{
+    ViewData["Title"] = "Most Active Stocks";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Last Price</th>
+            <th>Price Change</th>
+            <th>Percent Change</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var stock in Model)
+        {
+            var priceChangeClass = stock.PriceChange >= 0 ? "text-positive" : "text-negative";
+            var percentChangeClass = stock.PercentChange.StartsWith("-") ? "text-negative" : "text-positive";
+
+            <tr>
+                <td>@stock.Symbol</td>
+                <td>@stock.LastPrice</td>
+                <td class="@priceChangeClass">@stock.PriceChange</td>
+                <td class="@percentChangeClass">@stock.PercentChange</td>
+            </tr>
+        }
+    </tbody>
+</table>
