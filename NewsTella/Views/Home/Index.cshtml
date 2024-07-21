@@ -164,7 +164,7 @@
 				autoUpdateTimer = setInterval(function () {
 					currentIndex = (currentIndex + 1) % articles.length;
 					displayArticle();
-				}, 500000);
+				}, 5000);
 			}
 
 			function handleButtonClick() {
@@ -174,7 +174,7 @@
 					currentIndex = (currentIndex + 1) % articles.length;
 					displayArticle();
 					resetAutoUpdateTimer();
-				}, 500000);
+				}, 5000);
 			}
 
 			prevButton.addEventListener('click', () => {
@@ -188,7 +188,7 @@
 			});
 
 			fetchBreakingNews();
-			autoUpdateTimer = setInterval(showNextArticle, 500000);
+			autoUpdateTimer = setInterval(showNextArticle, 5000);
 			setInterval(fetchBreakingNews, 300000);
 		});
 	</script>
