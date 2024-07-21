@@ -9,7 +9,7 @@
 
 
 <div class="container container-rm-margin container-rework">
-	<div class="breaking-news-wrapper">		
+	<div class="breaking-news-wrapper breaking-news-headline">
 		<div class="breaking-news-inner">
 			<div class="breaking-news-title">Breaking News</div>
 			<div class="breaking-news-display" id="breaking-news">
@@ -164,7 +164,7 @@
 				autoUpdateTimer = setInterval(function () {
 					currentIndex = (currentIndex + 1) % articles.length;
 					displayArticle();
-				}, 5000);
+				}, 500000);
 			}
 
 			function handleButtonClick() {
@@ -174,7 +174,7 @@
 					currentIndex = (currentIndex + 1) % articles.length;
 					displayArticle();
 					resetAutoUpdateTimer();
-				}, 5000);
+				}, 500000);
 			}
 
 			prevButton.addEventListener('click', () => {
@@ -186,13 +186,12 @@
 				showNextArticle();
 				handleButtonClick();
 			});
-			
-			fetchBreakingNews();
-			
-			autoUpdateTimer = setInterval(showNextArticle, 5000);
 
+			fetchBreakingNews();
+			autoUpdateTimer = setInterval(showNextArticle, 500000);
 			setInterval(fetchBreakingNews, 300000);
 		});
 	</script>
 }
+
 

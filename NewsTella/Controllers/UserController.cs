@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NewsTella.Data;
 using NewsTella.Models.Database;
 using NewsTella.Models.ViewModel;
+using PagedList;
 using X.PagedList;
 
 
