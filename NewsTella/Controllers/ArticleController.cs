@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using NewsTella.Data;
 using System;
 using Microsoft.AspNetCore.Identity;
+using X.PagedList.Extensions;
 
 namespace NewsTella.Controllers
 {
@@ -21,11 +22,11 @@ namespace NewsTella.Controllers
         private readonly AppDbContext _context;
 
 
-        public ArticleController(IArticlesService articlesService, 
-                                 ICategoryService categoryService, 
+        public ArticleController(IArticlesService articlesService,
+                                 ICategoryService categoryService,
                                  IFavoriteCategoryService favoriteCategoryService,
                                  UserManager<User> userManager,
-                                 AppDbContext context )
+                                 AppDbContext context)
         {
             _articlesService = articlesService;
             _categoryService = categoryService;
@@ -67,7 +68,7 @@ namespace NewsTella.Controllers
             else
             {
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                articles = _articlesService.GetArticlesByUserId( userId);
+                articles = _articlesService.GetArticlesByUserId(userId);
             }
 
             int pageSize = 5; // Number of articles per page
@@ -245,13 +246,13 @@ namespace NewsTella.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Like([FromBody] int id)
-		{
-			try
+        public async Task<IActionResult> Like([FromBody] int id)
+        {
+            try
             {
                 await _articlesService.LikeArticleAsync(id);
-				Article article = _articlesService.GetArticleById(id);
-				int likeCount = article.Likes;
+                Article article = _articlesService.GetArticleById(id);
+                int likeCount = article.Likes;
                 return Ok(new { success = true, likeCount = likeCount, message = "Article liked successfully" });
             }
             catch (Exception ex)
@@ -259,7 +260,7 @@ namespace NewsTella.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
-        
+
         public async Task<IActionResult> Details(int id)
         {
             var article = _articlesService.GetArticleById(id);
@@ -285,7 +286,37 @@ namespace NewsTella.Controllers
         //                return View(article);
         //}  
 
-        [HttpGet]
+        //[HttpGet]
+        //public async Task<IActionResult> SearchArticles(string headline, int? page)
+        //{
+        //    ICollection<Article> articles = new List<Article>();
+
+        //    if (!string.IsNullOrEmpty(headline))
+        //    {
+        //        articles = _articlesService.FindByHeadline(headline);
+        //    }
+        //    else
+        //    {
+        //        articles = _articlesService.GetArticles();
+        //    }
+
+        //    var publishedArticles = articles.Where(a => a.Status == "Published").ToList();
+
+        //    int pageSize = 12; // Number of articles per page
+        //    int pageNumber = (page ?? 1); // Default to first page
+
+        //    var pagedArticles = publishedArticles.ToPagedList(pageNumber, pageSize);
+
+        //    var searchArticles = new SearchArticlesViewModel
+        //    {
+        //        SearchValue = headline,
+        //        Articles = pagedArticles
+        //    };
+
+        //    return View(searchArticles);
+        //}
+
+         [HttpGet]
         public async Task<IActionResult> SearchArticles(string headline, int? page)
         {
             ICollection<Article> articles = new List<Article>();

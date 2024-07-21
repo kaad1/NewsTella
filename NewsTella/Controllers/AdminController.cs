@@ -24,7 +24,7 @@ public class AdminController : Controller
             ProCount = _context.Subscriptions.Count(s => s.SubscriptionType.TypeName == "Pro"),
             PremiumCount = _context.Subscriptions.Count(s => s.SubscriptionType.TypeName == "Premium"),
             BasicCount = _context.Subscriptions.Count(s => s.SubscriptionType.TypeName == "Basic")
-    };
+        };
 
         return View(dashboardViewModel);
     }

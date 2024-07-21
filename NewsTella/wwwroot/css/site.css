@@ -85,7 +85,7 @@ body {
 
 .breaking-news-headline a {
     font-family: Rubik !important;
-    font-size: 14px !important;
+    font-size: 26px !important;
     font-weight: 600 !important;
     color: #111;
 }
@@ -126,7 +126,7 @@ body {
 }
 
 .breaking-news-headline {
-    font-size: 16px;
+    font-size: 32px;
     line-height: 30px;
     margin: 0;
     word-wrap: break-word;
@@ -1694,3 +1694,6 @@ footer {
     .list-group-bt a:hover {
         background-color: red;
     }
+
+
+

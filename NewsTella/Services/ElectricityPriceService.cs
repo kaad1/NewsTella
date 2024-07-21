@@ -30,7 +30,7 @@ namespace NewsTella.Services
                 var todaysSpotPrices = priceData["todaysSpotPrices"];
                 var areaPrices = new List<AreaPrice>();
 
-                foreach (var spotData in todaysSpotPrices[0]["spotData"])
+                foreach (var spotData in todaysSpotPrices.Last()["spotData"])
                 {
                     string priceString = spotData["price"].Value<string>();
                     // Ensure correct parsing of the price with comma as decimal separator
