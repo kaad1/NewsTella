@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Weather Forecast";
+
+    var dateTime = Model.ChartData.Select(m => m.Timestamp).ToList();
+    var prices = Model.ChartData.Select(m => m.Prices).ToList();
 }
 
 
@@ -30,7 +33,7 @@
 </div>
 
 
-<script>
+@* <script>
     const xValues = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
     new Chart("myChart", {
@@ -56,6 +59,31 @@
         },
         options: {
             legend: { display: false },
+            title: {
+                display: true,
+                text: "World Wine Production 2018"
+            }
+        }
+    });
+</script> *@
+
+<script>
+    const xValues = @Html.Raw(Json.Serialize(dateTime));
+    const Price = @Html.Raw(Json.Serialize(prices));
+
+    new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                data: Price,
+                borderColor: "red",
+                fill: false,
+                label: "Price"
+            }]
+        },
+        options: {
+            legend: { display: true },
             title: {
                 display: true,
                 text: "World Wine Production 2018"

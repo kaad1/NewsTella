@@ -7,5 +7,7 @@
         public ElectricityPriceVM ElectricityPriceVM { get; set;}
 
         public CurrencyExchangeVM CurrencyExchangeVM { get; set; }
+
+        public List<ChartDataVM> ChartData { get; set; }
     }
 }
