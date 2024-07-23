@@ -1,0 +1,22 @@
+﻿@model List<NewsTella.Models.StockQuote>
+
+<div class="stock-wrapper">
+	<div class="stock-section" style="visibility:visible; --width: -780px; --duration: 40s; animation-play-state:running;">
+		@foreach (var stock in Model)
+		{
+			var priceChangeClass = stock.PriceChange >= 0 ? "price-change-p" : "price-change-n";
+			var percentChangeClass = stock.PercentChange.StartsWith("-") ? "percent-change-n" : "percent-change-p";
+
+			<div class="stock-content">
+				<div class="stock-data">
+					<span class="symbol">@stock.Symbol</span>
+					<span class="last-price">@stock.LastPrice</span>
+				</div>
+				<div class="stock-data">
+					<span class="@priceChangeClass">@stock.PriceChange</span>
+					<span class="@percentChangeClass">@stock.PercentChange</span>
+				</div>
+			</div>
+		}
+	</div>
+</div>

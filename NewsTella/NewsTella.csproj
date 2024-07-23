@@ -46,6 +46,7 @@
     <PackageReference Include="Stripe.net" Version="45.4.0" />
     <PackageReference Include="X.PagedList" Version="10.0.3" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="10.0.3" />
+	<PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup>

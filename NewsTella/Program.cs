@@ -53,6 +53,7 @@ namespace NewsTella
             builder.Services.AddScoped<IWeatherService, WeatherService>();
             builder.Services.AddScoped<ICurrencyExchangeService, CurrencyExchangeService>();
             builder.Services.AddScoped<IElectricityPriceService, ElectricityPriceService>();
+            builder.Services.AddHttpClient<IStockService, StockService>();
 
             builder.Services.AddControllersWithViews();
 

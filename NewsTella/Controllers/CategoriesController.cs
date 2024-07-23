@@ -9,13 +9,15 @@ namespace NewsTella.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IArticlesService _articlesService;
-       
-        public object? LatestLocal { get; private set; }
+		private readonly IStockService _stockService;
 
-        public CategoriesController(ICategoryService categoryService, IArticlesService articlesService)
+		public object? LatestLocal { get; private set; }
+
+        public CategoriesController(ICategoryService categoryService, IArticlesService articlesService, IStockService stockService)
         {
             _categoryService = categoryService;
             _articlesService = articlesService;
+            _stockService = stockService;
         } 
 
         public IActionResult Index()
@@ -23,7 +25,7 @@ namespace NewsTella.Controllers
             return View();
         }
 
-        public IActionResult Articles(int categoryId)
+		public async Task <IActionResult> Articles(int categoryId)
         {
             var category = _categoryService.GetCategoryById(categoryId);
 			if (category == null)
@@ -31,7 +33,13 @@ namespace NewsTella.Controllers
 				return NotFound();
 			}
             category.Articles = _articlesService.GetPublishedArticlesByCategoryId(categoryId);
-			return View(category);
+
+            if (categoryId == 4)
+            {
+                ViewBag.StockQuote = await _stockService.GetMostActiveStocksAsync();
+            }
+            
+            return View(category);
         }
 
         public IActionResult LatestArticles()
