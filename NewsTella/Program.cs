@@ -52,7 +52,7 @@ namespace NewsTella
             builder.Services.AddHttpClient<IStockService, StockService>();
 
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddHttpClient();
 
 			builder.Services.AddScoped<IArticlesService, ArticlesService>();
             builder.Services.AddTransient<IEmailSenderService, EmailSenderService>();

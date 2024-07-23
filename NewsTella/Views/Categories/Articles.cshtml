@@ -55,6 +55,24 @@ else if (Model.Name.Contains("Sport"))
 
     </div>
 }
+else if (Model.Name.Contains("Economy"))
+{
+    @Html.Partial("_StockPartial", ViewBag.StockQuote as List<NewsTella.Models.StockQuote>)
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @Html.Partial("_LatestArticles", Model)
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="border-bottom border-black m-3 mt-5 mb-5 lineborder "></div>
+        @Html.Partial("_ArticlePartial", Model)
+    </div>
+}
 
 else
 {
