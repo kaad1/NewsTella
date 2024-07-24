@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NewsTella.Helpers;
 using Microsoft.AspNetCore.Http;
-using PagedList;
+using X.PagedList.Extensions;
 
 namespace NewsTella.Controllers
 {
