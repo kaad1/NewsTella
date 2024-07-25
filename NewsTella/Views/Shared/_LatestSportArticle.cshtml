@@ -36,7 +36,7 @@
                             <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
                                 <h5 class="card-title h5text">@article.Headline</h5>
                             </a>
-                            <p class="card-text">@article.ContentSummary</p>
+                            <p class="card-text text-justify">@article.ContentSummary</p>
                             <p class="d-flex flex-column"><small>Published on @article.DatePublished.ToUniversalTime()</small></p>
                             @*  <a href="#" class="btn btn-primary">Read More</a> *@
                         </div>

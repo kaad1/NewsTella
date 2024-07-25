@@ -17,8 +17,8 @@
                     <h5 class="card-title text-center mt-2 h5text">@article.Headline</h5>
                 </a>
 
-                <p class="card-text text-center">@article.ContentSummary</p>
-                <p class="d-flex flex-column"><small>Published on @article.DatePublished</small></p>
+                <p class="card-text text-justify">@article.ContentSummary</p>
+                <p class="d-flex flex-column"><small>Published on @article.DatePublished.ToLongDateString()</small></p>
                 @* <a href="@Url.Action("Details", "Article", new { id = article.Id })" class="btn btn-warning readbutton">Read More</a>  *@
             </div>
         </div>
