@@ -33,15 +33,15 @@
 				}
 
 			</div>
-			<h3 class="tab-article-heading">
+			<h3 class="tab-article-heading mt-0">
 				<a asp-controller="Article" asp-action="Details" asp-route-id="@editorsChoiceArticles.ArticleId" title="@editorsChoiceArticles.Headline">@editorsChoiceArticles.Headline</a>
 			</h3>
 			<div class="row">
 				<div class="col-2">
-					<p style="text-decoration:none; font-size:11px; " class="badge rounded-pill bg-primary bg-opacity-50 text-dark "><span class="fa fa-eye"></span> @editorsChoiceArticles.Views </p>
+					<p style="text-decoration:none; font-size:11px; " class="badge rounded-pill bg-primary bg-opacity-50 text-dark mb-0"><span class="fa fa-eye"></span> @editorsChoiceArticles.Views </p>
 				</div>
 				<div class="col-10 pt-2">
-					<p style="text-decoration:none; font-size:11px; text-align:left; font-weight: bold;"> @editorsChoiceArticles.DatePublished.ToShortDateString() </p>
+					<p style="text-decoration:none; font-size:11px; text-align:left; font-weight: bold;" class="mb-0"> @editorsChoiceArticles.DatePublished.ToShortDateString() </p>
 				</div>
 			</div>
 		</div>
