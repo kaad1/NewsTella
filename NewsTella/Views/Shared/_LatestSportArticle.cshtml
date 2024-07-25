@@ -21,7 +21,7 @@
             }
         </ol>
         <div class="carousel-inner">
-            @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Take(5).ToList())
+            @foreach (var article in Model.Articles.OrderByDescending(m => m.DatePublished).Take(5).ToList())
             {
 
                 var isActive = article.Equals(Model.Articles.First()) ? "active" : "";
@@ -37,7 +37,7 @@
                                 <h5 class="card-title h5text">@article.Headline</h5>
                             </a>
                             <p class="card-text">@article.ContentSummary</p>
-                            <p class="d-flex flex-column"><small>Published on @article.DateStamp.ToUniversalTime().Humanize()</small></p>
+                            <p class="d-flex flex-column"><small>Published on @article.DatePublished.ToUniversalTime()</small></p>
                             @*  <a href="#" class="btn btn-primary">Read More</a> *@
                         </div>
                     </div>

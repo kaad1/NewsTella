@@ -3,7 +3,7 @@
 
 
 
-@foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Take(1).ToList())
+@foreach (var article in Model.Articles.OrderByDescending(m => m.DatePublished).Take(1).ToList())
 {
 
     <div class="col-12 col-md-6 col-lg-12">
@@ -18,7 +18,7 @@
                 </a>
 
                 <p class="card-text text-center">@article.ContentSummary</p>
-                <p class="d-flex flex-column"><small>Published on @article.DateStamp.ToUniversalTime().Humanize()</small></p>
+                <p class="d-flex flex-column"><small>Published on @article.DatePublished</small></p>
                 @* <a href="@Url.Action("Details", "Article", new { id = article.Id })" class="btn btn-warning readbutton">Read More</a>  *@
             </div>
         </div>

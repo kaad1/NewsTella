@@ -26,14 +26,14 @@ else{
     }
 
     else{
-    @foreach (var article in Model.Articles.OrderByDescending(m => m.DateStamp).Take(3).ToList())
+    @foreach (var article in Model.Articles.OrderByDescending(m => m.DatePublished).Take(3).ToList())
     {
         
         <div class="col-12 col-md-6 col-lg-4">
             
             <div class="card h-100 no-border d-flex flex-column card-body ">
                 <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
-                    <img class="card-img-top " src="@article.ImageLink" alt="@article.Headline" height="200px" width="200px">
+                        <img class="card-img-top " src="@article.ImageLink" alt="@article.Headline" height="200px" width="200px" style="object-fit: cover; object-position: center;">
                 </a>
                 <div class="card-body">
                     <a href=" @Url.Action("Details", "Article", new { id = article.Id })" class="text-decoration-none text-reset">
@@ -41,7 +41,7 @@ else{
                     </a>
 
                     <p class="card-text text-center">@article.ContentSummary</p>
-                    <p class="d-flex flex-column"><small>Published on @article.DateStamp.ToUniversalTime().Humanize()</small></p>
+                    <p class="d-flex flex-column"><small>Published on @article.DatePublished.ToLongDateString().</small></p>
                     @* <a href="@Url.Action("Details", "Article", new { id = article.Id })" class="btn btn-warning readbutton">Read More</a>  *@
                 </div>
             </div>
