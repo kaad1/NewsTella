@@ -36,6 +36,14 @@
 			<h3 class="tab-article-heading">
 				<a asp-controller="Article" asp-action="Details" asp-route-id="@popularArticles.ArticleId" title="@popularArticles.Headline">@popularArticles.Headline</a>
 			</h3>
+			<div class="row"> 
+				<div class="col-2">
+					<p style="text-decoration:none; font-size:11px; " class="badge rounded-pill bg-primary bg-opacity-50 text-dark "><span class="fa fa-eye"></span> @popularArticles.Views </p>
+				</div>
+				<div class="col-10 pt-2">
+					<p style="text-decoration:none; font-size:11px; text-align:left; font-weight: bold;"> @popularArticles.DatePublished.ToShortDateString() </p>
+				</div>
+			</div>
 		</div>
 	</div>
 }

@@ -8,6 +8,6 @@
         public List<int> CategoryIds { get; set; } = new List<int>();
         public string Headline { get; set; }
         public DateTime DatePublished { get; set; } = DateTime.Now;
-      
+        public int Views { get; set; }
     }
 }
