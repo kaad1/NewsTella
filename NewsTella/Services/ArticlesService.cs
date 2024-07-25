@@ -165,7 +165,8 @@ namespace NewsTella.Services
                           ImageLink = a.ImageLink,
                           Headline = a.Headline,
                           CategoryIds = a.Categories.Select(c => c.Id).ToList(),
-                          CategoryNames = a.Categories.Select(c => c.Name).ToList()
+                          CategoryNames = a.Categories.Select(c => c.Name).ToList(),
+						  Views = a.Views
                       })
                       .ToList();
 			return articles;
@@ -185,7 +186,8 @@ namespace NewsTella.Services
 					ImageLink = a.ImageLink,
 					Headline = a.Headline,
 					CategoryIds = a.Categories.Select(c => c.Id).ToList(),
-					CategoryNames = a.Categories.Select (c => c.Name).ToList()	
+					CategoryNames = a.Categories.Select (c => c.Name).ToList(),
+					Views = a.Views
 				})
 				.ToList();
 			return articles;
@@ -203,7 +205,8 @@ namespace NewsTella.Services
 					ImageLink = a.ImageLink,
 					Headline = a.Headline,
 					CategoryIds = a.Categories.Select(c => c.Id).ToList(),
-					CategoryNames = a.Categories.Select(c => c.Name).ToList()
+					CategoryNames = a.Categories.Select(c => c.Name).ToList(),
+					Views = a.Views
 				})
 				.ToList();
 			return articles;
