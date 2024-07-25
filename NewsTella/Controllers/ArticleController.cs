@@ -382,7 +382,7 @@ namespace NewsTella.Controllers
 
         public IActionResult SearchArchivedNews(string Headline)
         {
-            var results = _articlesService.FindByHeadline(Headline);
+            var results = _articlesService.GetArchivedNewsByHeadLine(Headline);
 
             return View(results);
         }

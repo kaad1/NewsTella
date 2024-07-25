@@ -283,7 +283,7 @@ namespace NewsTella.Services
         public List<Article> GetArchivedNewsByHeadLine(string Headline)
 		{
             return _db.Articles
-                .Where(a => a.Status == "Archived" && (a.Headline.Contains(Headline) || a.Content.Contains(Headline)))
+                .Where(a => a.Status == "Archived" && (a.Headline.Contains(Headline) && a.Content.Contains(Headline)))
                 .ToList();
         }
 

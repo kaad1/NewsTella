@@ -4,100 +4,101 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <h3>Edit Article</h3>
-            <div class="row">
-                <form asp-action="Edit" enctype="multipart/form-data">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
-                    <br />
-                    <dl class="row">
-                        <dt class="col-md-2">
-                            Date
-                        </dt>
-                        <dd class="col-md-10">
-                            @Html.DisplayFor(model => model.DateStamp)
-                        </dd>
-                        <dt class="col-md-2">
-                            Image
-                        </dt>
-                        <dd class="col-sm-10">
-                            <img src="@Model.ImageLink" alt="Edit Image" style="max-width: 50%; height: auto;" />
-                        </dd>
-                        @*  <dd class="col-md-10">
-                        <img src="@Model.FormImage" alt="Edit Image" style="max-width: 100%; height: auto;" />
-                        </dd> *@
-                    </dl>
-                    <dl class="row">
-                        <dt class="col-md-2">
-                            @Html.DisplayNameFor(model => model.FormImage)
-                        </dt>
-                        <dd class="col-md-10">
-                            <div class="form-group">
-                                <input asp-for="FormImage" class="form-control" type="file" />
-                                <span asp-validation-for="FormImage" class="text-danger"></span>
-                            </div>
-                        </dd>
+<style>
+    .bold-title {
+        font-weight: bold;
+    }
+</style>
 
-                        <dt class="col-md-2">
-                            @Html.DisplayNameFor(model => model.LinkText)
-                        </dt>
-                        <dd class="col-md-10">
-                            <div class="form-group">
-                                <input asp-for="LinkText" class="form-control" />
-                                <span asp-validation-for="LinkText" class="text-danger"></span>
-                            </div>
-                        </dd>
-                        <dt class="col-md-2">
-                            @Html.DisplayNameFor(model => model.Headline)
-                        </dt>
-                        <dd class="col-md-10">
-                            <div class="form-group">
-                                <input asp-for="Headline" class="form-control" />
-                                <span asp-validation-for="Headline" class="text-danger"></span>
-                            </div>
-                        </dd>
-                        <dt class="col-md-2">
-                            @Html.DisplayNameFor(model => model.Content)
-                        </dt>
-                        <dd class="col-md-10">
-                            <div class="form-group">
-                                <textarea asp-for="Content" class="form-control" style="min-height: 500px"></textarea>
-                                <span asp-validation-for="Content" class="text-danger"></span>
-                            </div>
-                        </dd>
-                        <dt class="col-md-2 p-2">
-                            @Html.DisplayNameFor(model => model.ContentSummary)
-                        </dt>
-                        <dd class="col-md-10 p-2">
-                            <textarea asp-for="ContentSummary" class="form-control" style="min-height: 200px"></textarea>
-                            <span asp-validation-for="ContentSummary" class="text-danger"></span>
-                        </dd>
-                        <div class="form-group mb-2">
-                            <p>Categories</p>
-                            @foreach (Category item in Model.AllCategories)
-                            {
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="@item" name="SelectedCategoryIds"
-                                           value="@item.Id" @(Model.SelectedCategoryIds.Contains(item.Id) ? "checked" : "")>
-                                    <label class="form-check-label" for="@item">@item.Name</label>
-                                </div>
-                            }
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <h3 class="text-center">Edit Article</h3>
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <br />
+                <dl class="row">
+                    <dt class="col-md-3">
+                        Date
+                    </dt>
+                    <dd class="col-md-9">
+                        @Html.DisplayFor(model => model.DateStamp)
+                    </dd>
+                    <dt class="col-md-3">
+                        Image
+                    </dt>
+                    <dd class="col-md-9">
+                        <img src="@Model.ImageLink" alt="Edit Image" class="img-fluid" />
+                    </dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3">
+                        @Html.DisplayNameFor(model => model.FormImage)
+                    </dt>
+                    <dd class="col-md-9">
+                        <div class="form-group">
+                            <input asp-for="FormImage" class="form-control" type="file" />
+                            <span asp-validation-for="FormImage" class="text-danger"></span>
                         </div>
-                    </dl>
-                    <br />
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-dark mb-3" />
-                        <a asp-action="Index" class="btn btn-dark mb-3">Back</a>
-                    </div>
-                </form>
-            </div>
+                    </dd>
+                    <dt class="col-md-3">
+                        @Html.DisplayNameFor(model => model.LinkText)
+                    </dt>
+                    <dd class="col-md-9">
+                        <div class="form-group">
+                            <input asp-for="LinkText" class="form-control" />
+                            <span asp-validation-for="LinkText" class="text-danger"></span>
+                        </div>
+                    </dd>
+                    <dt class="col-md-3">
+                        @Html.DisplayNameFor(model => model.Headline)
+                    </dt>
+                    <dd class="col-md-9">
+                        <div class="form-group">
+                            <input asp-for="Headline" class="form-control" />
+                            <span asp-validation-for="Headline" class="text-danger"></span>
+                        </div>
+                    </dd>
+                    <dt class="col-md-3">
+                        @Html.DisplayNameFor(model => model.Content)
+                    </dt>
+                    <dd class="col-md-9">
+                        <div class="form-group">
+                            <textarea asp-for="Content" class="form-control" style="min-height: 500px"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                    </dd>
+                    <dt class="col-md-3 p-2">
+                        @Html.DisplayNameFor(model => model.ContentSummary)
+                    </dt>
+                    <dd class="col-md-9 p-2">
+                        <textarea asp-for="ContentSummary" class="form-control" style="min-height: 200px"></textarea>
+                        <span asp-validation-for="ContentSummary" class="text-danger"></span>
+                    </dd>
+                    <dt class="col-md-3 bold-title">
+                        Categories
+                    </dt>
+                    <dd class="col-md-9 form-group-categories">
+                        @foreach (Category item in Model.AllCategories)
+                        {
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="@item" name="SelectedCategoryIds"
+                                       value="@item.Id" @(Model.SelectedCategoryIds.Contains(item.Id) ? "checked" : "")>
+                                <label class="form-check-label" for="@item">@item.Name</label>
+                            </div>
+                        }
+                    </dd>
+                </dl>
+                <br />
+                <div class="form-group text-center">
+                    <input type="submit" value="Save" class="btn btn-dark mb-3" />
+                    <a asp-action="Index" class="btn btn-dark mb-3">Back</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
 
 @* @section Scripts {
     @{
